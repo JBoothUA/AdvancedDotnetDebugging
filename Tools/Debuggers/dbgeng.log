@@ -1,0 +1,30 @@
+Opened log file 'dbgeng.log'
+0:001> !heapstat
+Heap             Gen0         Gen1         Gen2          LOH
+Heap0         1130548       112948       583824      2297240
+
+Free space:                                                 Percentage
+Heap0           12396          540         4332       396224SOH:  0% LOH: 17%
+0:001> g
+shell\comdlg32\fileopensave.cpp(9456)\comdlg32.dll!74CE0750: (caller: 74CD3458) ReturnHr[PreRelease](3) tid(1ad8) 80070490 Element not found.
+    CallContext:[\PickerModalLoop\InitDialog\FileDialogInitEnterpriseData] 
+ModLoad: 54bb0000 54e43000   C:\WINDOWS\SysWOW64\MsftEdit.dll
+ModLoad: 3f300000 3f4e8000   C:\WINDOWS\SysWOW64\wpdshext.dll
+ModLoad: 3fbe0000 3fc20000   C:\WINDOWS\SysWOW64\audiodev.dll
+ModLoad: 0f8d0000 0fb0b000   C:\WINDOWS\SysWOW64\WMVCore.DLL
+ModLoad: 0f640000 0f67e000   C:\WINDOWS\SysWOW64\WMASF.DLL
+ModLoad: 63800000 63908000   C:\WINDOWS\SysWOW64\mfperfhelper.dll
+(203c.b94): Break instruction exception - code 80000003 (first chance)
+eax=003cc000 ebx=00000000 ecx=77c99dd0 edx=77c99dd0 esi=77c99dd0 edi=77c99dd0
+eip=77c68c50 esp=0067f8b0 ebp=0067f8dc iopl=0         nv up ei pl zr na pe nc
+cs=0023  ss=002b  ds=002b  es=002b  fs=0053  gs=002b             efl=00000246
+ntdll!DbgBreakPoint:
+77c68c50 cc              int     3
+0:001> !heapstat
+Heap             Gen0         Gen1         Gen2          LOH
+Heap0         2139560       195956       590640      2713240
+
+Free space:                                                 Percentage
+Heap0           19300       184160         4944       396224SOH:  7% LOH: 14%
+0:001> .logclose
+Closing open log file dbgeng.log

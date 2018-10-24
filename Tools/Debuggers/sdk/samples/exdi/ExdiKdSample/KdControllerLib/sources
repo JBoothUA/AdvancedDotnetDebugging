@@ -1,0 +1,14 @@
+MSC_WARNING_LEVEL=/W4 /WX
+
+TARGETNAME=KdControllerLib
+TARGETTYPE=LIBRARY
+
+USE_LIBCMT=1
+USE_NATIVE_EH=1
+USE_STL=1
+STL_VER=100
+
+SOURCES=\
+    AsynchronousKdController.cpp \
+	BufferedStreamReader.cpp \
+	KDController.cpp 
