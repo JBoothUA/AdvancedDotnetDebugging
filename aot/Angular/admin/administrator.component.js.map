@@ -1,0 +1,1 @@
+{"version":3,"file":"administrator.component.js","sourceRoot":"","sources":["administrator.component.ts"],"names":[],"mappings":";;;;;;AAAA,OAAO,EAAE,SAAS,EAAqB,MAAM,eAAe,CAAC;AAU7D;IAAA;IACA,CAAC;IADY,aAAa;QANzB,SAAS,CAAC;YACV,QAAQ,EAAE,eAAe;YACzB,WAAW,EAAE,8BAA8B;YAC3C,SAAS,EAAE,CAAC,6BAA6B,CAAC;SAC1C,CAAC;OAEW,aAAa,CACzB;IAAD,oBAAC;CAAA,AADD,IACC;SADY,aAAa"}

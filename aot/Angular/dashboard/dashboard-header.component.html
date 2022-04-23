@@ -1,0 +1,93 @@
+﻿<div id="headerPanel">
+
+    <div id="headerLocationDiv" class="dashboardTextSize18">
+        <div class="headerLocationLabel">
+            <span class="headerLocationLabelLinkText dashboardSemiBoldText">{{getLocationHeader()}}</span>
+            <span class="dashboardSemiBoldText" *ngIf="getSelectedTimeframe() === filterTimeframe.Current">Current Conditions</span>
+            <span *ngIf="getSelectedTimeframe() !== filterTimeframe.Current"><span class="dashboardSemiBoldText">{{tabTimeFrame}}</span> {{tabSortField}}</span>
+        </div>
+        <div *ngIf="alarmHeaderFilteredCriteria !== ''" class="headerFilterButton dashboardPointer" (click)="showAlarmFilterCriteria()">
+            <!--<img class="headerFilterButtonImg" src='../../Content/Images/Dashboard/filter-icon.png' />-->
+            <div class="headerFilterButtonText">Alarm Filters ({{dashboardAlarmService.alarmFilterCriteriaTotalCount}})</div>
+            <img class="headerFilterButtonClearImg" src='../../Content/Images/Dashboard/x-in-top-header.png' (click)="removeSelectedAlarmFilters()"/>
+        </div>
+        <div *ngIf="patrolHeaderFilteredCriteria !== ''" class="headerFilterButton dashboardPointer" (click)="showPatrolFilterCriteria()">
+            <!--<img class="headerFilterButtonImg" src='../../Content/Images/Dashboard/filter-icon.png' />-->
+            <div class="headerFilterButtonText">Patrol Filters ({{dashboardPatrolService.patrolFilterCriteriaTotalCount}})</div>
+            <img class="headerFilterButtonClearImg" src='../../Content/Images/Dashboard/x-in-top-header.png' (click)="removeSelectedPatrolFilters()"/>
+        </div>
+    </div>
+
+    <div id="headerTabs" *ngIf='isLoaded'>
+
+        <div id="headerTabAlarm" class="headerTab headerTabPadding" [class.selected]="dashboardService.getSelectedDashboardTab() === dashboardTab.Alarms" 
+             [class.dashboardPointer]="dashboardService.getSelectedDashboardTab() !== dashboardTab.Alarms"
+             (click)="setDashboardTab(dashboardTab.Alarms)">
+            <div id="headerTabAlarmImg" class="headerTabImg headerTabAlarmImg-P{{highestAlarmPriority}}"></div>
+            <div id="headerTabAlarmContent" class="headerTabContent">
+                <div class="headerTabText" *ngIf="getSelectedTimeframe() === filterTimeframe.Current"><span class="headerTabContentType">Active</span> Alarms</div>
+                <div class="headerTabText" *ngIf="getSelectedTimeframe() !== filterTimeframe.Current">Alarms ({{tabTimeFrame}})</div>
+                <div id="headerTabAlarmCount" class="headerTabCount headerTabAlarmPriorityTextColor-P{{highestAlarmPriority}}">{{alarmCount}}</div>
+                <div >
+                    <div class="headerTabPriorityCircle headerTabAlarmPriorityBackground-P1" [class.dashboardPriorityCircleOpacity]="alarmCriticalPriorityCount === 0"></div> 
+                    <div id="headerTabAlarmPriority-P1" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="alarmCriticalPriorityCount === 0">{{alarmCriticalPriorityCount}}</div>
+
+                    <div class="headerTabPriorityCircle headerTabAlarmPriorityBackground-P2" [class.dashboardPriorityCircleOpacity]="alarmHighPriorityCount === 0"></div>
+                    <div id="headerTabAlarmPriority-P2" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="alarmHighPriorityCount === 0">{{alarmHighPriorityCount}}</div>
+
+                    <div class="headerTabPriorityCircle headerTabAlarmPriorityBackground-P3" [class.dashboardPriorityCircleOpacity]="alarmMediumPriorityCount === 0"></div>
+                    <div id="headerTabAlarmPriority-P3" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="alarmMediumPriorityCount === 0">{{alarmMediumPriorityCount}}</div>
+
+                    <div class="headerTabPriorityCircle headerTabAlarmPriorityBackground-P4" [class.dashboardPriorityCircleOpacity]="alarmLowPriorityCount === 0"></div>
+                    <div id="headerTabAlarmPriority-P4" class="headerTabPriorityLabel" [class.dashboardTextOpacity]="alarmLowPriorityCount === 0">{{alarmLowPriorityCount}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="headerTabPatrol" class="headerTab headerTabPadding" [class.selected]="dashboardService.getSelectedDashboardTab() === dashboardTab.Patrols" 
+             [class.dashboardPointer]="dashboardService.getSelectedDashboardTab() !== dashboardTab.Patrols"
+             (click)="setDashboardTab(dashboardTab.Patrols)">
+            <div id="headerTabPatrolImg" class="headerTabImg headerTabPatrolImg-{{highestPatrolStatus}}"></div>
+            <div id="headerTabPatrolContent" class="headerTabContent">
+                <div class="headerTabText" *ngIf="getSelectedTimeframe() === filterTimeframe.Current"><span class="headerTabContentType">Active</span> Patrols</div>
+                <div class="headerTabText" *ngIf="getSelectedTimeframe() !== filterTimeframe.Current">Patrols ({{tabTimeFrame}})</div>
+                <div id="headerTabPatrolCount" class="headerTabCount headerTabPatrolStatusTextColor-{{highestPatrolStatus}}">{{patrolCount}}</div>
+                <div>
+                    <div class="headerTabPriorityCircle headerTabPatrolStatusyBackgroundColor-failed" [class.dashboardPriorityCircleOpacity]="patrolCriticalCount === 0"></div>
+                    <div id="headerTabPatrolPriority-P1" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="patrolCriticalCount === 0">{{patrolCriticalCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabPatrolStatusyBackgroundColor-error" [class.dashboardPriorityCircleOpacity]="patrolIncompleteCount === 0"></div>
+                    <div id="headerTabPatrolPriority-P2" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="patrolIncompleteCount === 0">{{patrolIncompleteCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabPatrolStatusyBackgroundColor-warning" [class.dashboardPriorityCircleOpacity]="patrolWarningCount === 0"></div>
+                    <div id="headerTabPatrolPriority-P3" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="patrolWarningCount === 0">{{patrolWarningCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabPatrolStatusyBackgroundColor-healthy" [class.dashboardPriorityCircleOpacity]="patrolSuccessfulCount === 0"></div>
+                    <div id="headerTabPatrolPriority-P4" class="headerTabPriorityLabel" [class.dashboardTextOpacity]="patrolSuccessfulCount === 0">{{patrolSuccessfulCount}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="headerTabRobots" class="headerTab">
+            <div id="headerTabRobotImg" class="headerTabImg headerTabRobotImg-{{highestPlatformStatus}}"></div>
+            <div id="headerTabRobotContent" class="headerTabContent">
+                <div class="headerTabText">Robots and Drones</div>
+                <div id="headerTabRobotCount" class="headerTabCount headerTabRobotStatusTextColor-{{highestPlatformStatus}}">{{robotCount}}</div>
+                <div>
+                    <div class="headerTabPriorityCircle headerTabRobotStatusBackgroundColor-failed" [class.dashboardPriorityCircleOpacity]="robotFailedCount === 0"></div>
+                    <div id="headerTabRobotPriority-P1" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="robotFailedCount === 0">{{robotFailedCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabRobotStatusBackgroundColor-error" [class.dashboardPriorityCircleOpacity]="robotErrorCount === 0"></div>
+                    <div id="headerTabRobotPriority-P2" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="robotErrorCount === 0">{{robotErrorCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabRobotStatusBackgroundColor-healthy" [class.dashboardPriorityCircleOpacity]="robotHealthyCount === 0"></div>
+                    <div id="headerTabRobotPriority-P3" class="headerTabPriorityLabel headerTabPriorityLabelPadding" [class.dashboardTextOpacity]="robotHealthyCount === 0">{{robotHealthyCount}}</div>
+                    
+                    <div class="headerTabPriorityCircle headerTabRobotStatusBackgroundColor-disabled" [class.dashboardPriorityCircleOpacity]="robotDisabledCount === 0"></div>
+                    <div id="headerTabRobotPriority-P4" class="headerTabPriorityLabel" [class.dashboardTextOpacity]="robotDisabledCount === 0">{{robotDisabledCount}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

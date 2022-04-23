@@ -1,0 +1,1 @@
+{"version":3,"file":"notification-list-item.component.js","sourceRoot":"","sources":["notification-list-item.component.ts"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAO1C;IACI;IACA,CAAC;IAFQ,oBAAoB;QALhC,SAAS,CAAC;YACP,QAAQ,EAAE,wBAAwB;YAClC,WAAW,EAAE,uCAAuC;SACvD,CAAC;;OAEW,oBAAoB,CAGhC;IAAD,2BAAC;CAAA,AAHD,IAGC;SAHY,oBAAoB"}

@@ -1,0 +1,233 @@
+﻿.currentPlatform, .percentComplete, .platformStatus, chooser-status,
+.extraInfo, .groupSections {
+    float:left;
+}
+
+.lpPlatform_MiddleColFirstRow {
+    overflow:hidden !important;
+}
+
+.lpItem_MiddleColumn {
+    width: calc(100% - 109px);
+}
+
+.lpItem_ActionButton {
+    margin-top: 8.5px;
+}
+
+chooser-status {
+    margin-top:2px;
+}
+
+.lastPatrolStatus  {
+    float:left;
+    padding-left:5px;
+}
+.lastPatrolStatus > img {
+    float:left;
+    margin-top:2px;
+}
+.lastPatrolStatus > span {
+    float:left;
+    margin-left:5px;
+}
+
+.extraInfo {
+    width:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.extraInfo > div {
+    float: left;
+    width: calc(100%/3);
+    height: 41px;
+    border-right: 1px solid #D0D0D0;
+   
+    
+}
+
+.extraInfo > div:last-child {
+    border-right:none;
+}
+
+.extraInfo >>> .title {
+    font-weight:bold;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.groupSections {
+    width:100%;
+    overflow:hidden;
+}
+
+.lpDetailsGroupHeader {
+    float:left;
+    width:100%;
+}
+
+.expandedCard{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #cccbcb;
+    max-height: 525px;
+    overflow-y: auto !important;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.centerText {
+    text-align:center;
+}
+
+.patrolAlarmsCount {
+    margin-right:5px;
+    text-align:center;
+    font-weight:bold;
+    height:18px;
+    width:18px;
+    color:white;
+    background:#4272A0;
+    border-radius:50%;
+    font-size: 13px;
+}
+
+.patrolHistoryGroupHeader {
+    background-color:transparent !important;
+    border:none;
+}
+
+.patrol-history-item {
+    border-top:1px solid #cccbcb;
+    float:left;
+    width:100%;
+}
+
+.subsection-content {
+    padding:0 10px 0 10px;
+    float:left;
+    width:100%;
+}
+
+.platformIcon {
+    float:left;
+    margin-top:4px;
+    height:32px;
+    width:32px;
+    margin-right: 3px;
+    border: 2px solid #898989;
+    border-radius: 50%;
+}
+
+.lastPatrolStatusIcon {
+    width:18px;
+    height:18px;
+    margin-right:5px;
+}
+
+.history-item-header-text {
+    font-weight:bold;
+    color:#515151;
+}
+
+.progressBars {
+    margin-top: 11px;
+    margin-left:5px;
+}
+
+.checkPointProgress {
+    float:left;
+    clear:both;
+    margin-top:8px;
+    margin-left: 8px;
+}
+
+.loadingHistory {
+    float: left; 
+    margin-left: calc(100%/2 - 37px); 
+    padding: 10px;
+}
+
+.disable {
+    opacity: .5;
+}
+
+.disable:hover, .disable:active {
+    background-color: white !important;
+    color: inherit !important;
+}
+
+/*New good css*/
+.lpItem_LayoutContainer {
+    height:131px;
+}
+
+
+.sch-indicator {
+    display:none;
+    font-size:13px;
+    color:#919191;
+    height:38px;
+    width:88px;
+    position: absolute;
+    right: 0;
+}
+
+.card-third-line {
+    float:left;
+    width:100%;
+    font-size:13px;
+    color:#919191;
+    margin-top:2px;
+    height:19px;
+}
+
+.lpItem_RightColumn {
+    margin-top: 30px;
+}
+
+.lpPlatform_MiddleColFirstRow {
+    margin-top: -8px;
+    margin-bottom: 1px;
+}
+
+
+:host >>> .lpItem_ItemName {
+    overflow: hidden;
+    /*max-width: 183px; Needed when we do sch DO NOT REMOVE PLZ*/
+    max-width:264px;
+    float: left;
+    height: 27px;
+    line-height:inherit;
+}
+
+.estop-btn {
+    float:left; 
+    height:38px;
+    width: calc(100% - 173px);
+    margin-left:8px;
+    font-size:14px;
+    margin-top: 7px;
+    color:black;
+    background:#d8d8d8;
+    border:1px solid #9d9d9d;
+}
+
+.estop-btn:hover {
+    background:#c6c6c6;
+}
+
+.estop-btn:active {
+    background:#85b8cc;
+    border:none;    
+}
+
+.estop-btn:disabled {
+    opacity:1;
+    color:#A2A2A2;
+    background:#D8D8D8;    
+}

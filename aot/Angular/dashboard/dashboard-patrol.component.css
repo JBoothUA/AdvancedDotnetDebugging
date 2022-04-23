@@ -1,0 +1,681 @@
+﻿#patrolReport {
+    color: #5b5b5c;
+    height: calc(100vh - 50px - 193px - 18px);
+    position: relative;
+    min-width: 1108px;
+}
+
+/********************************************************************************/
+/******** Criteria Section ********/
+#patrolReportFilterCriteria {
+    border-bottom: 1px solid #9d9d9d;
+    height: 160px;
+    min-height: 160px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding-left: 22px;
+}
+
+.patrolReportFilterCriteriaText {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 23px;
+}
+
+.patrolReportFilterCriteriaDiv {
+    min-width: 250px;
+}
+
+.patrolReportFilterCriteriaImage90 {
+    -o-transform:scale(0.9);
+    -ms-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+/******** Patrols by Status Section ********/
+#patrolReportPatrolStatus {
+    display: inline-block;
+    width: 30%;
+    min-width: 250px;
+}
+
+
+#patrolReportPatrolStatusTop {
+    float: left;
+    width: 100%;
+}
+
+#patrolReportPatrolStatusBottom {
+    float:left;
+    margin-left: 10px;
+}
+
+#patrolReportPatrolStatusChart {
+    position: relative;
+    float: left;
+    width: 78%;
+}
+
+#patrolReportPatrolStatusStackedBarChart {
+    width: 95%;
+}
+
+#patrolReportPatrolStatusChart ul,
+#patrolReportPatrolStatusChart ul > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#patrolReportPatrolStatusChart ul{
+  display: flex;
+}
+
+#patrolReportPatrolStatusChart li{
+  height: 22px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  display: flex;
+}
+
+#patrolReportPatrolStatusChart.empty li:nth-child(1) {
+  background-color: #A6B2AA;
+}
+
+/*healthy - green */
+#patrolReportPatrolStatusChart li:nth-child(1) {
+  background-color: #249C49;
+}
+
+/*warning - amber */
+#patrolReportPatrolStatusChart li:nth-child(2) {
+  background-color: #F3B518;
+}
+
+/*error - orange */
+#patrolReportPatrolStatusChart li:nth-child(3) {
+  background-color: #D07728;
+}
+
+/*failed - red */
+#patrolReportPatrolStatusChart li:nth-child(4) {
+  background-color: #CA2127;
+}
+
+.patrolReportPatrolStatusChartStartRadius {
+    /*border-radius: 5px 0px 0px 5px;*/
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.patrolReportPatrolStatusChartEndRadius {
+    /*border-radius: 0px 5px 5px 0px;*/
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.patrolReportPatrolStatusChartEmpty {
+    border-radius: 5px 5px 5px 5px;
+}
+
+.patrolReportPatrolStatusStackedChartText {
+    margin-top: -17px;
+    margin-left: 12px;
+    position: relative;
+    float: left;
+    font-size: 35px;
+    color: #939393;
+}
+
+#patrolReportPatrolsStatusLegendContainterRow1 {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+}
+
+#patrolReportPatrolsStatusLegendContainterRow2 {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.patrolReportPatrolsStatusLegend{
+    position: relative;
+    float: left;
+}
+
+.patrolReportPatrolsStatusLegend.padding{
+    margin-left: 15px;
+}
+
+.patrolReportPatrolsStatusLegendLabel {
+    font-size: 15px;
+    margin-left: 5px;
+    color: #5b5b5b;
+}
+
+/******** Robots and Drones on Patrols Section ********/
+#patrolReportRobotDronePatrol {
+    display: inline-block;
+    width: 30%;
+    margin-left: 10px;
+    min-width: 435px;
+}
+
+#patrolReportRobotDronePatrolImage {
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: 12px;
+}
+
+#patrolReportRobotDronePatrolCount {
+    float: left;
+}
+
+.patrolReportRobotDroneImage90 {
+    -o-transform:scale(0.9);
+    -ms-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+/******** Alarms on Patrol Priority Section ********/
+#patrolReportAlarmPatrolPriority {
+    display: inline-block;
+    width: 20%;
+    min-width: 230px;
+    margin-left: 10px;
+}
+
+#patrolReportAlarmPatrolPriorityLeft {
+    float: left;
+}
+
+#patrolReportAlarmPatrolPriorityRight {
+    float:left;
+    margin-left: 10px;
+}
+
+#patrolReportAlarmPatrolPriorityDonutChart {
+    width: 88px !important;
+    height: 88px !important;
+}
+
+.patrolReportAlarmPatrolPriorityChartInnerText {
+    margin-top: -70px;
+    position: absolute;
+    font-size: 35px;
+    color: #929292;
+    width:88px;
+    text-align: center;
+}
+
+.patrolReportAlarmPatrolPriorityChartInnerTextLargeCount {
+    margin-top: -62px;
+    font-size: 25px;
+}
+
+#patrolReportAlarmPatrolPriorityLegend ul {
+    list-style: none; 
+    margin:0px;
+    padding:0px;
+}
+
+.patrolReportAlarmPatrolPriorityLegendItem {
+    display:inline-block;
+    width:13px; 
+    height:13px; 
+    margin-right:5px; 
+    border-radius:10px
+}
+
+.patrolReportAlarmPatrolPriorityLegendItemDisable {
+    opacity: 0.2;
+    cursor: default !important;
+}
+
+.patrolReportAlarmPatrolPriorityLegendTextDisable {
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+/******** Export Button Section ********/
+#patrolReportExport{
+    margin-right: 16px;
+    margin-top: 16px;
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+#patrolReportExportButton {
+    width: 137px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: #4272b4;
+}
+
+#patrolReportExportText {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#patrolReportExportingText {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    margin-right: 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#patrolReportExportIcon {
+    float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -27px;
+}
+
+#patrolReportExportingIcon {
+    float: right;
+    margin-right: 20px;
+    position: relative;
+    margin-top: -13px;
+}
+
+/********************************************************************************/
+/******** Header Section ********/
+#patrolReportHeader {
+    border-bottom: 1px solid #cccbcb;
+    height: 62px;
+}
+
+.patrolReportHeaderFilterButton {
+    background-color: #4272AC;
+    border-radius: 10px;
+    width: 113px;
+    height: 38px;
+    position: relative;
+    float: left;
+    margin-top: 13px;
+    margin-left: 10px;
+}
+
+.patrolReportHeaderFilterButtonImg {
+    position: relative;
+    float: left;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+.patrolReportHeaderFilterButtonText {
+    color: white;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 5px;
+    position: relative;
+    float: left;
+}
+
+.patrolReportHeaderLabel{
+    float:left;
+    margin-top: 17px;
+    margin-left: 20px;
+    color:#474747;
+}
+
+.patrolReportHeaderLabel.padding{
+    margin-left: 10px !important;
+}
+
+.patrolReportHeaderLabelColor{
+    color: #4272AC;
+}
+
+.patrolReportHeaderLabelFilter{
+    border-bottom: 2px solid darkgray;
+    /*font-weight: bold;*/
+    color: #4272AC;
+    /*color:#474747;*/
+}
+
+.patrolReportHeaderLabelFilterPadding{
+    margin-left: 14px;
+}
+
+.patrolReportHeaderLabelFilter.padding{
+    margin-left: 14px;
+}
+
+.patrolReportHeaderLabelFilterClear {
+    background-image: url('../../Content/Images/Dashboard/delete-filter-result.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 6px;
+    margin-left: -1px;
+    position:absolute;
+}
+
+.patrolReportHeaderLabelActive {
+    position: relative;
+    margin-left: 14px;
+}
+
+#patrolReportHeaderSearchBox{
+    float: right;
+    margin-right: 10px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+/********************************************************************************/
+/******** Query Results Section ********/
+#patrolReportResults{
+    /*height: calc(100vh - 425px);*/
+    height: calc(100vh - 485px);
+}
+
+/******** Results Section ********/
+#patrolReportResultsContent {
+    width: 70%;
+    float:left;
+    height: 100%;
+    border-right: 1px solid #cccbcb;
+}
+
+#patrolReportResultsSortBar {
+    border-bottom: 1px solid #cccbcb;
+    height: 43px;
+    background-color: #f4f4f4;
+    padding-top: 13px;
+}
+
+.patrolReportResultsSortField {
+    float:left;
+    font-size: 13px;
+    color: #474747;
+}
+
+.patrolReportResultsHeader1 {
+    margin-left: 20px;
+    width: 70px;
+}
+
+.patrolReportResultsHeader2 {
+    margin-left: 14px;
+    padding-left: 3px;
+}
+
+.patrolReportResultsHeader3 {
+    margin-left: 170px;
+    padding-left: 3px;
+}
+
+.patrolReportResultsHeader4 {
+    margin-left: 138px;
+    padding-left: 3px;
+}
+
+.patrolReportResultsHeader5 {
+    margin-left: 148px;
+    padding-left: 3px;
+}
+
+.patrolReportResultsHeader6 {
+    margin-left: 62px;
+    padding-left: 3px;
+}
+
+.patrolReportResultsHeaderBorder {
+     border-left: 1px solid #8a8c8f;
+}
+
+#patrolReportQueryResults {
+    /*height: calc(100% - 43px - 60px);*/
+    height: calc(100% - 43px);
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+}
+
+.patrolReportResultsContainer.expanded {
+    border: 2px solid #4272b4;
+}
+
+.patrolReportResultsItem {
+    height: 70px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #5b5b5b;
+    border-right: 1px solid rgba(204, 203, 203, 0.4); /*cccbcb*/
+}
+
+.patrolReportResultsItem:hover {
+    background: #e3f0f6;
+}
+
+.patrolReportResultsItem.selected {
+    background: #C9DEF0;
+}
+
+.patrolReportResultsItem.expanded {
+    background-color: #C0D5E7;
+    border-bottom: 1px solid #9d9d9d;
+}
+
+.patrolReportResultsCol1 {
+    margin-left: 20px;
+    width: 48px;
+    text-align: center;
+    font-size: 12px;
+    float:left;
+}
+
+.patrolReportResultsCol2 {
+    margin-left: 10px;
+    width: 220px;
+    float:left;   
+    margin-top: 4px;
+}
+
+.patrolReportResultsCol3 {
+    margin-left: 10px;
+    float:left;
+    width: 180px;
+    margin-top: 7px;
+}
+
+.patrolReportResultsCol4 {
+    margin-left: 10px;
+    float:left;
+    width: 180px;
+    margin-top: 7px;
+}
+
+.patrolReportResultsCol5 {
+    margin-left: 10px;
+    float: left;
+    margin-top: 1px;
+    width: 150px;
+}
+
+.patrolReportResultsCol6 {
+    margin-left: 10px;
+    float: left;
+    margin-top: 1px;
+    width: 90px;
+}
+
+.patrolReportResultsCol7 {
+    margin-left: 10px;
+    float: right;
+    margin-top: 7px;
+    width: 44px;
+    margin-right: 10px;
+}
+
+.patrolReportResultsStatusImageDiv {
+    margin-top: -3px;
+    margin-left: 1px;
+}
+
+.patrolReportResultsStatusImage {
+    width: 39px;
+    height: 39px;
+}
+
+.patrolReportResultsStatusProgressbarDiv {
+    margin-top: -3px;
+    margin-left: 0px;
+}
+
+.patrolReportResultsItemType {
+    font-size: 16px;
+}
+
+.patrolReportResultsItemType.underline {
+    text-decoration:underline;
+}
+
+.patrolReportResultsItemTypeInfo {
+    float: left;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.patrolReportResultsPatrolStatusIcon {
+    position: relative;
+    float: left;
+}
+
+.patrolReportResultsPatrolStatusText {
+    margin-left: 3px;
+    margin-right: 5px;
+    float: left;
+}
+
+.patrolReportResultsItemLocation {
+    font-size: 14px;
+}
+
+.patrolReportResultsItemLocationAddr {
+    float: left;
+    font-size: 12px;
+}
+
+.patrolReportResultsItemRobotDroneImgDiv {
+    float: left;
+    position: relative;
+}
+
+.patrolReportResultsItemRobotDroneImg {
+    width: 40px;
+    height: 40px;
+}
+
+.patrolReportResultsItemRobotDroneImg.border {
+    border: 1px solid #afafaf;
+    border-radius: 50%;
+}
+
+.patrolReportResultsItemRobotDroneDiv {
+    position: relative;
+    margin-left: 5px;
+    float: left;
+    margin-top: 2px;
+}
+
+.patrolReportResultsItemRobotDroneTopDiv {
+    float: left;
+    position: relative;
+}
+
+.patrolReportResultsItemAlarmImgDiv {
+    position: relative;
+    float: left;
+    margin-top: -9px;
+    text-align: center;  
+}
+
+.patrolReportResultsItemAlarmImg {
+    width: 38px;
+    height: 38px;
+}
+
+.patrolReportResultsItemAlarmImgText {
+    font-size: 12px;
+}
+
+.patrolReportResultsItemAlarmCount {
+    position: relative;
+    float: left;
+    font-size: 30px;
+    margin-left: 0px;
+    margin-top: -14px;
+    width: 100%;
+}
+
+.patrolReportResultsItemAlarmPriority {
+    position: relative;
+    float: left;
+    margin-top: -6px;
+}
+
+.patrolReportResultsItemAlarmPriorityCircle {
+    width: 10px;
+    height: 10px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+    margin-top: 6px;
+}
+
+.patrolReportResultsItemAlarmPriorityLabel {
+    float: left;
+    margin-left: 3px;
+    margin-top: -2px;
+    font-size: 18px;
+}
+
+.patrolReportResultsItemAlarmPriorityLabelPadding {
+    margin-right: 9px;
+}
+
+.patrolReportResultsItemSubmittedTime {
+    float: left;
+    margin-left: 21px;
+    font-size: 14px;
+}
+
+/******** Map Section ********/
+#patrolReportMap {
+    width: 30%;
+    float:left;
+    height: 100%;
+}
+
+#patrolReportMapContainer {
+    height: calc(100% - 60px);
+}

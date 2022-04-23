@@ -1,0 +1,11 @@
+﻿:host >>> .pauseButton {
+    opacity:0.0;
+    transition: all .2s ease-in-out;
+}
+:host >>> .pauseButton:hover {
+    opacity:1.0 !important;
+}
+
+:host >>> .pauseButton.notfication {
+    opacity: 1.0;
+}

@@ -1,0 +1,237 @@
+﻿<div id="" class="ui-resizable filterPanel" [@toggle]="!show" [hidden]="show" (@toggle.done)="toggleFilterPanelDone($event)">
+    
+    <div id="filterContent">
+        <!-- Header -->
+        <div id="filterHeaderSection">
+
+            <div id="filterHeader">
+                <div id="filterFunnelImage" class="dashboardPointer" (click)="show = !show">
+                    <img src='../../Content/Images/Dashboard/filter-blue.png' />
+                </div>
+                <div id="filterHeaderText" class="dashboardTextSize26">Filters</div>
+                <div title="Collapse Filters Menu" id="" class="filterPanelToggle dashboardPointer" (click)="show = !show">
+                    <!--<img src='../../Content/Images/Dashboard/double-arrows-gray.png' />-->
+                </div>
+            </div>
+
+        </div>
+
+        <div id="filterOptionsSection">
+            <!-- Location Filter -->
+            <div id="divLocationTest">
+                <location-filter [multiSelect]="true" 
+                                 [scView]="'dashboard'" 
+                                 [showFilter]="true" 
+                                 [filterOverride]="false" 
+                                 [showButtons]="true" 
+                                 [readOnly]="false" 
+                                 [defaultSelection]="true"
+                                 [allowZoomToLocation]="true">
+                </location-filter>
+            </div>
+
+            <!-- TimeFrame -->
+            <div id="filterTimeframes">
+                <div id="filterTimeframeText" class="dashboardTextSize18">Timeframe</div>
+
+                <div id="filterTimeframeRow1">
+                    <div id="filterCurrentConditions" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.Current" (click)="setSelectedTimeframe(filterTimeframe.Current)">Current Conditions</div>
+                    <div id="filterLast8Hours" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.EightHours" (click)="setSelectedTimeframe(filterTimeframe.EightHours)">Last 8 Hours</div>
+                </div>
+
+                <div id="filterTimeframeRow2">
+                    <div id="filter12Weeks" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.TwelveHours" (click)="setSelectedTimeframe(filterTimeframe.TwelveHours)">Last 12 Hours</div>
+                    <div id="filterLast24Hours" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.TwentyFourHours" (click)="setSelectedTimeframe(filterTimeframe.TwentyFourHours)">Last 24 Hours</div>
+                    <div id="filterLastWeek" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.LastWeek" (click)="setSelectedTimeframe(filterTimeframe.LastWeek)">Last Week</div>
+                </div>
+
+                <div id="filterTimeframeRow3">
+                    <div id="filterCustom" class="dashboardPointer" [class.filterTimeframeSelected]="getSelectedTimeframe() === filterTimeframe.Custom" (click)="setSelectedTimeframe(filterTimeframe.Custom); toggleExpandedSectionView(Section.CustomDate)">Custom</div>
+                    <div id="filterCustomDateTimeContent" [@toggle]="expandedSectionViewState(Section.CustomDate)">
+
+                        <div id="filterCustomStartTime" class="filterCustomDateTime">
+                            <div class="dashboardTextSize14">Start Date/Time</div>
+                            <div class="filterCustomCalendar"><p-calendar title="Select with Date Picker" id="filterCustomStartTimeCalendar" [(ngModel)]="customStartDate" appendTo="body" [showIcon]="true" [showTime]="true" hourFormat="12" [maxDate]="customStartMaxDate" (onSelect)="startDateChanged()" readonlyInput="customDateReadonlyInput"></p-calendar></div>
+                            <div id="filterCustomStartTimeClear" class="dashboardPointer" *ngIf="customStartDate" (click)="clearDate('start')">
+                                <img src='../../Content/Images/Dashboard/delete-filter-result.png' />
+                            </div>
+                        </div>
+
+                        <div id="filterCustomEndTime" class="filterCustomDateTime">
+                            <div class="dashboardTextSize14">End Date/Time</div>
+                            <div class="filterCustomCalendar"><p-calendar title="Select with Date Picker" id="filterCustomEndTimeCalendar" [(ngModel)]="customEndDate" appendTo="body" [showIcon]="true" [showTime]="true" hourFormat="12" [minDate]="customEndMinDate" (onSelect)="endDateChanged()" readonlyInput="customDateReadonlyInput"></p-calendar></div>
+                            <div id="filterCustomEndTimeClear" class="dashboardPointer" *ngIf="customEndDate" (click)="clearDate('end')">
+                                <img src='../../Content/Images/Dashboard/delete-filter-result.png' />
+                            </div>
+                            </div>
+
+                        <div id="filterCustomDateTimeButtonsRow">
+                            <div id="filterCustomDateTimeButtonsApply" class="filterCustomDateTimeButtons dashboardPointer" [class.enabled]="(customStartDate) || (customEndDate)" (click)="applyCustomDate()">Apply</div>
+                            <div id="filterCustomDateTimeButtonCancel" class="filterCustomDateTimeButtons dashboardPointer" (click)="cancelCustomDate()">Cancel</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Filters -->
+            <div id="filterMoreOptions">
+                <div id="filterMoreOptionsContent">
+                    <div class="dashboardPointer" (click)="toggleExpandedSectionView(Section.More)">
+                        <div class="filterMoreOptionsImage">
+                            <img width="22px" height="22px" src="../../Content/Images/Dashboard/more-filters-icon.png" />
+                        </div>
+
+                        <div class="filterMoreOptionsText">
+                            <span>More Filters</span>
+                            <span *ngIf="alarmFilterCriteriaTotalCount > 0">({{alarmFilterCriteriaTotalCount}})</span>
+                        </div>
+                    </div>
+                    <div class="filterMoreOptionsClearAll dashboardPointer" (click)="removeAllFilters($event)">Clear All</div>
+                </div>
+
+                <div id="expandedMoreOptions" [@toggle]="expandedSectionViewState(Section.More)">
+
+                    <!-- Alarm Filters -->
+                    <div id="filterAlarmsOptions">
+                        <div title="Show/Hide Alarms Filters" id="filterAlarmsContent" class="dashboardPointer" [class.filterContentExpanded]="expandedSectionViewState(Section.Alarm) === 'out'" (click)="toggleExpandedSectionView(Section.Alarm)">
+                            <div id="filterAlarmsImage" class="filterOptionImage">
+                                <img width="28px" height="28px" src="../../Content/Images/Dashboard/side-menu-alarms.png" />
+                            </div>
+
+                            <div id="filterAlarmsText" class="dashboardTextSize18 filterOptionText">
+                                <span>Alarms</span>
+                                <span *ngIf="alarmFilterCriteriaTotalCount > 0">
+                                    <span>({{alarmFilterCriteriaTotalCount}})</span>
+                                    <span class="dashboardPointer" (click)="removeSelectedAlarmFilters($event)"> 
+                                        <img class="filterOptionsClearImg" src="../../Content/Images/Dashboard/delete-filter-result.png" />
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div id="filterAlarmsToggle" class="lpItem_ExpandButton filterOptionToggle" [class.expanded]="expandedSectionViewState(Section.Alarm) === 'out'"></div>
+                        </div>
+                        <div id="expandedAlarmOptions" [@toggle]="expandedSectionViewState(Section.Alarm)">
+                            <div class="dashboardDivFullWidth">
+                                <div class="filterOptionsCriteria">
+                                    <dropdown id="alarmFilterPriority" (select)="alarmFilterSelected('priority', $event)" [listValues]="alarmFilterPriorityList" [displayLabel]="'Priority'" [selectDefault]="" [selectID]="'priority'"></dropdown>
+                                </div>
+                                <div class="filterOptionsCriteria padding">
+                                    <dropdown #alarmFilterOperator (select)="alarmFilterSelected('operator', $event)" [listValues]="alarmFilterOperatorList" [displayLabel]="'Operators'" [selectWidth]="'220'" [selectDefault]="" [selectID]="'operator'"></dropdown>
+                                </div>
+                            </div>
+
+                            <div class="filterOptionsCriteria dashboardDivFullWidth">
+                                <dropdown (select)="alarmFilterSelected('description', $event)" [listValues]="alarmFilterDescriptionList" [displayLabel]="'Description'" [selectWidth]="'313'" [selectID]="'description'"></dropdown>
+                            </div>
+
+                            <div class="filterOptionsCriteria">
+                                <dropdown style="width: 220px !important;" (select)="alarmFilterSelected('state', $event)" [listValues]="alarmFilterStatusList" [displayLabel]="'Status'" [selectID]="'state'"></dropdown>
+                            </div>
+
+                            <div class="filterOptionsCriteria padding">
+                                <dropdown (select)="alarmFilterSelected('robot', $event)" [listValues]="alarmFilterRobotList" [displayLabel]="'Robot'" [selectID]="'robot'"></dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div id="filterCustomerAlarmFilterHeader" *ngIf="alarmFilterCriteriaText" [style.height.px]="height">
+                        <div class="filterCustLocHeaderDiv">
+                            <span class="filterCustLocHeaderText">{{alarmFilterCriteriaText}}</span>
+                            <span class="filterCustLocHeaderClear dashboardPointer" (click)="removeSelectedAlarmFilters()"></span>
+                        </div>
+                    </div>-->
+
+                    <!-- Patrol Filters -->
+                    <div id="filterPatrolsOptions">
+                        <div title="Show/Hide Patrols Filters" id="filterPatrolsContent" class="dashboardPointer1" [class.filterContentExpanded]="expandedSectionViewState(Section.Patrol) === 'out'" (click)="toggleExpandedSectionView(Section.Patrol)">
+                            <div id="filterPatrolsImage" class="filterOptionImage">
+                                <img width="28px" height="28px" src="../../Content/Images/Dashboard/side-menu-patrols.png" />
+                            </div>
+                            <div id="filterPatrolsText" class="dashboardTextSize18 filterOptionText">
+                                <span>Patrols</span>
+                                <span *ngIf="patrolFilterCriteriaTotalCount > 0">
+                                    <span>({{patrolFilterCriteriaTotalCount}})</span>
+                                    <span class="dashboardPointer" (click)="removeSelectedPatrolFilters($event)">
+                                        <img class="filterOptionsClearImg" src="../../Content/Images/Dashboard/delete-filter-result.png" />
+                                    </span>
+                                </span>
+                            </div>
+                            <div id="filterPatrolsToggle" class="lpItem_ExpandButton filterOptionToggle" [class.expanded]="expandedSectionViewState(Section.Patrol) === 'out'"></div>
+                        </div>
+                        <div id="expandedPatrolOptions" [@toggle]="expandedSectionViewState(Section.Patrol)">
+                            <div class="dashboardDivFullWidth">
+                                <div class="filterOptionsCriteria">
+                                    <dropdown id="patrolFilterAlarmPriority" (select)="patrolFilterSelected('alarmpriority', $event)" [listValues]="patrolFilterAlarmPriorityList" [displayLabel]="'Priority'" [selectDefault]="" [selectID]="'priority'"></dropdown>
+                                </div>
+
+                                <div class="filterOptionsCriteria padding">
+                                    <dropdown #patrolFilterOperator (select)="patrolFilterSelected('operator', $event)" [listValues]="patrolFilterOperatorList" [displayLabel]="'Operators'" [selectWidth]="'220'" [selectDefault]="" [selectID]="'operator'"></dropdown>
+                                </div>
+                            </div>
+
+                            <div class="filterOptionsCriteria dashboardDivFullWidth">
+                                <dropdown (select)="patrolFilterSelected('displayname', $event)" [listValues]="patrolFilterPatrolDisplayNameList" [displayLabel]="'Display Name'" [selectWidth]="'313'" [selectDefault]="patrolFilterPatrolDisplayNameDefault" [selectID]="'displayname'"></dropdown>
+                            </div>
+
+                            <div class="filterOptionsCriteria">
+                                <dropdown style="width: 220px !important;" (select)="patrolFilterSelected('status', $event)" [listValues]="patrolFilterStatusList" [displayLabel]="'Status'" [selectID]="'status'"></dropdown>
+                            </div>
+
+                            <div class="filterOptionsCriteria padding">
+                                <dropdown (select)="patrolFilterSelected('robot', $event)" [listValues]="patrolFilterRobotList" [displayLabel]="'Robot'" [selectID]="'robot'"></dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div id="filterCustomerPatrolFilterHeader" *ngIf="patrolFilterCriteriaText" [style.height.px]="height">
+                        <div class="filterCustLocHeaderDiv">
+                            <span class="filterCustLocHeaderText">{{patrolFilterCriteriaText}}</span>
+                            <span class="filterCustLocHeaderClear dashboardPointer" (click)="removeSelectedPatrolFilters()"></span>
+                        </div>
+                    </div>-->
+
+                    <!-- Robot Filters -->
+                    <div id="filterRobotsOptions">
+                        <div title="Show/Hide Robots Filters" id="filterRobotsContent" class="dashboardPointer1" [class.filterContentExpanded]="expandedSectionViewState(Section.Robot) === 'out'">
+                            <div id="filterRobotsImage" class="filterOptionImage">
+                                <img width="28px" height="28px" src="../../Content/Images/Dashboard/side-menu-robots.png" />
+                            </div>
+
+                            <div id="filterRobotsText" class="dashboardTextSize18 filterOptionText">Robots</div>
+
+                            <!-- Disabled until design is done -->
+                            <!--<div id="filterRobotsToggle" class="lpItem_ExpandButton filterOptionToggle" [class.expanded]="expandedSectionViewState(Section.Robot) === 'out'" (click)="toggleExpandedSectionView(Section.Robot)"></div>-->
+                            <div id="filterRobotsToggle" class="lpItem_ExpandButton2 filterOptionToggle"></div>
+                        </div>
+                        <div id="expandedRobotOptions" [@toggle]="expandedSectionViewState(Section.Robot)">
+                            test
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="" class="ui-resizable filterPanel" [@toggle]="!show" [hidden]="!show" (@toggle.done)="toggleFilterPanelDone($event)">
+    
+    <div id="filterContentCollaspe">
+
+        <div id="filterHeaderSection">
+            <div id="filterHeader">
+                <div title="Open Filters Menu" id="filterFunnelImageCollaspe" class="dashboardPointer" (click)="show = !show">
+                    <img id="filterFunnelImg" src='../../Content/Images/Dashboard/filter-gray.png' />
+                </div>
+            </div>
+        </div>
+
+        <div id="filterOptionsSectionCollaspe">
+            <div title="Open Filters Menu" class="filterVerticalText dashboardTextSize26 dashboardPointer" (click)="show = !show">Filters</div>
+        </div>
+
+    </div>
+
+</div>

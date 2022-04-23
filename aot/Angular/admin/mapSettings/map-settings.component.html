@@ -1,0 +1,205 @@
+﻿<div class="ms-mainContent stopSelection">
+	<div class="ms-dialog">
+		<div class="ms-params">
+			<div class="ms-main">
+				<div class="ms-locFilter">
+					<location-filter [scView]="'mapSettings'" [multiSelect]="false" [showFilter]="false" [filterOverride]="true" [defaultSelection]="false" [showButtons]="false"></location-filter>
+				</div>
+				<div *ngIf="!locationInEdit" class="ms-selectLocInitGraphics">
+					<div class="ms-selectLocationImg">
+						<img src="../../../Content/Images/Admin/location-selector.png" />
+					</div>
+					<div class="ms-selectLocationText">
+						<span style="position:relative;display:block">Use the Location Selector above to</span>
+						<span style="position:relative;display:block;margin-left:10px">set up Map Layers for a Location</span>
+					</div>
+				</div>
+				<div *ngIf="locationInEdit" class="ms-scrollable">
+					<div class="ms-zoomCenterTextContent">
+						<div class="ms-header pointer" (click)="toggleStep1Group()">
+							<span class="ms-header-toggle group-header_Toggle">
+								<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="step1Expanded === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+							</span>
+							<span class="ms-title">
+								<span class="ms-titleStep">(Step 1) Location Map Settings</span>
+							</span>
+						</div>
+						<div class="ms-groupList lpGroupList lpItemGroupList" [@slideDown]="step1Expanded">
+							<div class="ms-step1Content">
+								<div class="ms-clickMapImage">
+									<img src="../../../Content/Images/Admin/location-map-settings.png" />
+								</div>
+								<div class="ms-zoomCenterText">
+									<span style="position:relative;display:block">Use Map to set Zoom Level and</span>
+									<span style="position:relative;display:block;margin-left:15px">Map Center for this Location</span>
+								</div>
+								<div class="ms-setZoomCenter">
+									<button type="button" class="btn btn-primary ms-btn" (click)="setZoomCenter()">Set Zoom & Center</button>
+								</div>
+								<div *ngIf="zoomCenterSet" class="ms-zoomCenterValuesContent">
+									<div class="ms-dividerLine"></div>
+									<div class="ms-zoomLevelValue">
+										<span class="ms-zoomLevelValueLabel">Zoom Level</span>
+										<input id="ms-mapZoom" type="text" class="form-control ms-mapZoomInput" readonly [value]="formattedZoom" />
+									</div>
+									<div class="ms-mapCenterValue">
+										<span class="ms-mapCenterValueLabel">Map Center</span>
+										<input id="ms-mapCenter" type="text" class="form-control ms-mapCenterInput" readonly [value]="formattedMapCenter" />
+									</div>
+								</div>
+							</div>
+							<div *ngIf="!step1Complete" class="ms-nextStep">
+								<div class="ms-dividerLine"></div>
+								<div class="ms-nextStepBtn" [class.disabled]="!zoomCenterSet" (click)="completeStep1()">
+									<div class="ms-nextStepImg"></div>
+									<div class="ms-nextStepText">
+										Next Step
+									</div>
+								</div> 
+							</div>
+						</div>
+					</div>
+					<div *ngIf="step1Complete" class="ms-customLayerTextContent">
+						<div class="ms-header pointer" (click)="toggleStep2Group()">
+							<span class="ms-header-toggle group-header_Toggle">
+								<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="step2Expanded === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+							</span>
+							<span class="ms-title">
+								<span class="ms-titleStep">(Step 2) Custom Layers</span>
+							</span>
+						</div>
+						<div class="lpGroupList lpItemGroupList" [@slideDown]="step2Expanded">
+							<div class="ms-step2Content">
+								<div  *ngIf="locationInEdit.MapSettings.Layers.length === 0 && locationInEdit.MapSettings.AvailableLayers.length === 0" class="ms-initLayersGraphic">
+									<div class="ms-addLayersImage" (click)="addNewLayer()">
+										<img src="../../../Content/Images/Admin/add-layers-large.png" />
+									</div>
+									<div class="ms-addLayersText">
+										<span style="position:relative;display:block">Click here to add Layer(s)</span>
+										<span style="position:relative;display:block;margin-left:25px">to this Location</span>
+									</div>
+								</div>
+								<div *ngIf="locationInEdit.MapSettings.Layers.length > 0 || locationInEdit.MapSettings.AvailableLayers.length > 0" class="ms-includeLayers">
+									<span class="ms-includeLayersLabel">Include in Layer Panel</span>
+									<div *ngIf="locationInEdit.MapSettings.Layers.length > 0" class="ms-includeLayersCheckboxSection">
+										<div class="ms-includeLayersCheckbox" [class.selected]="areAllLayersShown()" (click)="toggleShowAllOnStartup()"></div>
+										<div class="ms-showOnStartupLabel">Show on Start-up</div>
+										<div class="ms-addNewlayerBtn" (click)="addNewLayer()">New Layer</div>
+									</div>
+									<div class="ms-includeLayersList" [class.over]="dragOverInclude">
+										<div *ngIf="locationInEdit.MapSettings.Layers.length === 0" class="ms-layersEmptyGraphic" [dragula]="'layersList'" id="layersListDropZoneEmpty">
+											<div class="ms-emptyLayersContainer">
+												<div class="ms-dragLayerImg"></div>
+												<div class="ms-dragLayerText">
+													<span>Drag Layer here to add</span>
+													<span style="margin-left:15px">to the Layer Panel</span>
+												</div>
+											</div>
+										</div>
+										<div *ngIf="locationInEdit.MapSettings.Layers.length > 0" class="ms-layersContainer" [dragula]="'layersList'" id="layersListDropZone">
+											<div *ngFor="let layer of locationInEdit.MapSettings.Layers; let idx=index;" [attr.data-layeridx]="idx">
+												<div class="ms-layerCard">
+													<div class="ms-layerCardCheckbox" [class.selected]="layer.IsShownOnStartup" (click)="toggleShowOnStartup(layer)"></div>
+													<div class="ms-layerCardContent" [class.selected]="layer.IsSelected" (dblclick)="onDblClickCard(idx,true)" (click)="onClickCard(layer)">
+														<div class="ms-dragIcon">
+															<div class="ms-dragIconImg"> </div>
+														</div>
+														<div class="ms-cardContent">
+															<div class="ms-layerName">
+																<span>{{layer.Name}}</span>
+																<div *ngIf="layer.LayerFormat===LayerFormat.PlatformImage" class="ms-assignToRobot">
+																	<button type="button" class="btn btn-secondary" (click)="assignImageToRobot(idx,true)">
+																		<img class="ms-linkBtnIcon" src="../../../Content/Images/Admin/link-icon-for-button.png" />
+																		<span class="ms-linkBtnText">Link with Robot(s)</span>
+																	</button>
+																</div>
+															</div>
+															<div class="ms-layerCommands" [class.open]="layerInEdit && (layerInEditIdx === idx)">
+																<div class="ms-editIconImg" [class.open]="layerInEdit && (layerInEditIdx === idx)" title="Edit Layer" (click)="editLayer(idx,true)"> </div>
+																<div class="ms-deleteIconImg" title="Delete Layer" (click)="deleteLayer($event, idx, true)"> </div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="ms-dividerLine"></div>
+									<span class="ms-removedLayersLabel">Remove from Layer Panel</span>
+									<div class="ms-removedLayersList" [class.over]="dragOverRemove">
+										<div *ngIf="locationInEdit.MapSettings.AvailableLayers.length === 0" class="ms-layersEmptyGraphic" [dragula]="'layersList'" id="availLayersListDropZoneEmpty">
+											<div class="ms-emptyLayersContainer">
+												<div class="ms-dragLayerImg"></div>
+												<div class="ms-dragLayerText">
+													<span>Drag Layer here to remove</span>
+													<span style="margin-left:15px">from the Layer Panel</span>
+												</div>
+											</div>
+										</div>
+										<div *ngIf="locationInEdit.MapSettings.AvailableLayers.length > 0" class="ms-layersContainer" [dragula]="'layersList'" id="availLayersListDropZone">
+												<div *ngFor="let layer of locationInEdit.MapSettings.AvailableLayers; let idx=index;" [attr.data-layeridx]="idx">
+													<div class="ms-layerCard">
+														<div class="ms-layerCardPlaceholder" [class.selected]="layer.IsShownOnStartup" (click)="toggleShowOnStartup(idx)"></div>
+														<div class="ms-layerCardContent" (dblclick)="onDblClickCard(idx,true)" >
+															<div class="ms-dragIcon">
+																<div class="ms-dragIconImg"> </div>
+															</div>
+															<div class="ms-cardContent">
+																<div class="ms-layerName">
+																	<span>{{layer.Name}}</span>
+																	<div *ngIf="layer.LayerFormat===LayerFormat.PlatformImage" class="ms-assignToRobot">
+																		<button type="button" class="btn btn-secondary" (click)="assignImageToRobot(idx,false)">
+																			<img class="ms-linkBtnIcon" src="../../../Content/Images/Admin/link-icon-for-button.png"/>
+																			<span class="ms-linkBtnText">Link with Robot(s)</span>
+																		</button>
+																	</div>
+																</div>
+																<div class="ms-layerCommands" [class.open]="layerInEdit && (layerInEditIdx === idx)">
+																	<div class="ms-editIconImg" [class.open]="layerInEdit && (layerInEditIdx === idx)" title="Edit Layer" (click)="editLayer(idx,false)"> </div>
+																	<div class="ms-deleteIconImg" title="Delete Layer" (click)="deleteLayer($event,idx,false)"> </div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<!--			<div class="ms-layerDefMain" [class.expanded]="isLayerDefShown" [@slideOut]="(!isLayerDefShown) ? 'in' : 'out'">-->
+			<div class="ms-layerDefMain" [class.expanded]="isLayerDefShown">
+				<layer-definition #layerDefinition (onDialogClose)="cancelEdits()" (onEnableSave)="canEnableSave($event)" [location]="locationInEdit" [tenant]="tenantInEdit"></layer-definition>
+			</div>
+		</div>
+		<div class="ms-cancelSave">
+			<div class="ms-cancelSaveBtns">
+				<button type="button" class="btn btn-default" (click)="cancelEdits()">Cancel</button>
+				<button type="button" class="btn btn-primary" (click)="saveEdits()" [disabled]="disableSave">{{saveBtnText}}</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="adminMap" class="ms-mapArea" ></div>
+</div>
+
+<!-- Dialogs -->
+<modal>
+	<div class="modal-dialog-header">
+		<span>Error</span>
+	</div>
+	<div class="modal-dialog-body" [ngStyle]="{'display':'flex','justify-content':'left', 'padding-left':'0', 'padding-right':'0'}">
+		<div class="modal-dialog-icon" [ngStyle]="{ 'background-image': 'url(' + warningIcon + ')' }"></div>
+		<div class="modal-dialog-message" [ngStyle]="{'align-self': 'center', 'width':'calc(100% - 75px)'}">{{errorMessage}}</div>
+	</div>
+	<div class="modal-dialog-footer">
+		<button type="button" class="btn btn-default" (click)="hideErrorDialog()">Close</button>
+	</div>
+</modal>
+
+<link-map-to-robot></link-map-to-robot>
+
+

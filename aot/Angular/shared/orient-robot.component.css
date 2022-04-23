@@ -1,0 +1,107 @@
+﻿input[type='text'] {
+	font-size: 14px;
+	color:#4272b4;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style:italic;
+}
+.orientRobot-large {
+	font-size: 14px;
+}
+.orientRobot-map {
+	border:1px solid lightgray;
+}
+.orientRobot-chooserContainer {
+	position:relative;
+	width:76px;
+	height:76px;
+	background-image: url('./Content/images/background-graphic.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.orientRobot-headingIcon {
+	position: absolute;
+}
+
+.orientRobot-directionConeIcon {
+	position: absolute;
+}
+
+.orientRobot-directionGrabberIcon {
+	position: absolute;
+	left: 30px;
+	top: -8px;
+	cursor: pointer;
+}
+
+.orientRobot-valueLabel {
+	position:relative;
+	display:block;
+}
+
+.orientRobot-valueInput {
+	position:relative;
+	display:block;
+	margin-top: 5px;
+	font-style:italic;
+}
+
+.orientRobot-smallLeft {
+	position:relative;
+	float:left;
+	width:60%;
+	height:130px;
+	font-size: 14px;
+}
+.orientRobot-smallRight {
+	position:relative;
+	float:left;
+	width:40%;
+	height:125px;
+	border:1px solid lightgray;
+}
+
+.orientRobot-smallMap {
+	position:relative;
+	float:left;
+	width:100%;
+	height: 100%;
+}
+
+.orientRobot-smallOrientationChooser {
+	position: relative;
+	float: left;
+	margin-top:5px;
+}
+.orientRobot-smallChooserContainer {
+	position:relative;
+	float:left;
+	width:76px;
+	height:76px;
+	background-image: url('./Content/images/background-graphic.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.orientRobot-smallValueField {
+	position:relative;
+	float:left;
+	width: calc(100% - 91px);
+	margin-top: 12px;
+	margin-left:10px;
+}
+
+.orientRobot-smallValueLabel {
+	position:relative;
+	display:block;
+	float:left;
+}
+
+.orientRobot-smallValueInput {
+	position:relative;
+	display:block;
+	float:left;
+	margin-top: 5px;
+	font-style:italic;
+}

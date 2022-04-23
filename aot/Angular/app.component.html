@@ -1,0 +1,20 @@
+﻿<main-menu></main-menu>
+<div id="facilityViewContainer">
+	<app-header></app-header>
+	<div id="layoutRight" [class.layout-right-popout]="appSettings.fullScreenMode">
+		<loading [visible]="loading"></loading>
+		<router-outlet></router-outlet>
+		<image-viewer *ngIf="!appSettings.fullScreenMode"></image-viewer>
+
+		<notification-popup></notification-popup>
+		<notification-panel></notification-panel>
+	</div>
+</div>
+
+<!-- Dialogs -->
+<clear-alarms-dialog></clear-alarms-dialog>
+<dismiss-alarms-dialog></dismiss-alarms-dialog>
+<command-platform-dialog></command-platform-dialog>
+<platform-context-menu></platform-context-menu>
+<go-to-location-dialog></go-to-location-dialog>
+<about-dialog></about-dialog>

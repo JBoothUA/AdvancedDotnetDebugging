@@ -1,0 +1,29 @@
+﻿<a class="dropdown-item acknowledgeAlarm" (click)="acknowledgeAlarms()"
+   [class.ui-state-disabled]="(alarm.State === 2 && !this.alarmService.getSelectedAlarmsCount())
+							|| (alarm.State === 2 && !alarm.Selected)
+							|| (alarm.State === 2 && alarm.Selected && this.alarmService.getSelectedAlarmsCount() === 1)
+							|| (this.alarmService.getSelectedAlarmsCount() && allSelectedAreAcknowledged() && alarm.State === 2)"
+   [class.disabled]="(alarm.State === 2 && !this.alarmService.getSelectedAlarmsCount())
+							|| (alarm.State === 2 && !alarm.Selected)
+							|| (alarm.State === 2 && alarm.Selected && this.alarmService.getSelectedAlarmsCount() === 1)
+							|| (this.alarmService.getSelectedAlarmsCount() && allSelectedAreAcknowledged() && alarm.State === 2)">
+    <!-- TODO get image files -->
+    <img width="27" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAZCAYAAADaILXQAAAACXBIWXMAAAsSAAALEgHS3X78AAABH0lEQVRIx7WWsW3DMBBFn5j00gbSCNogHsEbxO11ygRxNlB3rUZwozrMBvYGTqnOnkBpLgYhxDFhkx8QJBK6x0+CPF4xzzMxEpEK6K3ZqerpVswz8doBL/a9Dwa6Khfpug3AAFVMnIt03XGHXITrBnhddO9TOR/+6HscLiLbxVoDHFT1+BBcRNbAe+RM4uG2O4Z/tuR9cAN7oLwSs42FF+EJNfAOqG/EHey/xp42MHMAelUdLnARWVlASQKpauEMvAE+U4GBL4CnaZoaA6dUMY6jd7ZmqVUDgyOfTrngZ2CT03mbC14CfU7nPhf8G+hywWugcarqLR+kVvXrfA28JRrkDHyoqi+WdYvVJy2wCrIe9q6DzBfWLd7aXlUvV+APB6lU+uAzW6oAAAAASUVORK5CYII=">
+    Acknowledge
+</a>
+<a class="dropdown-item clearAlarm" (click)="clearAlarms()"
+   [class.ui-state-disabled]="(alarm.State === 1 && !this.alarmService.getSelectedAlarmsCount())
+							|| (alarm.State === 1 && !alarm.Selected)
+							|| (alarm.State === 1 && alarm.Selected && this.alarmService.getSelectedAlarmsCount() === 1)
+							|| (this.alarmService.getSelectedAlarmsCount() && !allSelectedAreAcknowledged())"
+   [class.disabled]="(alarm.State === 1 && !this.alarmService.getSelectedAlarmsCount())
+							|| (alarm.State === 1 && !alarm.Selected)
+							|| (alarm.State === 1 && alarm.Selected && this.alarmService.getSelectedAlarmsCount() === 1)
+							|| (this.alarmService.getSelectedAlarmsCount() && !allSelectedAreAcknowledged())">
+    <img width="27" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAeCAYAAADdGWXmAAAACXBIWXMAAAsSAAALEgHS3X78AAACT0lEQVRIx7WWvZISQRSFv1mp0gx8AvEJFjOznQ2tosrxCSCzOxLfgH0CMfF2tpAZsgFlKGQmlrOZmWxGYNVCaITJ7ap2GJieUW8yv92n7+1zzu1kv99TFcaYITAB2sAKyJxzW2rGWQRQD7hWIIAL4AMNIjmVmWY0Bp4UPv0CPgKjOhkeBTPGTIGBPv4EvgBfgdfAY+AhsANS51zeGMwYMwHe6GSZc25Z+N7RPRzoP92YDA/AjDFd4EfMqo0xc+AlMHPODZsQZKzXSUR5hrqogWZbGyzzYFWDtXTzwrg4MC1hG1jVYJkH69XNrKvXvIZ88qZgfkC0dpxza72tvWedumBBnDe1q5z/EGf/aJ7bQOzRYGnDMm5jSNIq0P4C2MV6XajNGKm0gvtJrJgPPC9JMmttGkhnCUxFZH3gjdpKruuYKoACTEtakI/3IjLyDw82m01Pe9Mj4IVz7nskUAZ8qtDX88Vi8bTf7889QcZqUVfFVnICqKMZnYpLYAYMrLUjv2d+Zakxpgxs6pwrTjwKjgllcSUiS2vtMOgkk5YSwjOxLJYnOkOp5kRkrEC+07ettempY4FvondALySNtfbUkeyZ6i4vZH95VmGwK2Xa0hjTK3GIG518F5Qv17bTrmtXmVrROfANuNf3q6AlrdV5brR8kyOmvE2qDqmazTDYp1GSJCnwLvDFVES2qrvPJdPciUg3iTkRH6H+OijVrS4mP8LSVyIybwSmgD1larvi15mIDP+qxSgRUt9eSmIHvPVAlcfvmlmG2lsDcxH5w2N/Aw4F+QaNGz4gAAAAAElFTkSuQmCC">
+    Clear
+</a>
+<a class="dropdown-item dismissAlarm" (click)="dismissAlarms()">
+    <img width="27" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAZCAYAAADAHFVeAAAACXBIWXMAAAsSAAALEgHS3X78AAACOklEQVRIx52WQXLTQBBFn13sMSdIKDbsIp/AygliTmBnl14lnABTxT7a9TLOCRAnwNxAOQCVZMkunEAs+Eo1w8hS3FUuSzOaeTPdv3tm0rYtOTOzArgCSuAo6f4B1EDt7g+MtEkKM7NjYAssRs7xGajc/elFMDNbCvRaTb/1vgO6yY6BJXAW5rkDyiHgM0ygr3HF7r7pGygPVAE6CJwmrut2M98HAlCs6tB0krznYVph57rS3Zsh/5vZGrjR6y/9L9Seh2lXZ8F1Y0BXAXQHvJdCATb7dnYV3FeNAG2B60ycurFHSpssrOuoh9Qk0ConCHevtWCk1iysy6fmUFCwJqRHr0D2wkaCcPcSmPeF41V4nh0CksCWiesaM6vSUjYFHvVcHADaAPcSzCL8LoF7M6tSWJMLagK6dfciAVXApwHxXmqev+Xq4uIiJuep4NuQe7fuvk4WUgLfpb5SXrkJn9wqbjsViw/uXk9VYjrJftEHvSBZl5tPwIO7b4HzOEbFYRcTfdK2bVcRrpMJ+0CYWZur+GZWuvsuEwaAN1NJtgrlBuBnWP2QnXQ72AMCKGKeLbVKgHeS79rMZiOAaY7uxhyeMwV2lbkGoPiszewpnBLP7lYqVHJpFB7uPpnk7iBS26bnavBWfSvgzt2LxHUxhl3bN3dfTvouPKE6lKp1hdxVS4WNdvdRfatENPF0mLt7sxc2UJjTa0SfnSs1/inELzIdKfNExdEegdMOlL3KHbjLQu6ehbPxv1PkD6IZMbHnouyDAAAAAElFTkSuQmCC">
+    Dismiss
+</a>

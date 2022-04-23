@@ -1,0 +1,17 @@
+﻿<div (click)="handleCancel();" class="modal fade" tabindex="-1" [ngClass]="{'in': dialogOptions.animatedOpaque}"
+     [ngStyle]="{'display': dialogOptions.visible ? 'block' : 'none', 'opacity': dialogOptions.animatedOpaque ? 1 : 0}">
+    <div (click)="$event.stopPropagation()" class="modal-dialog" [class.modal-dialog-center]="disableDraggable">
+        <div #modalContent class="modal-content" [draggable]="'#layoutRight'" [enabled]="!disableDraggable" [style.width.px]="width">
+            <div *ngIf="!hideHeader" class="modal-header">
+                <ng-content select=".modal-dialog-header"></ng-content>
+                <img class="btn" (click)="handleCancel();" style="position:absolute; right:0;" src="../../Content/Images/Alarms/x-icon.png" />
+            </div>
+            <div class="modal-body">
+                <ng-content select=".modal-dialog-body"></ng-content>
+            </div>
+            <div *ngIf="!hideFooter" class="modal-footer">
+                <ng-content select=".modal-dialog-footer"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

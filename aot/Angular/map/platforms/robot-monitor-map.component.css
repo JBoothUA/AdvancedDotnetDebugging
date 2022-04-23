@@ -1,0 +1,45 @@
+﻿.lock, .unlock {
+    width:40px;
+    height:40px;
+    background-position:center;
+    background-size:contain;
+    background-repeat:no-repeat;
+
+    position: absolute;
+    z-index: 416;
+    right: 5px;
+    top: 31px;
+    cursor:pointer;
+}
+
+.lock {
+    background-image: url('../../../Content/Images/Platforms/robot-locked-in-center-regular-state.png');
+}
+
+.lock:hover {
+    background-image: url('../../../Content/Images/Platforms/robot-locked-in-center-hover-state.png');
+}
+
+.unlock {
+    background-image: url('../../../Content/Images/Platforms/robot-not-locked-in-center-regular-state.png');
+}
+
+.unlock:hover {
+    background-image: url('../../../Content/Images/Platforms/robot-not-locked-in-center-hover-state.png');
+}
+
+:host >>> .patrol-marker-point-inst {
+    top:0 !important;
+    left:0 !important;
+}
+
+:host >>> .patrol-marker-checkpoint {
+    top: -9px !important;
+    left: -9px !important;
+}
+
+:host >>> .patrol-marker-overlay {
+    left: 16px !important;
+    top: 16px !important;
+}
+

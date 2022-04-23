@@ -1,0 +1,222 @@
+﻿.currentPlatform, .percentComplete, .platformStatus, chooser-status,
+.extraInfo, .groupSections {
+    float:left;
+}
+
+.lpPlatform_MiddleColFirstRow {
+    overflow:hidden !important;
+}
+
+.lpItem_MiddleColumn {
+    width: calc(100% - 115px);
+}
+
+.lpItem_ActionButton {
+    margin-top: 8.5px;
+}
+
+chooser-status {
+    margin-left:-5px;
+    margin-top:2px;
+}
+
+.lastPatrolStatus  {
+    float:left;
+    padding-left:5px;
+}
+.lastPatrolStatus > img {
+    float:left;
+    margin-top:2px;
+}
+.lastPatrolStatus > span {
+    float:left;
+    margin-left:5px;
+}
+
+popover >>> .point-settings-dropBox {
+    background: white;
+    border: 1px solid lightgray;
+    width: 174px;
+    padding: 5px;
+}
+
+patrol-plan >>> .point-item:last-child {
+    border-left:2px solid transparent !important;
+}
+
+.extraInfo {
+    width:100%;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.extraInfo > div {
+    float: left;
+    width: calc(100%/3);
+    height: 41px;
+    border-right: 1px solid #D0D0D0;   
+}
+
+.extraInfo > div:last-child {
+    border-right:none;
+}
+
+.extraInfo >>> .title {
+    font-weight:bold;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.groupSections {
+    width:100%;
+    overflow:hidden;
+}
+
+.lpDetailsGroupHeader {
+    float:left;
+    width:100%;
+}
+
+.expandedCard{
+    float: left;
+    width: 100%;
+    border-top: 1px solid #cccbcb;
+    max-height: 650px;
+    overflow-y: auto !important;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+}
+
+.centerText {
+    text-align:center;
+}
+
+.patrolAlarmsCount {
+    margin-right:5px;
+    text-align:center;
+    font-weight:bold;
+    height:18px;
+    width:18px;
+    color:white;
+    background:#4272A0;
+    border-radius:50%;
+    font-size: 13px;
+}
+
+.patrolHistoryGroupHeader {
+    background-color:transparent !important;
+    border:none;
+}
+
+.patrol-history-item {
+    border-top:1px solid #cccbcb;
+    float:left;
+    width:100%;
+}
+
+.subsection-content {
+    padding:0 10px 0 10px;
+    float:left;
+    width:100%;
+}
+
+.platformIcon {
+    float:left;
+    margin-top:4px;
+    height:32px;
+    width:32px;
+    margin-right: 3px;
+    border: 2px solid #898989;
+    border-radius: 50%;
+}
+
+.lastPatrolStatusIcon {
+    width:18px;
+    height:18px;
+    margin-right:5px;
+}
+
+.history-item-header-text {
+    font-weight:bold;
+    color:#515151;
+}
+
+.progressBars {
+    margin-top: 11px;
+    margin-left:5px;
+}
+
+.checkPointProgress {
+    float:left;
+    clear:both;
+    margin-top:8px;
+    margin-left: 8px;
+}
+
+.loadingHistory {
+    float: left; 
+    margin-left: calc(100%/2 - 37px); 
+    padding: 10px;
+}
+
+.disable {
+    opacity: .5;
+}
+
+.disable:hover, .disable:active {
+    background-color: white !important;
+    color: inherit !important;
+}
+
+.operatorInitials {
+    background: #ABABAB; 
+    width: 25.5px; 
+    height: 25.5px; 
+    float: left; 
+    border-radius: 50%; 
+    text-align: center; 
+    vertical-align: middle; 
+    padding-top: 2px;
+    font-size: 15px;
+    color:white;
+    margin-left:36px;
+}
+
+.expand-all-btn {
+    float: right !important;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.expand-all-btn:hover {
+    color:#4272B3;
+}
+
+.btn-sort {
+    float: right !important;
+    margin-top: -12px;
+    cursor:pointer;
+    width:47px;
+    height:47px;
+    background-image:url('../../Content/Images/sort-icon.png');
+}
+
+.btn-sort:hover {
+     background-image:url('../../Content/Images/sort-icon-hover.png');
+}
+
+.asc {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+.settings-btn {
+    float:right;
+}

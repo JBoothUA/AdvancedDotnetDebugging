@@ -1,0 +1,138 @@
+﻿<div *ngIf="disabled ||  (platfomIsUnavailable() && (!patrolInstance && !isPlatformPending()))" class="disabled"></div>
+<div class="chooser" [class.show]="isDropdownShown" (contextmenu)="stopEvents($event)">
+    <div #popoverTarget class="btn-chooser dropdown ellipsis" (click)="popover.show(popoverTarget, 1, -1);isDropdownShown = true">
+        <div (click)="onDropDownClick()" 
+             [title] = "getButtonTooltip()" 
+             class="dropDownBtn"
+             id="lpItem_ActionButton_{{id}}">
+            <div style="float:left;">
+                <img style="float:left;margin-top:2px;" height="18" src="{{getChooserTypeIconSrc()}}" />
+                <div style="float:left;" class="ellipsis selectionText">
+                    <span>{{getModeChooseText()}}</span>
+                </div>
+                <div *ngIf="showPatrolRunCount && patrolTemplateID" class="ellipsis selectionText" style="clear:left; font-size: 13px; color: #9b9b9b; margin-top: 4px;">
+                    {{getPatrolStatusText()}}
+                </div>
+                <div *ngIf="showPatrolRunCount && !patrolTemplateID && getPatrolStatusText()" class="ellipsis selectionText" style="clear:left; font-size: 13px; color: #9b9b9b; margin-top: 4px;">
+                    <span style="font-weight:bold;">Robot: </span> {{getPatrolStatusText()}}
+                </div>
+                <div *ngIf="showPatrolRunCount && !patrolTemplateID && !getPatrolStatusText()" class="ellipsis selectionText" style="clear:left; font-size: 13px; color: #9b9b9b; margin-top: 4px;">
+                    <!--<img src="/Content/Images/Patrols/last-patrol-running-no-errors-12.png"/>
+                    No Patrol History-->
+                </div>
+            </div>
+            <img class="chooser-arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=">
+            
+        </div>
+        <popover #popoverBox
+                 (onShow)="onShow.next()"
+                 (onHide)="onHide.next()">
+            <div (click)="chooserOnClick()"
+                 class="dropdown-box patrol-platform-selection"
+                 [ngClass]="{'dropdown-box': true,
+                         'pause-resume-abort': !(!patrolInstance && !isBusy() && !platfomIsUnavailable()),
+                         'patrol-platform-selection': true
+                }">
+                <div *ngIf="(!patrolInstance && !isBusy() && !platfomIsUnavailable());then selection else abortPause"></div>
+
+                <ng-template #selection>
+                    <div class="selection-panel" (click)="$event.stopPropagation();" (dblclick)="$event.stopPropagation();">
+                        <div *ngIf="!patrolTemplateID">
+                            <div *ngIf="patrolService.getAvailablePatrols(platformService.getPlatform(platformID)).length > 0;then hasPatrols else noPatrols"></div>
+                            <ng-template #hasPatrols>
+                                <span class="title">All Available Patrols</span>
+                                <div *ngFor="let patrol of patrolService.getAvailablePatrols(platformService.getPlatform(platformID))"
+                                     [ngClass]="{'lpItemSelected' : (patrol.TemplateId === selectedItemID)}"
+                                     (click)="selectedItemID = patrol.TemplateId;patrolService.toggleSelectedPatrol(patrol.id, true);onPatrolSelected.emit(patrol.TemplateId)"
+                                     class="item lpItem">
+                                    {{patrol.DisplayName}}
+                                </div>
+                            </ng-template>
+                            <ng-template #noPatrols>
+                                <span class="title">No Available Patrols</span>
+                            </ng-template>
+                        </div>
+                        <div *ngIf="patrolTemplateID">
+                            <div *ngIf="platformService.getAvailablePlatforms(patrolService.getPatrolTemplate(patrolTemplateID).LocationId).length > 0;then hasPlatforms else noPlatforms"></div>
+                            <ng-template #hasPlatforms>
+                                <span class="title">All Available Robots</span>
+                                <div *ngFor="let platform of platformService.getAvailablePlatforms(patrolService.getPatrolTemplate(patrolTemplateID).LocationId)"
+                                     [ngClass]="{'lpItemSelected' : (platform.id === selectedItemID)}"
+                                     (click)="selectedItemID = platform.id"
+                                     class="item lpItem">
+                                    <div class="platformStatus {{platformService.getPlatformStatusClass(platform)}}"></div> {{platform.DisplayName}}
+                                </div>
+
+                                <span *ngIf="platformService.getUnavailablePlatforms(patrolService.getPatrolTemplate(patrolTemplateID).LocationId).length > 0" class="title">Unavailable Robots</span>
+                                <div *ngFor="let platform of platformService.getUnavailablePlatforms(patrolService.getPatrolTemplate(patrolTemplateID).LocationId)"
+                                     class="item disabledItem">
+                                    <div class="platformStatus {{platformService.getPlatformStatusClass(platform)}}"></div> {{platform.DisplayName}}
+                                </div>
+                            </ng-template>
+                            <ng-template #noPlatforms>
+                                <span class="title">No Available Platforms</span>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div class="run-patrol-options-panel" *ngIf="showRunOptions()">
+                        <div style="float:left;width:100%;">
+                            <span class="title">Run Patrol</span>
+                            <div style="float:left; margin-left:7px;">
+                                <span style="font-size:13px;">Times</span>
+                                <input [(ngModel)]="runCount"
+                                       [disabled]="infiniteRuns"
+                                       (keypress)="validateInput($event)"
+                                       (paste)="false"
+                                       class="form-control"
+                                       style="border-radius:0px; width:100px;" />
+                            </div>
+                            <div style="float:left;margin-left:10px;">
+                                <span style="font-size:13px;float:left;">Infinite</span>
+                                <toggle-button (change)="toggleInfinite($event)" style="float:left;clear:both;margin-top:5px;"></toggle-button>
+                            </div>
+                        </div>
+                        <div [@slideDown]="showMoreOptions()" (@slideDown.done)="popover.redraw(popoverTarget, 1, -1)" style="float:left;margin-top:5px;display: none; height: 0px; overflow: hidden;">
+                            <span class="title">Delay Between Runs</span>
+                            <div style="float:left;margin-left:7px;">
+                                <span style="font-size:13px;">In Minutes</span>
+                                <input [value]="delay"
+                                       (keypress)="validateInput($event)"
+                                       [(ngModel)]="delay"
+                                       (paste)="false"
+                                       class="form-control"
+                                       style="border-radius:0px; width:100px;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="confirm-panel">
+                        <button (click)="chooseItemOnClick()"
+                                [disabled]="(runCount < 1 && !infiniteRuns) || (!delay && delay !== 0) || ((!runCount && runCount !== 0) && !infiniteRuns) || (!selectedItemID)"
+                                class="btn btn-primary">
+                            Start Patrol
+                        </button>
+                        <button (click)="cancelOnClick()" class="btn btn-default">Cancel</button>
+                    </div>
+                </ng-template>
+                <ng-template #abortPause>
+                    <button *ngIf="(patrolInstance && patrolInstance.CurrentStatus !== PatrolStatusValues.Paused)" (click)="pauseOnClick()" class="btn pause-resume-abort">
+                        <img height="17" src="../../Content/Images/Patrols/pause-patrol-large.png" /> Pause
+                    </button>
+                    <button *ngIf="(patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Paused)" (click)="resumeOnClick()" class="btn pause-resume-abort">
+                        <img height="17" src="../../Content/Images/Patrols/resume-patrol-large.png" /> Resume
+                    </button>
+                    <button (click)="abortOnClick()" class="btn pause-resume-abort">
+                        <img src="../../Content/Images/Patrols/abort-icon.png" /> Abort
+                    </button>
+                </ng-template>
+            </div>
+        </popover>
+
+    </div>
+    
+    <confirmation-dialog #confirmAbort 
+                         [title]="'Abort the patrol?'" 
+                         [confirmMessage]="'Are you sure you want to abort this patrol?'"
+                         [confirmBtnText]="'Abort'"
+                         (eventOnConfirm)="patrolService.abortPatrol(patrolInstance, getPatrolTemplateIdForAbort(), getPlatformIdForAbort())"></confirmation-dialog>
+ </div>

@@ -1,0 +1,37 @@
+﻿:host {
+    position: absolute;
+}
+
+:host > div {
+    position: relative;
+}
+
+svg {
+    border-radius: 4px;
+    position:relative;
+    top: calc(50% + 1px);
+    left: calc(50% + 1px);
+    transform-origin: center center;
+    transform: translate(-50%,-50%) rotate(45deg);
+}
+
+:host > div > div {
+    border: none;
+    position: absolute;
+    border-radius: 3px;
+    top: calc(50% + 1px);
+    left: calc(50% + 1px);
+    transform-origin: center center;
+    transform: translate(-50%,-50%) rotate(45deg);
+    background-color:#9F9F9F;
+    overflow: hidden;
+}
+
+img {
+    border:none;
+    position:absolute;
+    top: calc(50%);
+    left: calc(50%);
+    transform-origin: center center;
+    transform: translate(-50%,-50%) rotate(-45deg);
+}

@@ -1,0 +1,152 @@
+﻿.header > img {
+    float: left;
+    margin-left: -23px;
+}
+
+.header > span {
+    float:left;
+    font-weight: bold;
+    font-size:16px;
+    margin:14px 0 0 20px;
+}
+
+.body {
+    float: left;
+    width: calc(100% - 71px);
+    margin-left: 48px;
+    margin-top:10px;
+}
+
+.uploadItem {
+    float:left;
+    margin-bottom: 15px;
+    width:100%;
+    position:relative;
+}
+
+.uploadItemHeader {
+    float:left;
+    width:100%;
+    font-size: 15px;
+}
+
+.uploadItemHeader > span {
+    color:red;
+    font-weight:bold;
+    margin-right:5px;
+}
+
+.error {
+    position: absolute;
+    top: 29px;
+    width: 380px;
+    left: 97px;
+    border: 1px solid rgba(255, 0, 0, 0.43);
+    background: rgba(255, 0, 0, 0.08);
+    height: 39px;
+    font-weight: bold;
+    font-size: 16px;
+    padding-top: 8px;
+    padding-left: 10px;
+    opacity:0;
+}
+
+.loading-icon {
+    position: absolute;
+    top: 29px;
+    left: 97px;
+}
+
+modal >>> .modal-dialog {
+    max-width: 660px !important;
+}
+
+modal >>> .modal-content {
+    position: absolute;
+    width:661px;
+    top:60px;
+}
+
+/*File upload overrides*/
+
+p-fileupload {
+    float:left;
+    width:100%;
+}
+p-fileupload >>> .fa-plus {
+    display:none;
+}
+
+p-fileupload >>> .ui-button-text-icon-left .ui-button-text {
+    padding: 0;
+}
+
+p-fileupload >>> .ui-button{
+    background: #dddddd !important;
+    color: black !important;
+    border-radius: 0 !important;
+    display: inline-block !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    border: 1px solid #a6a6a6 !important;
+    padding: .5rem 1rem !important;
+    font-size: 1rem !important;
+    -webkit-transition: all .2s ease-in-out !important;
+    -o-transition: all .2s ease-in-out !important;
+    transition: all .2s ease-in-out !important;
+}
+
+p-fileupload >>> .ui-button:hover {
+    background-color: #e6e6e6 !important;
+}
+
+p-fileupload >>> .ui-button[icon="fa-close"] {
+    background-color: #4272b4 !important;
+    border-radius: 5px !important;
+    color: white !important;
+    height: 33px !important;
+    width: 28px !important;
+}
+
+p-fileupload >>> .ui-button[icon="fa-close"]:hover {
+    background-color: #2c5aa8 !important;
+}
+
+p-fileupload >>> .ui-messages-icon {
+    display:none !important;
+}
+
+p-fileupload >>> .ui-messages-error {
+    display: block;
+    font-size: 14px;
+    margin-top: -14px;
+    margin-bottom: -37px;
+}
+
+p-fileupload >>> .ui-fileupload-content{
+    border: 3px dashed #d7dadd !important;
+}
+
+p-fileupload {
+    border: none !important;
+}
+
+p-fileupload >>> .ui-fileupload-highlight{
+    background-color: #E3F0F6 !important;
+}
+
+p-fileupload >>> .ui-fileupload-buttonbar {
+    background: white !important;
+    border: none !important;
+}
+
+p-fileupload >>> .ui-fileupload-choose  {
+    margin-left: -10px;
+}

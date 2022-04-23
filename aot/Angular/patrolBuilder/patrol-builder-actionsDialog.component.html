@@ -1,0 +1,63 @@
+﻿<div *ngIf="visible" class="modal fade" tabindex="-1" [ngClass]="{'in': animatedOpaque}"
+	 [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': animatedOpaque ? 1 : 0}">
+	<div (click)="$event.stopPropagation()" class="pbActions-dialog modal-dialog">
+		<div class="pbActions-dialog-content modal-content">
+			<div class="pbActions-header">
+				<span>Checkpoint Actions</span>
+				<div class="pbActions-closeBtn btn" (click)="cancel()"></div>
+			</div>
+			<div class="pbActions-dialog-body">
+				<div class="pbActions-bodyContent">
+					<div class="pbActions-leftPanel-content">
+						<div class="pbActions-actionDefsList">
+							<div *ngFor="let actionCat of patrolService.getActionDefinitions()[0].Categories; let catIndex = index">
+								<patrol-builder-action-category-group [actionCat] ="actionCat" [actions]="actions" [catIndex]="catIndex" [patrolPoint]="patrolPoint" (onActionDefDblClicked)="addAction($event, -1)"></patrol-builder-action-category-group>
+							</div>
+						</div>
+					</div>
+					<div class="pbActions-rightPanel-content">
+						<div class="pbActions-locDesc">
+							<div class="pbActions-locDescLabel">
+								Point Description
+							</div>
+							<input [(ngModel)]="description" type="text" class="pbActions-locDescInput form-control" placeholder="Enter Point Description" [disabled]="isPointDescriptionDisabled===true"/>
+						</div>
+						<div id="pbActions-list" class="pbActions-list"  >
+							<div *ngIf="!actions || actions.length === 0" class="pbActions-emptyActionsContainer" [dragula]="'actionItemList'" id="actionItemEmptyListDropZone">
+								<span class="pbActions-initActionsPrompt" >Drag or double-click actions to add to your Checkpoint</span>
+							</div>
+							<div *ngIf="actions && actions.length > 0"  class="pbActions-actionsContainer" [dragula]="'actionItemList'" id="actionItemListDropZone">
+								<div *ngFor="let action of actions; let idx = index" class="pbActions-actionItemContainer" [attr.data-actionindex]="idx">
+									<patrol-builder-action-item [actionDef]="patrolService.getActionDefinition(action)" [action]="action" [patrolAreaType]="patrol.AreaType" [patrolPoints]="patrolPoints" [command]="action.Command" [dirtyToggle]="action.DirtyToggle" [index]="idx" (onActionCopied)="copyAction($event)" (onActionDeleted)="deleteAction($event)"></patrol-builder-action-item>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pbActions-footer modal-dialog-footer">
+				<div class="pbActions-okCancelBtns">
+					<button type="button" class="pbActionsBtn btn btn-default" (click)="cancel()">Cancel</button>
+					<button type="button" class="pbActionsBtn btn btn-primary" (click)="save()">
+						<span *ngIf="patrolPoint.Actions && patrolPoint.Actions.length == 0">Save</span>
+						<span *ngIf="patrolPoint.Actions && patrolPoint.Actions.length > 0">Save</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Dialogs -->
+<modal *ngIf="visible" #actionErrorDialog>
+	<div class="modal-dialog-header">
+		<span>Parameter Values Missing</span>
+	</div>
+	<div class="modal-dialog-body">
+		<div class="modal-dialog-icon" [ngStyle]="{ 'background-image': 'url(' + warningIcon + ')' }"></div>
+		<div>All actions with parameters must have valid values.</div>
+	</div>
+	<div class="modal-dialog-footer">
+		<button type="button" class="btn btn-default" (click)="hideErrorDialog()">Close</button>
+	</div>
+</modal>

@@ -1,0 +1,195 @@
+﻿<patrol-robot-base-card       [patrolTemplate]="patrolTemplate"
+                              [patrolInstance]="patrolInstance"
+                              [selected]="patrolTemplate.selected"
+                              [expanded]="patrolTemplate.expanded"
+                              [platform]="getPlatform()"
+                              [updateToggle]="updateToggle"
+                              [statusClass]="patrolService.getPatrolStatusClass(patrolTemplate, patrolInstance)"
+                              [isOnPatrol]="(patrolTemplate.PlatformSubmittedId) || (patrolInstance)" 
+                              (onExpandExpandedView)="expandExpandedView($event)"
+                              (onExpandedViewHidden)="handleOnExpandedViewHidden($event)">
+    <div displayName>
+        <span class="lpItem_ItemName ellipsis" style="font-size:19px;">{{patrolTemplate.DisplayName}}</span>
+    </div>
+    <patrol-progressbar progressBar
+                        [patrol]="getPatrol()"
+                        [hidePauseResumeBtn]="false"
+                        style="float:left;clear:both;">
+    </patrol-progressbar>
+    <div indicator *ngIf="(getActionCompleteness() > 0.0 && !isCheckpointDone)" class="checkPointProgress">
+        <square-progressbar [completenessPercentage]="getActionCompleteness()"
+                            [image]="'/Content/Images/Patrols/checkpoint-not-yet-arrived.png'"
+                            [strokeWidth]="3"
+                            [fillColor]="currentCheckpointColor"
+                            [size]="34"></square-progressbar>
+    </div>
+    <div actionMenu>
+        <div class="dropdown" data-id="{{(patrolTemplate) ? patrolTemplate.TemplateId : platform.id}}">
+            <div title="Patrol Actions" class="lpItem_ActionButton" id="lpItem_ActionButton_{{(patrolTemplate) ? patrolTemplate.TemplateId : platform.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+            <div class="lpActionMenu dropdown-menu dropdown-menu-right" attr.aria-labelledby="lpItem_ActionButton_{{(patrolTemplate) ? patrolTemplate.TemplateId : platform.id}}">
+                <span [ngClass]="{'dropdown-item': true, 'disable':patrolService.isOnPatrol(patrolTemplate)}" style="height:38px; padding:6px 1.5rem;" (click)="editPatrol(patrolTemplate.TemplateId)">
+                    <img width="27" src="../../Content/Images/Patrols/edit-patrol-icon.png" />
+                    Edit Patrol
+                </span>
+                <span [ngClass]="{'dropdown-item': true, 'disable':patrolService.isOnPatrol(patrolTemplate)}" style="height:38px; padding:6px 1.5rem;" (click)="deletePatrolConfirm()">
+                    <img width="27" style="float: left; margin-left: -2px; margin-right: 5px;" src="../../Content/Images/Patrols/delete-patrol-icon.png" />
+                    Delete Patrol
+                </span>
+            </div>
+        </div>
+    </div>
+    <div expandedCard (dblclick)="stopPropagation()">
+        <div class="extraInfo" *ngIf="patrolInstance">
+            <div class="flexCenter">
+                <img class="platformIcon" src="{{platformService.getPlatformIconSrc(getPlatform())}}" />
+                <div>
+                    <div class="title">Robot</div>
+                    <div class="ellipsis" style="max-width:84px;">{{getPlatform().DisplayName}}</div>
+                </div>
+            </div>
+            <div>
+                <div class="title centerText">Patrol Alarms</div>
+                <div class="flexCenter">
+                    <div class="patrolAlarmsCount">{{getPatrolAlarmsCount()}}</div> Active
+                </div>
+            </div>
+            <div>
+                <div class="title centerText">Last Patrol</div>
+                <div *ngIf="patrolTemplate.LastPatrolStatus" class="flexCenter">
+                    <img class="lastPatrolStatusIcon" src="{{patrolService.getStatusIconSrc(patrolTemplate.LastPatrolStatus)}}" /> {{patrolService.getShortStatusText(patrolTemplate.LastPatrolStatus)}}
+                </div>
+            </div>
+        </div>
+        <div class="groupSections">
+            <div  class="group-header lpDetailsGroupHeader pointer">
+                <div (click)="toggleExpandedSubSectionView(Subsections.History)" style="float: left; width: calc(100% - 90px); background: padding-box; height: 36px; margin-top: -7px; padding-top: 6px;">
+                    <span class="group-header_Toggle">
+                        <img [class.rotate]="expandedSubSectionViewState(Subsections.History) === 'in'" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="../../Content/Images/down-arrow.png">
+                    </span>
+                    <span class="group-header_GroupName">Patrol History</span>
+                </div>
+
+                <div style="float:right;margin-top: -6px;position:relative;">
+                    
+                    <div title="Point Options" #btnPointOptions (click)="pointOptions.show(popoverTarget, 1, -1)" class="settings-btn"></div>
+                    
+                    <div title="Reorder Points" class="btn-sort" 
+                         (click)="toggleHistorySort()"
+                         [class.asc]="patrolHistorySortOrder === 0"
+                         style="width: 36px; height: 30px; margin-top: 3px; border-right: 1px solid #A9A9A9;  margin-right: 2px; background-position: -8px -8px;"></div>
+                </div>
+
+            </div>
+            <div [@slideDown]="expandedSubSectionViewState(Subsections.History)" class="subsection-content">
+                <!-- Started but not running -->
+                <div *ngIf="!patrolInstance && patrolTemplate.IsPatrolSubmitted" (click)="toggleExpandedPatrolHistoryView(-1)" class="group-header lpDetailsGroupHeader patrolHistoryGroupHeader">
+                    <span class="group-header_Toggle">
+                        <img class="rotate group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" 
+                             style="opacity: 0.5;"
+                             src="../../Content/Images/down-arrow.png">
+                    </span>
+                    <span class="lpGroupHeader_GroupName" style="vertical-align: middle;">
+                        <span class="history-item-header-text"> Today - </span> <img src="{{patrolService.getStatusIconSrc(1)}}" /> Pending
+                    </span>
+                </div>
+
+                <!--Currently Running Patrol-->
+                <div *ngIf="patrolInstance && !isLoadingHistory" 
+                     [@slideDown]="expandedPatrolHistoryViewState(-1)"
+                     class="patrol-history-item">
+                    <patrol-overview [patrolInstance]="patrolInstance"
+                                     [platform]="getPlatform()"
+                                     [showPathPoints]="showAllPatrolPoints"
+                                     [expandedState]="expandedPatrolOverview === patrolInstance.InstanceId || !expandedPatrolOverview"
+                                     [showSortButton]="false"
+                                     [sortOrder]="patrolHistorySortOrder"
+                                     [nameOption]="1"
+                                     (onPlatformClick)="goToPlatform($event)"
+                                     (onExpanded)="handlePatrolOverviewExpansion($event)"></patrol-overview>
+                </div>
+                <div *ngIf="!isLoadingHistory">
+                    <div *ngFor="let patrol of patrolService.patrolHistoryMap.get(patrolTemplate.id);let i = index">
+                        <patrol-overview [patrolInstance]="patrol"
+                                         [platform]="platformService.getPlatform(patrol.PlatformId)"
+                                         [showPathPoints]="showAllPatrolPoints"
+                                         [expandedState]="(expandedPatrolOverview && expandedPatrolOverview === patrol.InstanceId) || (!expandedPatrolOverview && !patrolInstance && i === 0)"
+                                         [showSortButton]="false"
+                                         [sortOrder]="patrolHistorySortOrder"
+                                         [nameOption]="1"
+                                         (onPlatformClick)="goToPlatform($event)"
+                                         (onExpanded)="handlePatrolOverviewExpansion($event)"></patrol-overview>
+                    </div>
+                </div>
+                <div *ngIf="isLoadingHistory">
+                    <img class="loadingHistory" height="65" src="../../Content/Images/loading-spinner-grey.gif" />
+                </div>
+                <div *ngIf="!isLoadingHistory && !patrolInstance && !patrolTemplate.IsPatrolSubmitted && patrolService.patrolHistoryMap.has(patrolTemplate.id) && patrolService.patrolHistoryMap.get(patrolTemplate.id).length === 0">
+                    <span style="font-weight: bold; height: 35px; float: left; vertical-align: middle; padding-top: 7px;">No Patrol History</span>
+                </div>
+            </div>
+        
+            <div (click)="toggleExpandedSubSectionView(Subsections.Points)" class="group-header lpDetailsGroupHeader pointer">
+                <span class="group-header_Toggle">
+                    <img [class.rotate]="expandedSubSectionViewState(Subsections.Points) === 'in'" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="../../Content/Images/down-arrow.png">
+                </span>
+                <span class="group-header_GroupName">Patrol Plan</span>
+            </div>
+            <div [@slideDown]="expandedSubSectionViewState(Subsections.Points)" class="subsection-content" style="display: none; height: 0px; overflow: hidden;">
+                <div style="float:left;width:100%;">
+                    <div style="float:left;margin:10px 0 10px 36px;">
+                        <span style="font-weight: bold; color: #515151;">Last Updated</span> - {{(patrolTemplate.LastUpdateTime) ? getFormattedTime(patrolTemplate.LastUpdateTime) : 'Unknown'}}
+                    </div>
+
+                    <div title="Reorder List" style="float:right;margin-top:-2px;" [class.asc]="patrolPlanSortOrder === 0" class="btn-sort" (click)="toggleSort()"></div>
+                </div>
+                <div style="float:left;width:100%;margin-bottom:10px;">
+                    <div class="operatorInitials" style="margin-top:-11px;">
+                       {{operator}}
+                    </div>
+                    <span style="float:left;margin-left:10px;margin-top: -10px;margin-bottom: 20px;">{{(this.patrolTemplate.UserName) ? this.patrolTemplate.UserName : 'Unknown'}}</span>
+                    <div (click)="patrolPlan.expandAll()" class="expand-all-btn" *ngIf="patrolPlan.showExpandAll()"> Expand All</div>
+                    <div (click)="patrolPlan.collapseAll()" class="expand-all-btn" *ngIf="patrolPlan.showCollapseAll()"> Collapse All </div>
+                </div>
+
+                <patrol-plan #patrolPlan
+                             style="float: left; width: calc(100% - 40px);margin-left: 40px;margin-bottom:10px;" 
+                             [patrolPoints]="patrolTemplate.Points" 
+                             [showPathPoints]="true" [sortType]="patrolPlanSortOrder">
+                </patrol-plan>
+
+            </div>
+         </div>
+    </div>
+    <div itemLink>
+        <div class="currentPlatform" *ngIf="patrolInstance || patrolTemplate.IsPatrolSubmitted">
+            <div class="platformStatus {{platformService.getPlatformStatusClass(getPlatform())}}"></div>
+            <span (dblclick)="stopPropagation()" (click)="showRobotMonitor(getPlatform())" style="font-weight:bold;text-decoration:underline;">{{getPlatform().DisplayName}}</span>
+        </div>
+    </div>
+    <div cardThirdLine class="ellipsis">
+        <img style="width:17px;height:17px;" src="{{patrolService.getStatusIconSrc(patrolTemplate.LastPatrolStatus)}}" /> 
+        {{(patrolTemplate.LastPatrolStatus) ? 'Last Run: ': ''}}
+        {{patrolService.getShortStatusText(patrolTemplate.LastPatrolStatus)}}
+        {{patrolService.getLongStatusText(patrolTemplate.LastPatrolStatus)}}
+    </div>
+</patrol-robot-base-card>
+<confirmation-dialog #confirmDelete
+                     [title]="'Are you sure?'"
+                     [confirmMessage]="'Are you sure you want to delete this patrol?'"
+                     [confirmBtnText]="'Delete'"
+                     (eventOnConfirm)="this.ref.detectChanges();patrolService.deletePatrolTemplate(patrolTemplate)"></confirmation-dialog>
+
+<popover #popover [horizontalAligment]="'right'">
+    <div class="point-settings-dropBox">
+        <span style="font-size:13px;">Patrol Points</span>
+
+        <label style="margin-left:5px;" (change)="pointOptions.hide()">
+            <input name="patrolPoints_{{patrolTemplate.id}}" type="radio" [(ngModel)]="showAllPatrolPoints" [value]="false" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">Not Reached</span>
+        </label>
+        <label style="margin-left:5px;" (change)="pointOptions.hide()">
+            <input name="patrolPoints_{{patrolTemplate.id}}" type="radio" [(ngModel)]="showAllPatrolPoints" [value]="true" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">All</span>
+        </label>
+    </div>
+</popover>

@@ -1,0 +1,2 @@
+﻿<alarm-marker-group *ngFor="let group of groups" [attr.id]="group.groupName" [alarmService]="alarmService" 
+                    [alarms]="group.alarms.slice(0)" [groupName]="group.groupName"></alarm-marker-group>

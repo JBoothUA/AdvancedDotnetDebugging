@@ -1,0 +1,23 @@
+﻿<div class="header" (click)="onHideController.emit()" >
+    <img src="../../Content/Images/Platforms/controller-selected.png" />
+    Controller
+    <div class="hide-controller"></div>
+</div>
+<div class="command-panel">
+    <div *ngFor="let commandGroup of commandGroups">
+        <div class="section-header" (click)="toggleCommandSection(commandGroup)">
+            <img [class.rotate]="!expandedCommandGroups.includes(commandGroup)" src="../../Content/Images/down-arrow.png" />
+            <span>{{commandGroup}}</span>
+        </div>
+        <div [@slideDown]="expandedCommandGroups.includes(commandGroup) ? 'out': 'in'" style="float:left;width:100%;">
+            <robot-monitor-controller-cmd *ngFor="let cmd of groupCmdList.get(commandGroup)"
+                                            [cmd]="cmd"
+                                            [platform]="platform"
+                                            [size]="size">
+            </robot-monitor-controller-cmd>
+        </div>
+    </div>
+</div>
+<div class="joystick-panel">
+    JOYSTICK
+</div>

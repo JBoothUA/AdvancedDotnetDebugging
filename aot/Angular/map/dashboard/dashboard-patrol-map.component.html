@@ -1,0 +1,24 @@
+﻿<div #map id="map" class="map-content"></div>
+
+<platform-marker *ngIf="selectedPlatform"
+                    [attr.id]="selectedPlatform.id + '-marker'" 
+                    [Platform]="selectedPlatform" 
+                    [SentToPosition]="selectedPlatform.SentToPosition" 
+                    [Selected]="selectedPlatform.Selected" 
+                    [Orientation]="selectedPlatform.Orientation" 
+                    [MarkerId]="selectedPlatform.id + '-marker'" 
+                    [Longitude]="selectedPlatform.Position ? selectedPlatform.Position.coordinates[0] : undefined" 
+                    [Latitude]="selectedPlatform.Position ? selectedPlatform.Position.coordinates[1] : undefined"
+                    [iPatrolService]="patrolService"
+                    [iPlatformMapService]="platformMapService">
+</platform-marker>
+<alarm-marker-collection [alarms]="selectedPatrolAlarms" [alarmService]="alarmService"></alarm-marker-collection>
+<!--<ng-container>-->
+    <patrol-path [patrol]="selectedPatrol" 
+                 [dirtyToggle]="selectedPatrol && selectedPatrol.dirtyToggle" 
+                 [pointCount]="patrolMapService.getActivePatrolPointCount()"
+                 [iPatrolService]="patrolService"
+                 [iPatrolMapService]="patrolMapService"
+                 id="patrolPathComponent">
+    </patrol-path>
+<!--</ng-container>-->

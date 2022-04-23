@@ -1,0 +1,60 @@
+﻿<div class="pbActions-actionCard">
+	<div class="pbActions-dragIcon">
+		<div class="pbActions-dragIconImg"> </div>
+	</div>
+	<div class="pbActions-cardContent">
+		<div class="pbActions-actionDisplayName">
+			<span class="pbActions-displayNameText">{{getActionDisplayName(actionDef, action, index)}}</span>
+			<div class="pbActions-commands">
+				<div *ngIf="actionDef" class="pbActions-copyIconImg" title="Copy Action" (click)="copyAction()"> </div>
+				<div class="pbActions-deleteIconImg" title="Delete Action" (click)="deleteAction()"> </div>
+			</div>
+		</div>
+		<div class="pbActions-params">
+			<div *ngIf="actionDef && actionDef.ActionType == ActionType.Dwell">
+				<div *ngFor="let preset of actionDef.Parameters[0].Presets" class="pbActions-presetRadio radio">
+					<div class="pbActions-dwellRadio">
+						<label>
+							<input class="pbActions-radioBtn" name="dwellValue_{{index.toString()}}" type="radio" [(ngModel)]="presetValue" [value]="preset.StringValue" (click)="setPresetValue(preset.StringValue)" [checked]="isDwellPreset(preset.StringValue)" />
+							<span><!--Placeholder--></span>
+							<span class="pbActions-radioText">
+								<span>{{preset.DisplayName}}</span>
+							</span>
+						</label>
+					</div>
+				</div>
+				<div class="pbActions-customRadio">
+					<div class="pbActions-dwellRadio">
+						<label>
+							<input class="pbActions-radioBtn" name="dwellValue_{{index.toString()}}" type="radio" (click)="setCustomValue(null)" [checked]="isDwellCustomValue()" />
+							<span><!--Placeholder--></span>
+							<span class="pbActions-radioInput">
+								<input type="text" class="form-control" placeholder="{{actionDef.Parameters[0].Prompt}}" [(ngModel)]="customValue" [disabled]="isPresetValue===true" (blur)="setCustomValue($event)" />
+							</span>
+						</label>
+					</div>
+
+				</div>
+			</div>
+			<div *ngIf="actionDef && actionDef.ActionType == ActionType.Toggle" class="pbActions-ToggleBtn">
+				<toggle-button (change)="toggleChanged($event)" [checked]="action && actionDef && action.Command == actionDef.Command[0] ? false : true"></toggle-button>
+			</div>
+			<div *ngIf="actionDef && (actionDef.ActionType == ActionType.Play || actionDef.ActionType == ActionType.Say)">
+				<say-play-chooser #sayPlayChooser mode="compact" [sayParameterList]="getSayCommandParameters()" [playParameterList]="getPlayCommandParameters()" [commandName]="command" (onCommandChange)="onSayPlayCommandChange($event)" (onValueChange)="onSayPlayValueChange($event)"></say-play-chooser>
+			</div>
+			<div *ngIf="actionDef && (actionDef.ActionType == ActionType.Command && actionDef.Parameters && actionDef.Parameters.length > 0)">
+				<div *ngFor="let paramDef of actionDef.Parameters;let idx = index" class="actionParams">
+					<div class="pbActions-ParamLabels">
+						<span>{{paramDef.DisplayName}}</span>
+					</div>
+					<div>
+						<input class="form-control" placeholder="{{paramDef.Prompt}}" [(ngModel)]=action.Parameters[idx].Value />
+					</div>
+				</div>
+			</div>
+			<div *ngIf="actionDef && (actionDef.ActionType == ActionType.Orient)">
+				<orient-robot #orientRobot [orientationValue]="action.Parameters[0].Value" [initialMapZoom]="getOrientMapZoom()" [dataItems]="patrolPoints" [valuePrompt]="'In degrees'" (onOrientationChange)="onOrientationValueChange($event)"></orient-robot>
+			</div>
+		</div>
+	</div>
+</div>

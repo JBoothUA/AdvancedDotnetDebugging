@@ -1,0 +1,192 @@
+﻿.modal.fade .pbActions-dialog{
+	transform: translate(0, 5%);
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style:italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-style:italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-style:italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-style:italic;
+}
+
+.pbActions-header {
+    color:white;
+    background-color:#414042;
+    padding:8px;
+    text-align:center;
+    width:100%;
+    font-size:16px;
+}
+
+.pbActions-closeBtn {
+	position: relative;
+	float:right;
+	height: 30px;
+	width:30px;
+	background:url("./Content/Images/Alarms/x-icon.png");
+	background-position:center;
+}
+
+.pbActionsBtn {
+	width: 110px;
+}
+
+.pbActions-dialog {
+	width: 750px;
+}
+.pbActions-dialog-body {
+ 	position: relative;
+	display:block;
+	line-height:1.5;
+	margin: 5px 10px 5px 10px;
+	min-height:500px;
+	width:calc(100% - 20px);
+	border: 1px solid #c2c2c2;
+}
+
+@media (min-width: 576px) {
+	div.pbActions-dialog {
+		max-width: 750px;
+	}
+}
+
+.pbActions-leftPanel-content {
+	position: relative;
+	float: left;
+	height: 500px;
+	width: 35%;
+}
+
+.pbActions-groupHeader {
+	height:30px;
+}
+
+.pbActions-categoryName {
+	font-size:16px;
+}
+
+.pbActions-actionRow {
+	position:relative;
+	display:block;
+	font-size:16px;
+}
+
+.pbActions-actionRowText {
+	position:relative;
+	display:block;
+	margin-left:44px;
+	font-size:15px;
+}
+
+.pbActions-rightPanel {
+	position:relative;
+	float:left;
+	height: 100%;
+	width: 65%;
+}
+.pbActions-rightPanel-content {
+	position: relative;
+	float: left;
+	height: 500px;
+	border-left:1px solid #c2c2c2;
+	width: 65%;
+}
+
+.pbActions-locDesc {
+	position:relative;
+	display:block;
+	width: 100%;
+	font-size: 14px;
+	padding:8px;
+}
+
+.pbActions-locDescLabel {
+	position:relative;
+	display:block;
+	width: 100%;
+}
+
+.pbActions-locDescInput {
+	position:relative;
+	display:block;
+	width: 100%;
+	font-size:14px;
+	color:#4272b4;
+}
+
+.pbActions-searchBox {
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.pbActions-searchBox-input {
+	border-radius:0;
+	font-size: 14px;
+	width:100%;
+	border:none;
+}
+.pbActions-actionDefsList {
+	position:relative;
+	display:block;
+	float:left;
+	width: 100%;
+	height: calc(100% - 34px);
+	border-top:1px solid #c2c2c2;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+.pbActions-list {
+	position:relative;
+	display:block;
+	width: 100%;
+	height: calc(100% - 72px);
+	border-top:1px solid #c2c2c2;
+	overflow-y:auto;
+	overflow-x: hidden;
+}
+.pbActions-initActionsPrompt {
+	display: block;
+	font-size: 24px;
+	text-align: center;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:75px;
+}
+
+.pbActions-emptyActionsContainer {
+	position:relative;
+	display:block;
+	height: 100%;
+	float:left;
+}
+
+.pbActions-actionsContainer {
+	position:relative;
+	display:block;
+	height: 100%;
+
+}
+.pbActions-actionItemContainer{
+	position:relative;
+	display:block;
+	overflow:auto;
+}
+
+.pbActions-footer {
+	position:relative;
+	display:block;
+	padding:10px;
+}
+
+.pbActions-okCancelBtns {
+	position:relative;
+	float:right;
+
+}

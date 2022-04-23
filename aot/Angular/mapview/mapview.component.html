@@ -1,0 +1,57 @@
+﻿<concise-robot-monitor [mapViewOptions]="options"></concise-robot-monitor>
+<div id="leftPanel" *ngIf="options.showLeftPanel" class="ui-resizable">
+	<div [style.width]="!options.showLeftPanelContent ? '60px' : ''">
+		<location-filter [scView]="locationViewName" [mapViewOptions]="options" [multiSelect]="true" [showFilter]="false" [filterOverride]="true" [showButtons]="true" [readOnly]="false"></location-filter>
+	</div>
+    <div id="lpHeader">
+        <div id="lpHeader_TabsContainer">
+            <div title="Alarm Panel - {{alarmService.filteredAlarms.length}} Active Alarms" class="lpHeader_AlarmsTab pointer notification-badge-container" [class.tabSelected]="options.showAlarmsTab" (click)="alarmsTabClicked()">
+                <alarm-notification-badge [count]="alarmService.filteredAlarms.length"></alarm-notification-badge>
+                <img [hidden]="!options.showAlarmsTab" class="lpHeader_TabSelected_arrow" src="/Content/images/selected-tab.png" />
+            </div>
+            <div title="Robot Panel - {{platformService.platforms.length}}" class="lpHeader_PlatformsTab pointer notification-badge-container" [class.tabSelected]="options.showPlatformsTab" (click)="platformsTabClicked()">
+                <img [hidden]="!options.showPlatformsTab" class="lpHeader_TabSelected_arrow" src="/Content/images/selected-tab.png" />
+            </div>
+            <div title="Patrol Panel - {{patrolService.patrolInstances.length}} Active Patrols" class="lpHeader_PatrolsTab pointer" [class.tabSelected]="options.showPatrolsTab" (click)="patrolsTabClicked()">
+                <img [hidden]="!options.showPatrolsTab" class="lpHeader_TabSelected_arrow" src="/Content/images/selected-tab.png" />
+            </div>
+        </div>
+        <div id="lpHeader_CollapseButton" class="pointer" style="display:none">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAOCAYAAADaOrdAAAAACXBIWXMAAAsSAAALEgHS3X78AAAA10lEQVQ4y72UwRWCMAyGP/q4ywayAWwAm+gG7Qg4ge0GMgIjOIIbuIITxEsPfZU+AgfzXi/h/5KQJkVE2Dre30eNrsRVIkLJQvA94IEBeFrrRhSWca+6IGqi6JK4B0XwBpgAm7g7syJ0wDtLoKn+Gjmbf6sT0Rir73YGH2P1xT+tC61B2RoVZwC3N0E0NWf4gxlr3QTcgM8ecA9nEqAHlgOJNrmfZYzT8gDOK0GrjSlbnc7ixofgp3i5J02SbM+mlDOKVszRNStb6IE20S/ah649+EC2IsIX9/XbS0LU4oAAAAAASUVORK5CYII=" />
+        </div>
+        <div id="lpHeader_ExpandButton" class="pointer" style="display:none">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAOCAYAAAAxDQxDAAAACXBIWXMAAAsSAAALEgHS3X78AAAA80lEQVQ4y72UsW3DMBBFnxX1piewR0ipzhoh3kAbUF1KOxP4boKMEGQDpZOqeIM4GyRdukvDGIYRKTwXeQALAnz8uE+AMzNDVQIQYmyPOPB4N4tFqIEeuB+GfjYM/aGqqq+MEJdXADUwT/stcFCVu4yBfvOaqaBLlsCTqnSqsnI0uQQek3ebE/TDGnhTlV16i1zWwKuqyLlXZIhb4DhVywjx3CsypXmqpXaGnbyCfyI36B3YxNh2zvtPXvnHwU9AYmx3VwzxkNwPgKmgZ6D1/hbAC9BceuXIuM2VNY16JdABDRCcNfk8M0NkH0T2KzPDu3K9bz35sYSjEYvMAAAAAElFTkSuQmCC" />
+        </div>
+    </div>
+    <div id="lpContent" *ngIf="options.showLeftPanelContent">
+        <!-- Alarm Tab component is using changeDetection: ng.core.ChangeDetectionStrategy.OnPush, so change detection will only be triggered when an input variable
+                is changed to a new value. Passing the array of alarms from alarm service, even if it has been added to, will not trigger the change detection because arrays
+                in javascript are mutable. So, we use .splice(0) here to always pass a new copy of the alarms list in order to make the list immutable and trigger change detection -->
+        <alarm-tab *ngIf="options.showAlarmsTab" #alarmTab [alarms]="alarmService.filteredAlarms.slice(0)" [mapViewOptions]="options"></alarm-tab>
+        <platform-tab *ngIf="options.showPlatformsTab" #platformTab [platforms]="platforms" [mapViewOptions]="options" [isActionMenuOpen]="false"></platform-tab>
+        <patrol-tab *ngIf="options.showPatrolsTab" #patrolTab [patrolTemplates] ="patrolService.getLocationBasedPatrolTemplates()" [patrolInstances]="patrolService.patrolInstances" [mapViewOptions]="options"
+                    [patrolInstancesCount]="patrolService.patrolInstances.length" [patrolTemplateCount]="patrolService.patrolTemplates.length" (onShowPatrolBuilder)="handleShowPatrolBuilder($event)"></patrol-tab>
+    </div>
+</div>
+<patrol-builder *ngIf="options.showPatrolBuilder" [patrol]="patrol" (onHidePatrolBuilder)="handleHidePatrolBuilder($event)"></patrol-builder>
+<div id="map"></div>
+<leaflet-map #map [mapElementId]="'map'" [heightElementId]="'layoutRight'" [alarmService]="alarmService" [alarms]="alarmService.filteredAlarms.slice(0)" [platforms]="platforms.slice(0)"
+             [locationView]="locationViewName" [showOverlappingAlarms]="true" [mapViewOptions]="options" [zoom]="appSettings.mapViewMapZoom" 
+             [center]="appSettings.mapViewMapCenter ? [appSettings.mapViewMapCenter.lat, appSettings.mapViewMapCenter.lng] : undefined"></leaflet-map>
+
+<!--Show Execute Patrol Error-->
+<modal #executePatrolError>
+    <div class="modal-dialog-header">Error: Could Not Execute Patrol</div>
+    <div class="modal-dialog-body">{{executeErrorMessage}}</div>
+    <div class="modal-dialog-footer">
+        <button (click)="executePatrolError.hide()">OK</button>
+    </div>
+</modal>
+
+<!--Show Abort confirmation-->
+<confirmation-dialog #confirmAbort
+                     [title]="'Abort the patrol?'"
+                     [confirmMessage]="'Are you sure you want to abort this patrol?'"
+                     [confirmBtnText]="'Abort'"
+                     (eventOnConfirm)="abortPatrol()">
+</confirmation-dialog>

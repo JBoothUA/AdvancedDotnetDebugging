@@ -1,0 +1,737 @@
+﻿#pdfPatrolReport {
+    color: #5b5b5c;
+    /*height: calc(100vh - 50px - 193px - 18px);*/
+    height: calc(100vh - 18px);
+    position: relative;
+    /*min-width: 1108px;*/
+}
+
+/********************************************************************************/
+/******** Criteria Section ********/
+.pdfPatrolReportFilterCriteriaRow {
+    float: left;
+    position: relative;
+    width: 100%;
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+#pdfPatrolReportFilterCriteria {
+    border-bottom: 1px solid #cccbcb;
+    height: 320px;
+    /*min-height: 160px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;*/
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.pdfPatrolReportFilterCriteriaText {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 23px;
+}
+
+.pdfPatrolReportFilterCriteriaDiv {
+    min-width: 250px;
+}
+
+.pdfPatrolReportFilterCriteriaImage90 {
+    -o-transform:scale(0.9);
+    -ms-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+
+/******** Patrols by Status Section ********/
+#pdfPatrolReportPatrolStatus {
+    display: inline-block;
+    width: 50%;
+    min-width: 250px;
+}
+
+
+#pdfPatrolReportPatrolStatusTop {
+    float: left;
+    width: 100%;
+}
+
+#pdfPatrolReportPatrolStatusBottom {
+    float:left;
+    margin-left: 10px;
+}
+
+#pdfPatrolReportPatrolStatusChart {
+    position: relative;
+    float: left;
+    width: 78%;
+}
+
+#pdfPatrolReportPatrolStatusStackedBarChart {
+    width: 95%;
+}
+
+#pdfPatrolReportPatrolStatusChart ul,
+#pdfPatrolReportPatrolStatusChart ul > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#pdfPatrolReportPatrolStatusChart ul{
+  display: flex;
+}
+
+#pdfPatrolReportPatrolStatusChart li{
+  height: 22px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  display: flex;
+}
+
+#pdfPatrolReportPatrolStatusChart.empty li:nth-child(1) {
+  background-color: #A6B2AA;
+}
+
+/*healthy - green */
+#pdfPatrolReportPatrolStatusChart li:nth-child(1) {
+  background-color: #249C49;
+}
+
+/*warning - amber */
+#pdfPatrolReportPatrolStatusChart li:nth-child(2) {
+  background-color: #F3B518;
+}
+
+/*error - orange */
+#pdfPatrolReportPatrolStatusChart li:nth-child(3) {
+  background-color: #D07728;
+}
+
+/*failed - red */
+#pdfPatrolReportPatrolStatusChart li:nth-child(4) {
+  background-color: #CA2127;
+}
+
+.pdfPatrolReportPatrolStatusChartStartRadius {
+    /*border-radius: 5px 0px 0px 5px;*/
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pdfPatrolReportPatrolStatusChartEndRadius {
+    /*border-radius: 0px 5px 5px 0px;*/
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.pdfPatrolReportPatrolStatusChartEmpty {
+    border-radius: 5px 5px 5px 5px;
+}
+
+.pdfPatrolReportPatrolStatusStackedChartText {
+    margin-top: -17px;
+    margin-left: 12px;
+    position: relative;
+    float: left;
+    font-size: 35px;
+    color: #939393;
+}
+
+#pdfPatrolReportPatrolsStatusLegendContainterRow1 {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+}
+
+#pdfPatrolReportPatrolsStatusLegendContainterRow2 {
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.pdfPatrolReportPatrolsStatusLegend{
+    position: relative;
+    float: left;
+}
+
+.pdfPatrolReportPatrolsStatusLegend.padding{
+    margin-left: 15px;
+}
+
+.pdfPatrolReportPatrolsStatusLegendLabel {
+    font-size: 15px;
+    margin-left: 5px;
+    color: #5b5b5b;
+}
+
+/******** Divider Section ********/
+#pdfPatrolReportFilterCriteriaDivider {
+  border-left: 1px solid #cccbcb;
+  float: left;
+  /*height: 85%;*/
+  margin-top: 10px;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+  width: 2%;
+}
+
+/******** Timeframe Section ********/
+#pdfPatrolReportTimeframe {
+    width: 48%;
+}
+
+.pdfPatrolReportFilterCriteriaTimeframeText {
+    color: #8a8c8f;
+    font-size: 20px;
+}
+
+#pdfPatrolReportTimeframeTextDiv {
+    margin-top: -12px;
+}
+
+#pdfPatrolReportTimeframeText {
+    padding-bottom: 1px;
+}
+
+/******** Robots and Drones on Patrols Section ********/
+#pdfPatrolReportRobotDronePatrol {
+    display: inline-block;
+    width: 30%;
+    margin-left: 10px;
+    min-width: 435px;
+}
+
+#pdfPatrolReportRobotDronePatrolImage {
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: -6px;
+}
+
+#pdfPatrolReportRobotDronePatrolCount {
+    float: left;
+    position: relative;
+    font-size: 72px;
+    color: #757575;
+    margin-top: -12px;
+    margin-left: 5px;
+}
+
+.pdfPatrolReportRobotDroneImage90 {
+    -o-transform:scale(0.9);
+    -ms-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+/******** Alarms on Patrol Priority Section ********/
+#pdfPatrolReportAlarmPatrolPriority {
+    display: inline-block;
+    width: 50%;
+    min-width: 230px;
+    margin-left: 10px;
+}
+
+#pdfPatrolReportAlarmPatrolPriorityLeft {
+    float: left;
+}
+
+#pdfPatrolReportAlarmPatrolPriorityRight {
+    float:left;
+    margin-left: 10px;
+}
+
+#pdfPatrolReportAlarmPatrolPriorityDonutChart {
+    width: 88px !important;
+    height: 88px !important;
+}
+
+.pdfPatrolReportAlarmPatrolPriorityChartInnerText {
+    margin-top: -70px;
+    position: absolute;
+    font-size: 35px;
+    color: #929292;
+    width:88px;
+    text-align: center;
+}
+
+.pdfPatrolReportAlarmPatrolPriorityChartInnerTextLargeCount {
+    margin-top: -62px;
+    font-size: 25px;
+}
+
+#pdfPatrolReportAlarmPatrolPriorityLegend ul {
+    list-style: none; 
+    margin:0px;
+    padding:0px;
+}
+
+.pdfPatrolReportAlarmPatrolPriorityLegendItem {
+    display:inline-block;
+    width:13px; 
+    height:13px; 
+    margin-right:5px; 
+    border-radius:10px
+}
+
+.pdfPatrolReportAlarmPatrolPriorityLegendItemDisable {
+    opacity: 0.2;
+    cursor: default !important;
+}
+
+.pdfPatrolReportAlarmPatrolPriorityLegendTextDisable {
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+/******** Export Button Section ********/
+#pdfPatrolReportExport{
+    margin-right: 16px;
+    margin-top: 16px;
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+#pdfPatrolReportExportButton {
+    width: 137px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: #4272b4;
+}
+
+#pdfPatrolReportExportText {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#pdfPatrolReportExportingText {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    margin-right: 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#pdfPatrolReportExportIcon {
+    float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -27px;
+}
+
+#pdfPatrolReportExportingIcon {
+    float: right;
+    margin-right: 20px;
+    position: relative;
+    margin-top: -13px;
+}
+
+/********************************************************************************/
+/******** Header Section ********/
+#pdfPatrolReportHeader {
+    border-bottom: 1px solid #cccbcb;
+    height: 62px;
+}
+
+.pdfPatrolReportHeaderFilterButton {
+    background-color: #4272AC;
+    border-radius: 10px;
+    width: 113px;
+    height: 38px;
+    position: relative;
+    float: left;
+    margin-top: 13px;
+    margin-left: 10px;
+}
+
+.pdfPatrolReportHeaderFilterButtonImg {
+    position: relative;
+    float: left;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+.pdfPatrolReportHeaderFilterButtonText {
+    color: white;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 5px;
+    position: relative;
+    float: left;
+}
+
+.pdfPatrolReportHeaderLabel{
+    float:left;
+    margin-top: 15px;
+    margin-left: 20px;
+    color:#474747;
+}
+
+.pdfPatrolReportHeaderLabel.padding{
+    margin-left: 10px !important;
+}
+
+.pdfPatrolReportHeaderLabelColor{
+    color: #4272AC;
+}
+
+.pdfPatrolReportHeaderLabelFilter{
+    border-bottom: 2px solid darkgray;
+    /*font-weight: bold;*/
+    color: #4272AC;
+    /*color:#474747;*/
+}
+
+.pdfPatrolReportHeaderLabelFilterPadding{
+    margin-left: 14px;
+}
+
+.pdfPatrolReportHeaderLabelFilter.padding{
+    margin-left: 14px;
+}
+
+.pdfPatrolReportHeaderLabelFilterClear {
+    background-image: url('../../Content/Images/Dashboard/delete-filter-result.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 6px;
+    margin-left: -1px;
+    position:absolute;
+}
+
+.pdfPatrolReportHeaderLabelActive {
+    position: relative;
+    margin-left: 14px;
+}
+
+#pdfPatrolReportHeaderSearchBox{
+    float: right;
+    margin-right: 10px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+/********************************************************************************/
+/******** Query Results Section ********/
+#pdfPatrolReportResults{
+    /*height: calc(100vh - 425px);*/
+    height: calc(100vh - 485px);
+    min-width: 1030px;
+}
+
+/******** Results Section ********/
+#pdfPatrolReportResultsContent {
+    width: 100%;
+    float:left;
+    height: 100%;
+    /*border-right: 1px solid #cccbcb;*/
+}
+
+#pdfPatrolReportResultsSortBar {
+    border-bottom: 1px solid #cccbcb;
+    height: 43px;
+    background-color: #f4f4f4;
+    padding-top: 13px;
+    /*border-left: 1px solid #cccbcb;*/
+    /*border-right: 1px solid #cccbcb;*/
+    overflow: hidden;
+    width: calc(100% - 10px);
+    margin-left: 1px;
+}
+
+.pdfPatrolReportResultsSortField {
+    float:left;
+    font-size: 13px;
+    color: #474747;
+}
+
+.pdfPatrolReportResultsHeader1 {
+    margin-left: 20px;
+    width: 70px;
+}
+
+.pdfPatrolReportResultsHeader2 {
+    margin-left: 14px;
+    padding-left: 3px;
+}
+
+.pdfPatrolReportResultsHeader3 {
+    margin-left: 170px;
+    padding-left: 3px;
+}
+
+.pdfPatrolReportResultsHeader4 {
+    margin-left: 138px;
+    padding-left: 3px;
+}
+
+.pdfPatrolReportResultsHeader5 {
+    margin-left: 143px;
+    padding-left: 3px;
+}
+
+.pdfPatrolReportResultsHeader6 {
+    margin-left: 60px;
+    padding-left: 3px;
+}
+
+.pdfPatrolReportResultsHeaderBorder {
+     border-left: 1px solid #8a8c8f;
+}
+
+#pdfPatrolReportQueryResults {
+    /*height: calc(100% - 43px - 60px);*/
+    height: calc(100% - 43px);
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+}
+
+.pdfPatrolReportResultsContainer {
+    page-break-inside:avoid;
+}
+
+.pdfPatrolReportResultsContainer.expanded {
+    border: 2px solid #4272b4;
+}
+
+.pdfPatrolReportResultsItem {
+    height: 70px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #5b5b5b;
+    border-right: 1px solid rgba(204, 203, 203, 0.4); /*cccbcb*/
+}
+
+.pdfPatrolReportResultsItem:hover {
+    background: #e3f0f6;
+}
+
+.pdfPatrolReportResultsItem.selected {
+    background: #C9DEF0;
+}
+
+.pdfPatrolReportResultsItem.expanded {
+    background-color: #C0D5E7;
+    border-bottom: 1px solid #9d9d9d;
+}
+
+.pdfPatrolReportResultsCol1 {
+    margin-left: 20px;
+    width: 48px;
+    text-align: center;
+    font-size: 12px;
+    float:left;
+}
+
+.pdfPatrolReportResultsCol2 {
+    margin-left: 10px;
+    width: 220px;
+    float:left;   
+    margin-top: 4px;
+}
+
+.pdfPatrolReportResultsCol3 {
+    margin-left: 10px;
+    float:left;
+    width: 180px;
+    margin-top: 7px;
+}
+
+.pdfPatrolReportResultsCol4 {
+    margin-left: 10px;
+    float:left;
+    width: 180px;
+    margin-top: 7px;
+}
+
+.pdfPatrolReportResultsCol5 {
+    margin-left: 10px;
+    float: left;
+    margin-top: 1px;
+    width: 150px;
+}
+
+.pdfPatrolReportResultsCol6 {
+    margin-left: 10px;
+    float: left;
+    margin-top: 1px;
+    width: 90px;
+}
+
+.pdfPatrolReportResultsCol7 {
+    margin-left: 10px;
+    float: right;
+    margin-top: 7px;
+    width: 44px;
+    margin-right: 10px;
+}
+
+.pdfPatrolReportResultsStatusImageDiv {
+    margin-top: -3px;
+    margin-left: 1px;
+}
+
+.pdfPatrolReportResultsStatusImage {
+    width: 39px;
+    height: 39px;
+}
+
+.pdfPatrolReportResultsStatusProgressbarDiv {
+    margin-top: -3px;
+    margin-left: 0px;
+}
+
+.pdfPatrolReportResultsItemType {
+    font-size: 16px;
+}
+
+.pdfPatrolReportResultsItemType.underline {
+    text-decoration:underline;
+}
+
+.pdfPatrolReportResultsItemTypeInfo {
+    float: left;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.pdfPatrolReportResultsPatrolStatusIcon {
+    position: relative;
+    float: left;
+}
+
+.pdfPatrolReportResultsPatrolStatusText {
+    margin-left: 3px;
+    margin-right: 5px;
+    float: left;
+}
+
+.pdfPatrolReportResultsItemLocation {
+    font-size: 14px;
+}
+
+.pdfPatrolReportResultsItemLocationAddr {
+    float: left;
+    font-size: 12px;
+}
+
+.pdfPatrolReportResultsItemRobotDroneImgDiv {
+    float: left;
+    position: relative;
+}
+
+.pdfPatrolReportResultsItemRobotDroneImg {
+    width: 40px;
+    height: 40px;
+}
+
+.pdfPatrolReportResultsItemRobotDroneImg.border {
+    border: 1px solid #afafaf;
+    border-radius: 50%;
+}
+
+.pdfPatrolReportResultsItemRobotDroneDiv {
+    position: relative;
+    margin-left: 5px;
+    float: left;
+    margin-top: 2px;
+}
+
+.pdfPatrolReportResultsItemRobotDroneTopDiv {
+    float: left;
+    position: relative;
+}
+
+.pdfPatrolReportResultsItemAlarmImgDiv {
+    position: relative;
+    float: left;
+    margin-top: -9px;
+    text-align: center;  
+}
+
+.pdfPatrolReportResultsItemAlarmImg {
+    width: 38px;
+    height: 38px;
+}
+
+.pdfPatrolReportResultsItemAlarmImgText {
+    font-size: 12px;
+}
+
+.pdfPatrolReportResultsItemAlarmCount {
+    position: relative;
+    float: left;
+    font-size: 30px;
+    margin-left: 0px;
+    margin-top: -14px;
+    width: 100%;
+}
+
+.pdfPatrolReportResultsItemAlarmPriority {
+    position: relative;
+    float: left;
+    margin-top: -6px;
+}
+
+.pdfPatrolReportResultsItemAlarmPriorityCircle {
+    width: 10px;
+    height: 10px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+    margin-top: 6px;
+}
+
+.pdfPatrolReportResultsItemAlarmPriorityLabel {
+    float: left;
+    margin-left: 3px;
+    margin-top: -2px;
+    font-size: 18px;
+}
+
+.pdfPatrolReportResultsItemAlarmPriorityLabelPadding {
+    margin-right: 9px;
+}
+
+.pdfPatrolReportResultsItemSubmittedTime {
+    float: left;
+    margin-left: 21px;
+    font-size: 14px;
+}
+
+/******** Map Section ********/
+#pdfPatrolReportMap {
+    width: 30%;
+    float:left;
+    height: 100%;
+}
+
+#pdfPatrolReportMapContainer {
+    height: calc(100% - 60px);
+}

@@ -1,0 +1,61 @@
+﻿<div id="filterLocations" [class.filterLocationsExpanded]="expandedViewState() === 'out'">
+    <div title="Show/Hide Location Selector" class="filterLocationsContent filterPointer" (click)="toggleExpandedView()" [class.override]="filterOverride" [class.filterContentExpanded]="expandedViewState() === 'out'" [class.expanded]="expandedViewState() === 'out'">
+        <div id="filterMarkerImage">
+            <img src='../../Content/Images/Dashboard/side-menu-locations.png' />
+        </div>
+
+        <div id="filterLocationsLabel" class="filterTextSize18" *ngIf="(!mapViewOptions || mapViewOptions.showLeftPanelContent) && tenantLocationHeader !== ''">{{tenantLocationHeader}}</div>
+
+        <div id="filterLocationsLabelSingle" *ngIf="(!mapViewOptions || mapViewOptions.showLeftPanelContent) && tenantLocationHeader === ''">
+            <div>{{tenantLocationHeader_TenantName}}</div>
+            <div id="filterLocationsLabelSingle-LocInfo">{{tenantLocationHeader_LocationInfo.Name}} - {{tenantLocationHeader_LocationInfo.City}}, {{tenantLocationHeader_LocationInfo.State}}</div>
+        </div>
+
+        <div *ngIf="(!mapViewOptions || mapViewOptions.showLeftPanelContent) && !readOnly" id="filterLocationsToggle" class="lpItem_ExpandButton" [class.expanded]="expandedViewState() === 'out'"></div>
+    </div>
+    <div class="expandedFilterLocations" [class.override]="filterOverride" [@slideDown]="expandedViewState()">
+        <div id="expandedFilterLocationsContainer">
+            <div class="expandedFilterLocationsList" *ngFor="let tenant of tenants">
+
+                <div class="expandedFilterLocationListHeader" [class.filterPointer]="multiSelect" (click)="locationSelected(tenant, '')">
+                    <div id="tenant_{{tenant.Id}}" 
+                         [class.selected]="tenant.Selected && multiSelect"
+                         [class.filterCheckBox]="multiSelect" 
+                         [class.filterLargeCB]="multiSelect">
+                    </div>
+                    <div class="expandedFilterLocationListHeaderText">{{tenant.CustomerName}}</div>
+                </div>
+
+                <div *ngFor="let location of tenant.Locations">
+                    <div class="expandedFilterLocationListItem filterPointer" (click)="locationSelected(tenant, location)">
+                        <div id="location_{{location.Id}}" [class.selected]="location.Selected" class="filterCheck filterSmallCB"></div>
+                        <div class="filterLocationListItemCircle filterPriorityBackground-P{{location.Priority}}"></div>
+                        <div class="expandedFilterLocationListItemName">{{location.Name}}</div>
+                        <div class="filterVerticalLine"></div>
+                        <div class="expandedFilterLocationListItemLoc">{{location.City}}, {{location.State}}</div>
+                        <div *ngIf="allowZoomToLocation && location.MapSettings && location.MapSettings.MapCenter" 
+                             class="expandedFilterLocationListItemGoToIcon" 
+                             (click)="zoomToLocation(location)" 
+                             title="Zoom map to this Location">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="filterLocationsButtonRow" *ngIf="showButtons">
+                <div id="filterLocationsButtonsApply" class="filterLocationsButtons filterPointer" (click)="applySelectedLocations()">Apply</div>
+                <div id="filterLocationButtonCancel" class="filterLocationsButtons filterPointer" (click)="cancelSelectedLocations()">Cancel</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="filterCustomerLocationHeader" *ngIf="showFilter && tenantLocationFilters.length > 0">
+    <div class="filterCustLocHeader" *ngFor="let tentLocHeader of tenantLocationFilters">
+        <div class="filterCustLocHeaderDiv">
+            <span class="filterCustLocHeaderText">{{tentLocHeader.SelectedLocation}}</span>
+            <span class="filterCustLocHeaderClear filterPointer" (click)="removeSelectedLocationFilter(tentLocHeader.TenantId)"></span>
+        </div>
+    </div>
+</div>

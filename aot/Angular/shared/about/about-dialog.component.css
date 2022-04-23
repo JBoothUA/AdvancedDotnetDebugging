@@ -1,0 +1,23 @@
+﻿.about-dialog-textbox{
+    position: absolute;
+    font-size: 17px;
+    color: #333;
+    left: 4%;
+    top: 31%;
+    width: 63%;
+    height: 33%;
+    overflow: auto;
+    text-align: justify;
+    padding-right: 10px;
+    white-space: pre-line;
+}
+
+.about-dialog-overflow{
+    overflow: hidden;
+}
+
+.about-dialog-modal-center {
+    top: 50%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

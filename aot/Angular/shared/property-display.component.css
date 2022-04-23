@@ -1,0 +1,17 @@
+﻿.footer-label {
+    float: left; 
+    clear: left; 
+    color: #a1a1a2; 
+    font-size: 14px; 
+    margin-left: 69px; 
+    margin-top: -9px;
+}
+
+.sensor-waiting {
+    opacity: .25;
+}
+
+.icon {
+    width:69px;
+    height:50px;
+}

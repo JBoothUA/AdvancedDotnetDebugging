@@ -1,0 +1,10 @@
+﻿<div style="display:none">
+	<alarm-marker-collection [alarms]="alarms.slice(0)" [alarmService]="alarmService"></alarm-marker-collection>
+	<platform-marker-collection [platforms]="platforms.slice(0)" [mapViewOptions]="mapViewOptions"></platform-marker-collection>
+	<location-marker-collection [locations]="locations" [locationFilterChanged]="locationFilterChanged"></location-marker-collection>
+</div>
+<ng-container *ngIf="showPatrols" >
+	<patrol-path [patrol]=patrolMapService.getActivePatrol() [dirtyToggle]="patrol && patrol.dirtyToggle" [pointCount]="patrolMapService.getActivePatrolPointCount()"  id="patrolPathComponent"></patrol-path>
+</ng-container>
+
+<overlapping-alarms *ngIf="showOverlappingAlarms" #overlappingAlarms [alarmService]="alarmService"></overlapping-alarms>

@@ -1,0 +1,62 @@
+﻿.cmd-item {
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    border-bottom: 1px solid #CBCACA;
+    float:left;
+    width:100%;
+}
+
+.cmd-header {
+    float:left;
+    width:100%;
+    padding:7px;
+}
+
+.cmd-header:hover {
+    background-color:#e3f0f6;
+}
+
+.cmd-name {
+    float:left;
+}
+
+.cmd-item.disabled {
+    opacity:0.4;
+}
+
+.cmd-toggle {
+    float:right;
+    margin-right:5px;
+    margin-top:7px;
+}
+
+.cmd-dialog {
+    width:100%;
+    float:left;
+    padding:10px;
+    float:left;
+}
+
+.cmd-dialog:hover {
+    background-color:white;
+}
+
+.cmd-item.selected {
+    border: 3px solid #4272a9;
+}
+
+.cmd-header.selected {
+    background-color:#C9DEF0;
+}
+
+.btn {
+    float: right; 
+    width: 120px; 
+    margin-top: 10px;
+}
+
+say-play-chooser >>> .selectionType.compact > label {
+    font-size:12px !important;
+    float:left;
+}

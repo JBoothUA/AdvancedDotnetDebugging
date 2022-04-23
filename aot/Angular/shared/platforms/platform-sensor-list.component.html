@@ -1,0 +1,43 @@
+﻿<div *ngIf="isAllSensorsWaiting()" class="all-sensors-waiting">
+    <h4 style="text-align:center;width:100%;">Waiting on sensors</h4>
+    <img height="45" src="../../../Content/Images/loading-spinner-grey.gif" />
+</div>
+
+<div *ngIf="platform.Sensors && platform.Sensors.length > 0 && !isAllSensorsWaiting()">
+    <div *ngFor="let sensor of getSensors(platform.Sensors)" style="position:relative;">
+        <property-display *ngIf="isSimpleSensor(sensor.Type)"
+                          [label]="sensor.DisplayName"
+                          [value]="(sensor.Values) ? getSensorValue(sensor.Values[0]) : undefined"
+                          [image]="getSensorIcon(sensor.Type)"
+                          [uom]="getSensorUom(sensor.Type)"
+                          [footerLabel]="(sensor.Values) ? 'Current Value' : 'Waiting'"
+                          class="item">
+        </property-display>
+
+        <div class="item" *ngIf="sensor.Type === SensorType.FLIR">
+            <div [ngClass]="{'sensor-waiting': !sensor.Values, 'property-label': true}">{{sensor.DisplayName}}</div>
+            <div [ngClass]="{'sensor-waiting': !sensor.Values, 'flir-image-box': true}">
+                <img style="height:100%;width:100%;background-size: contain; background-repeat: no-repeat; background-position: center; background-image:url('../../../Content/Images/loading-spinner-white.gif');" width="auto" height="auto" src="{{getSensorImg(sensor)}}" />
+            </div>
+            <div *ngIf="getSensorValue(sensor.Values[0])" class="flir-box" style="float: left; width: 90px; margin-left: 10px;">
+                <div *ngIf="sensor.Values && sensor.Values[0]" class="flir-value-box">
+                    <span style="font-size:14px;">{{sensor.Values[0].DisplayName}}: </span>
+                    <span style="font-size:14px;">{{getSensorValue(sensor.Values[0])}}&#176;F</span>
+                </div>
+                <div *ngIf="sensor.Values && sensor.Values[1]" class="flir-value-box">
+                    <span style="font-size:14px;">{{sensor.Values[1].DisplayName}}: </span>
+                    <span style="font-size:14px;">{{getSensorValue(sensor.Values[1])}}&#176;F</span>
+                </div>
+            </div>
+            <div *ngIf="!getSensorValue(sensor.Values[0])" style="float: left; width: 90px; margin-left: 10px;">
+                <img style="margin-top: 13px;" height="20" src="../../../Content/Images/loading-spinner-grey.gif" />
+            </div>
+            <div class="flir-footer-label">{{(sensor.Values) ? 'Current Values' : 'Waiting'}}</div>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="!platform.Sensors" class="error-box">
+    <span class="error-msg">Sensor Data Unavailable</span>
+</div>

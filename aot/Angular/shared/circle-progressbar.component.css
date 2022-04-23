@@ -1,0 +1,46 @@
+﻿:host {
+    position:relative;
+    float:left;
+}
+
+.image {
+    position:absolute;
+    transform-origin: center center;
+    transform: translate(-50%,-50%);
+}
+
+.image {
+    
+    background-color:white;
+    border: 2px solid #898989;
+    border-radius:50%;
+    overflow:hidden;
+    top: calc(50%);
+    left: calc(50%);
+}
+
+img {
+    float:left;
+}
+
+svg {
+    top:0;
+    left:0;
+    shape-rendering:geometricPrecision;
+    position:absolute;
+    
+}
+
+svg circle {
+    transform: rotate(-90deg);
+    transform-origin: center center;
+}
+
+img {
+    float:left;
+    position:relative;
+    top:-2px;
+    left:-2px;
+}
+
+

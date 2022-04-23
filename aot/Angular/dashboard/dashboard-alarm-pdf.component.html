@@ -1,0 +1,218 @@
+﻿<div id="pdfAlarmReport" class="dashboardDataReport">
+    
+    <div id="pdfAlarmReportFilterCriteria">
+        <!-- Priority Chart -->
+        <div id="pdfAlarmReportPriority" class="pdfAlarmReportFilterCriteriaDiv">
+            <div id="pdfAlarmReportPriorityText" class="pdfAlarmReportFilterCriteriaText">Alarms By Priority</div>
+
+            <div id="pdfAlarmReportPriorityLeft">
+                <div>
+                    <canvas baseChart #pdfAlarmPriorityChart
+                            [data]="doughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [colors]="doughnutChartColors"
+                            [chartType]="doughnutChartType"
+                            (chartClick)="chartClicked($event)"
+                            [legend]="false"
+                            [options]="doughnutChartOptions"
+                            id="pdfAlarmReportPriorityDonutChart"></canvas>
+                </div>
+                <div class="pdfAlarmReportPriorityDonutChartInnerText" [class.pdfAlarmReportPriorityDonutChartInnerTextLargeCount]="doughnutChartTotal > 999">{{doughnutChartTotal}}</div>
+            </div>
+
+            <div id="pdfAlarmReportPriorityRight">
+                <div id="pdfAlarmReportPriorityDonutLegend">
+                    <ul>
+                        <li class="" *ngFor="let data of doghnutChartLegendData">
+                            <span class="dashboardPointer pdfAlarmReportPriorityDonutLegendItem dashboardPriorityBackground-{{data.Priority}}"
+                                  [class.pdfAlarmReportPriorityLegendItemDisable]="data.Empty"
+                                  [class.dashboardPriorityCircleOpacity]="getDoughnutLegendViewState(data.LegendItemIndex) === 'hide'"></span>
+                            <span class="dashboardPointer dashboardTextSize16"
+                                  [class.dashboardSemiBoldText]="data.Priority === 'P1'"
+                                  [class.pdfAlarmReportPriorityLegendTextDisable]="data.Empty"
+                                  [class.dashboardTextOpacity]="getDoughnutLegendViewState(data.LegendItemIndex) === 'hide'">{{data.Label}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Operators -->
+        <div id="pdfAlarmReportOperators" #pdfAlarmReportOperatorsDiv>
+            <div id="pdfAlarmReportOperatorText" class="pdfAlarmReportFilterCriteriaText">Operators</div>
+            <div id="pdfAlarmReportOperatorImage">
+                <img class="pdfAlarmReportFilterCriteriaImage90" src='../../Content/Images/Dashboard/operator.png' />
+            </div>
+            <div id="pdfAlarmReportOperatorCount" #pdfAlarmReportOperatorCountDiv class="dashboardTextSize70">{{alarmOperatorCount}}</div>
+        </div>
+
+        <div id="pdfAlarmReportFilterCriteriaDivider"></div>
+
+        <!-- Timeframe -->
+        <div id="pdfAlarmReportTimeframe">
+            <div id="pdfAlarmReportTimeframeHeaderText" class="pdfAlarmReportFilterCriteriaText">Timeframe</div>
+            <div id="pdfAlarmReportTimeframeTextDiv">
+                <div id="pdfAlarmReportTimeframeText" class="pdfAlarmReportFilterCriteriaTimeframeText">{{dashboardPDFService.getSelectedTimeframeString(dashboardPDFService.getSelectedTimeframe())}}</div>
+                <div id="pdfAlarmReportTimeText" class="pdfAlarmReportFilterCriteriaTimeframeText">{{getTimeframeRangeString()}}</div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Map -->
+    <div id="pdfAlarmReportMapSection">
+        <div id="pdfAlarmReportMap">
+            <div id="pdfAlarmReportMapContainer"></div>
+            <leaflet-map #map [mapElementId]="'pdfAlarmReportMapContainer'" [heightElementId]="'pdfAlarmReportMap'" [alarms]="alarms.slice(0)"
+                         [alarmService]="dashboardPDFService" [showPatrols]="false"></leaflet-map>
+        </div>
+    </div>
+
+    <!-- ALARM RESULTS DIV  -->
+    <div id="pdfAlarmReportContent">
+
+        <!-- ALarm Results Header -->
+        <div id="pdfAlarmReportHeader">
+            <!--<div *ngIf="headerFilteredCountField !== ''" class="alarmReportHeaderFilterButton dashboardPointer" (click)="showAlarmFilterCriteria()">
+                <img class="alarmReportHeaderFilterButtonImg" src='../../Content/Images/Dashboard/filter-icon.png' />
+                <div class="alarmReportHeaderFilterButtonText">Filtered</div>
+            </div>-->
+            <div class="pdfAlarmReportHeaderLabel dashboardTextSize20"> <!--[class.padding]="headerFilteredCountField !== ''" >-->
+                Showing
+                <span [class.pdfAlarmReportHeaderLabelColor]="headerFilteredCountField !== ''">{{getResultTotalCount()}}</span>
+
+                <span [class.pdfAlarmReportHeaderLabelFilter]="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '">{{headerAllPriorityLocationCountField}}</span><span *ngIf="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '" class="pdfAlarmReportHeaderLabelFilterClear dashboardPointer"></span>
+                
+                <span [class.pdfAlarmReportHeaderLabelActive]="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '">{{headerActiveField}}</span> Alarms
+                <span [class.pdfAlarmReportHeaderLabelFilter]="headerOperatorField !== ''">{{headerOperatorField}}</span><span *ngIf="headerOperatorField !== ''" class="pdfAlarmReportHeaderLabelFilterClear dashboardPointer"></span>
+                <span [class.pdfAlarmReportHeaderLabelFilterPadding]="headerOperatorField !== '' && headerTimeframeField !== ''">{{headerTimeframeField}}</span>
+                <span [class.pdfAlarmReportHeaderLabelFilter]="headerLocationField !== ''" [class.padding]="headerOperatorField !== '' && headerTimeframeField === ''"> {{headerLocationField}}</span><span *ngIf="headerLocationField !== ''" class="pdfAlarmReportHeaderLabelFilterClear dashboardPointer"></span>
+            </div>
+
+        </div>
+
+        <!-- Alarm Results -->
+        <div id="pdfAlarmReportResults" #pdfAlarmReportResultsDiv>
+
+            <div id="pdfAlarmReportResultsContent" #pdfAlarmReportResultsContentDiv>
+
+                <div id="pdfAlarmReportResultsSortBar">
+                    <div id="pdfAlarmReportResultsSortPriority" class="pdfAlarmReportResultsHeader1 pdfAlarmReportResultsSortField">Priority</div>
+                    <div id="pdfAlarmReportResultsSortType" class="pdfAlarmReportResultsHeader2 pdfAlarmReportResultsSortField pdfAlarmReportResultsHeaderBorder">Description</div>
+                    <div id="pdfAlarmReportResultsSortLocation" class="pdfAlarmReportResultsHeader3 pdfAlarmReportResultsSortField pdfAlarmReportResultsHeaderBorder">Location</div>
+                    <div id="pdfAlarmReportResultsSortState" class="pdfAlarmReportResultsHeader4 pdfAlarmReportResultsSortField pdfAlarmReportResultsHeaderBorder">State</div>
+                    <div id="pdfAlarmReportResultsSortDuration" class="pdfAlarmReportResultsHeader5 pdfAlarmReportResultsSortField pdfAlarmReportResultsHeaderBorder">Operator</div>
+                    <div id="pdfAlarmReportResultsSortOperator" class="pdfAlarmReportResultsHeader6 pdfAlarmReportResultsSortField pdfAlarmReportResultsHeaderBorder">Reported Time</div>
+                </div>
+
+                <div id="pdfAlarmReportQueryResults" #pdfAlarmReportResultsContainer>
+
+                    <div #pdfAlarmReportResults id="pdfAlarm_result_item_{{alarm.Id}}" class="pdfAlarmReportResultsContainer dashboardPointer" *ngFor="let alarm of alarms ">
+                        
+                        <div class="pdfAlarmReportResultsItem dashboardBottomBorder" [class.pdfAlarmReportResultsItemExpanded]="expandedResultsViewState(alarm.Id) === 'out'">
+                            <!-- Priority -->
+                            <div class="pdfAlarmReportResultsItemPriority pdfAlarmReportResultsCol1 pdfAlarmReportResultsItemField">
+                                <div><img class="pdfAlarmReportResultsPriorityImage" src='{{'../../Content/Images/Alarms/priority-' + alarm.Priority + '-alarm.png'}}' /></div>
+                                <div>P{{alarm.Priority}}</div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="pdfAlarmReportResultsCol2">
+
+                                <div *ngIf="dashboardPDFService.getSelectedTimeframe() === filterTimeframe.Current && (alarm.State === 1 )" class="pdfAlarmReportResultsItemType bold underline dashboardTextOverEllipsis">{{alarm.Description}}</div>
+                                <div *ngIf="dashboardPDFService.getSelectedTimeframe() === filterTimeframe.Current && (alarm.State !== 1 )" class="pdfAlarmReportResultsItemType underline dashboardTextOverEllipsis">{{alarm.Description}}</div>
+                                <div *ngIf="dashboardPDFService.getSelectedTimeframe() !== filterTimeframe.Current && (alarm.State === 1 )" class="pdfAlarmReportResultsItemType bold dashboardTextOverEllipsis">{{alarm.Description}}</div>
+                                <div *ngIf="dashboardPDFService.getSelectedTimeframe() !== filterTimeframe.Current && (alarm.State !== 1 )" class="pdfAlarmReportResultsItemType dashboardTextOverEllipsis">{{alarm.Description}}</div>
+
+                                <div class="pdfAlarmReportResultsItemTypeInfo">
+                                    <div class="dashboardPlatformStatus {{getPlatformStatus(alarm.PlatformId)}}"></div>
+                                    <div class="pdfAlarmReportResultsPlatformName">{{getPlatformName(alarm.PlatformId)}}</div>
+
+                                    <div class="dashboardFloatLeft" *ngIf="getAttachmentCount(alarm) > 0">
+                                        <div class="dashboardVerticalLine"></div>
+
+                                        <div class="pdfAlarmReportResultsAttachement">
+                                            <img class="pdfAlarmReportResultsAttachImage" src='../../Content/Images/Dashboard/attachment-paper-clip.png' />
+                                        </div>
+
+                                        <div class="pdfAlarmReportResultsAttachNumber">{{getAttachmentCount(alarm)}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="pdfAlarmReportResultsCol3" *ngFor="let tenantObj of getTenantLocationObj(alarm.TenantId, alarm.LocationId)">
+                                <!--<div class="pdfAlarmReportResultsItemLocation">{{getTenantLocationName(alarm.TenantId, alarm.LocationId)}}</div>
+                                <div class="dashboardFloatLeft dashboardTextSize12">
+                                    <div class="dashboardFloatLeft">{{getTenantName(alarm.TenantId)}}</div>
+                                    <div class="dashboardFloatLeft">&nbsp;- {{getTenantLocationAddr(alarm.TenantId, alarm.LocationId)}}</div>
+                                </div>-->
+                                <div class="pdfAlarmReportResultsItemLocation">{{tenantObj.LocationName}}</div>
+                                <div class="dashboardFloatLeft dashboardTextSize12">
+                                    <div class="dashboardFloatLeft">{{tenantObj.Name}}</div>
+                                    <div class="dashboardFloatLeft">&nbsp;- {{tenantObj.LocationCity}}, {{tenantObj.LocationState}}</div>
+                                </div>
+                            </div>
+
+                            <!-- State -->
+                            <div class="pdfAlarmReportResultsCol4">
+                                <div class="pdfAlarmReportResultsItemState">
+                                    <div class="pdfAlarmReportResultsItemStateImage">
+                                        <img class="pdfAlarmReportResultsItemStateImage" [hidden]="alarm.State !== 1" alt="Reported" src="/Content/Images/Alarms/reported-icon.png" />
+                                        <img class="pdfAlarmReportResultsItemStateImage" [hidden]="alarm.State !== 2" alt="Acknowledged" src="/Content/Images/Alarms/acknowledge-icon.png" />
+                                        <img class="pdfAlarmReportResultsItemStateImage" [hidden]="alarm.State !== 3" alt="Cleared" src='/Content/Images/Patrols/last-patrol-successful.png' />
+                                        <img class="pdfAlarmReportResultsItemStateImage" [hidden]="alarm.State !== 4" alt="Dismissed" src='/Content/Images/Patrols/last-patrol-successful.png' />
+                                    </div>
+                                    <div class="pdfAlarmReportResultsItemStateStatus" [hidden]="alarm.State !== 1">Reported</div>
+                                    <div class="pdfAlarmReportResultsItemStateStatus" [hidden]="alarm.State !== 2">Acknowledged</div>
+                                    <div class="pdfAlarmReportResultsItemStateStatus" [hidden]="alarm.State !== 3">Cleared</div>
+                                    <div class="pdfAlarmReportResultsItemStateStatus" [hidden]="alarm.State !== 4">Dismissed</div>
+                                </div>
+                                <div class="dashboardFloatLeft dashboardTextSize12">
+                                    <div class="pdfAlarmReportResultsItemStateTime1">{{getDateDisplay(alarm)}}</div>
+                                </div>
+                            </div>
+
+                            <!-- Operator -->
+                            <div class="pdfAlarmReportResultsCol5" [class.dashboardItemHidden]="alarm.UserId === null">
+                                <div class="pdfAlarmReportResultsItemAvatar">
+                                    <div class="pdfAlarmReportResultsItemAvatarText">{{getUserInitials(alarm.UserId)}}</div>
+                                </div>
+                                <div class="pdfAlarmReportResultsItemOperator dashboardTextOverEllipsis">{{alarm.UserId}}</div>
+                            </div>
+
+                            <!-- Duration -->
+                            <!--<div class="pdfAlarmReportResultsCol6">
+                                <div class="pdfAlarmReportResultsItemDuration1" [innerHTML]="getAlarmTime(alarm)"></div>
+                            </div>-->
+
+                            <!-- Reported Time -->
+                            <div class="pdfAlarmReportResultsCol6">
+                                <div class="pdfAlarmReportResultsItemReportedTime" [innerHTML]="getAlarmReportedTime(alarm.ReportedTime)"></div>
+                            </div>
+
+                            <!-- Expansion Icon -->
+                            <!--<div id="pdfAlarmReportResultsItemToggle" class="pdfAlarmReportResultsCol7" *ngIf="false">
+                                <div class="lpItem_ExpandButton" [class.expanded]="expandedResultsViewState(alarm.ID) === 'out'"></div>
+                            </div>-->
+                        </div>
+
+                        <!-- Details TODO -->
+                        <div class="expandedAlarmReportResultsItem dashboardDefault" [@toggle]="expandedResultsViewState(alarm.ID)">
+                        </div>
+                    </div>
+
+                    <div class="pdfAlarmReportResultsContainer" *ngIf="alarms.length === 0">
+                        No Results Found
+                    </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,46 @@
+﻿<div *ngIf="large" class="container orientRobot-large">
+	<div class="row">
+		<div class="col-5" [id]="ocId">
+			<div style="color:#888">Drag to Orient Robot</div>
+			<div [ngStyle]="getOrientationStyleValue()" class="orientRobot-chooserContainer" style="margin:15px 0">
+				<img class="orientRobot-directionConeIcon" src="../../Content/Images/directional-cone.png" />
+				<img class="orientRobot-headingIcon" src="../../Content/Images/robot-heading.png" />
+				<img class="orientRobot-directionGrabberIcon"  title="Click and drag to define orientation" src="../../Content/Images/white-button-selected.png" />
+			</div>
+			<div class="orientRobot-valueLabel">Orientation</div>
+			<span class="orientRobot-valueInput">
+				<input type="text" class="form-control" [value]="orientationValue" [placeholder]="valuePrompt" (blur)="setOrientationValue($event)" />
+			</span>
+		</div>
+		<div class="col-7 no-padding orientRobot-map">
+			<orient-robot-map [dataItems]="orientItems" [orientationValue]="orientationValue" [zoom]="initialMapZoom"></orient-robot-map>
+		</div>
+	</div>
+</div>
+<div *ngIf="!large">
+	<div class="orientRobot-smallLeft">
+		<div style="color:#888888;padding-top:5px;padding-bottom:15px">Drag to Orient Robot</div>
+		<div>
+			<div [id]="ocId" class="orientRobot-smallOrientationChooser">
+				<div [ngStyle]="getOrientationStyleValue()" class="orientRobot-smallChooserContainer">
+					<img class="orientRobot-directionConeIcon" src="../../Content/Images/directional-cone.png" />
+					<img class="orientRobot-headingIcon" src="../../Content/Images/robot-heading.png" />
+					<img class="orientRobot-directionGrabberIcon" title="Click and drag to define orientation" src="../../Content/Images/white-button-selected.png" />
+				</div>
+			</div>
+			<div class="orientRobot-smallValueField">
+				<div class="orientRobot-smallValueLabel">Orientation</div>
+				<span class="orientRobot-smallValueInput">
+					<input type="text" class="form-control" [value]="orientationValue" [placeholder]="valuePrompt" (blur)="setOrientationValue($event)" />
+				</span>
+			</div>
+
+		</div>
+	</div>
+	<div class="orientRobot-smallRight">
+		<div class="orientRobot-smallMap">
+			<orient-robot-map [dataItems]="orientItems" [orientationValue]="orientationValue" [zoom]="initialMapZoom"></orient-robot-map>
+		</div>
+	</div>
+
+</div>

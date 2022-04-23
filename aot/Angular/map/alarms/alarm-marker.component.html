@@ -1,0 +1,30 @@
+﻿<div class="sc-marker" [class.selected]="alarm.Selected" [class.hover]="Hover" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+    <div (click)="select($event)" (dblclick)="zoomTo()" (contextmenu)="openRadial($event)">
+        <img *ngIf="alarm.Selected" class="sc-marker-selection" src="/Content/images/main-selection-cross-hairs.png" />
+        
+        <img title="{{alarm.Description}}" class="sc-marker-icon" [class.selected]="alarm.Selected" src="/Content/Images/Alarms/priority-{{alarm.Priority === 0 ? 1 : alarm.Priority}}-alarm.png"/>
+        <img *ngIf="getIcon()" class="alarm-marker-mini-icon alarm-marker-acknowledged" [class.selected]="alarm.Selected" src="{{getIcon()}}" />
+        <img *ngIf="hasAttachments()" class="alarm-marker-mini-icon alarm-marker-attachments" [class.selected]="alarm.Selected" src="/Content/images/attachment-icon.png" />
+        <div *ngIf="multipleOccurances()" [class.selected]="alarm.Selected" class="alarm-marker-mini-icon alarm-marker-occurance">
+            2
+        </div>
+    </div>
+    <div *ngIf="alarm.Selected" class="sc-marker-label">
+        <div class="left-side">
+            <div class="description" [class.bold]="alarm.State === 1" title="{{alarm.Description}}">{{alarm.getDescription()}}</div>
+            <div>
+                <div class="platformStatus {{getPlatformStatusClass()}} float-left" style="margin: 2px 2px 0 2px"></div>
+                <span class="platform-name" [class.bold]="alarm.State === 1">
+                    {{getPlatformDisplayName()}}
+                </span>
+            </div>
+        </div>
+        <div title="Alarm Actions" class="action-button">
+            <img class="action-button-icon" src="/Content/images/Alarms/action-button-alarm-popout.png" (click)="toggleActionMenu()" />
+            <div class="dropdown-menu dropdown-menu-right" [style.display]="actionMenuOpen ? 'block' : 'none'" (mouseover)="openActionMenu()">
+                <alarm-action-menu [alarm]="alarm" [callback]="closeActionMenu"></alarm-action-menu>
+            </div>
+        </div>
+    </div>
+</div>
+<alarm-radial-menu [alarm]="alarm" [acknowledged]="alarm.Acknowledged"></alarm-radial-menu>

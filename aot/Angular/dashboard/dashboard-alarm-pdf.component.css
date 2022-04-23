@@ -1,0 +1,725 @@
+﻿#pdfAlarmReport {
+    color: #5b5b5c;
+    /*height: calc(100vh - 50px - 193px - 18px);*/
+    height: calc(100vh - 18px);
+    position: relative;
+    /*min-width: 1103px;*/
+    
+}
+
+/******** Criteria Section ********/
+#pdfAlarmReportFilterCriteria {
+    border-bottom: 1px solid #9d9d9d;
+    height: 160px;
+    min-height: 160px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding-left: 22px;
+}
+
+.pdfAlarmReportFilterCriteriaText {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 23px;
+}
+
+.pdfAlarmReportFilterCriteriaDiv {
+    min-width: 250px;
+}
+
+.pdfAlarmReportFilterCriteriaImage90 {
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+#pdfAlarmReportTimeframe {
+    margin-left: 15px;
+}
+
+.pdfAlarmReportFilterCriteriaTimeframeText {
+    color: #8a8c8f;
+    font-size: 20px;
+}
+
+#pdfAlarmReportTimeframeTextDiv {
+    margin-top: -12px;
+}
+
+#pdfAlarmReportTimeframeText {
+    padding-bottom: 1px;
+}
+
+#pdfAlarmReportFilterCriteriaDivider {
+  border-left: 1px solid #cccbcb;
+  float: left;
+  height: 85%;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/******** Priority Section ********/
+
+#pdfAlarmReportPriority {
+    display: inline-block;
+    width: 20%;
+    min-width: 250px;
+}
+
+#pdfAlarmReportPriorityText {
+
+}
+
+#pdfAlarmReportPriorityLeft {
+    float: left;
+}
+
+#pdfAlarmReportPriorityRight {
+    float:left;
+    /*display:grid;
+    grid-row-gap: 5px;*/
+    margin-left: 10px;
+}
+
+.pdfAlarmReportPriorityCircle {
+    width: 12px;
+    height: 12px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+}
+
+.pdfAlarmReportPriorityLabel {
+    margin-right: 5px;
+    float: left;
+    margin-left: 5px;
+    margin-top: -5px;
+}
+
+#pdfAlarmReportPriorityDonutChart {
+    width: 88px !important;
+    height: 88px !important;
+}
+
+.pdfAlarmReportPriorityDonutChartInnerText {
+    margin-top: -70px;
+    position: absolute;
+    /*margin-left: 25px;*/
+    font-size: 35px;
+    color: #929292;
+    width:88px;
+    text-align: center;
+}
+
+.pdfAlarmReportPriorityDonutChartInnerTextLargeCount {
+    margin-top: -62px;
+    font-size: 25px;
+}
+
+#pdfAlarmReportPriorityDonutLegend {
+
+}
+
+#pdfAlarmReportPriorityDonutLegend ul {
+    list-style: none; 
+    margin:0px;
+    padding:0px;
+}
+
+.pdfAlarmReportPriorityDonutLegendItem {
+    display:inline-block;
+    width:13px; 
+    height:13px; 
+    margin-right:5px; 
+    border-radius:10px
+}
+
+.pdfAlarmReportPriorityLegendItemDisable {
+    opacity: 0.2;
+    cursor: default !important;
+}
+
+.pdfAlarmReportPriorityLegendTextDisable {
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+
+
+/******** Operators Section ********/
+#pdfAlarmReportOperators {
+    display: inline-block;
+    width: 15%;
+    margin-left: 2%;
+    min-width: 180px;
+}
+
+#pdfAlarmReportOperatorText {
+}
+
+#pdfAlarmReportOperatorImage {
+    /*width: 68px;
+    height: 76px;*/
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: 12px;
+}
+
+#pdfAlarmReportOperatorCount {
+    float: left;
+    /*margin-top: -34px;*/
+    margin-right: 3px;
+
+}
+
+.pdfAlarmReportOperator {
+    float: left;
+    margin-top: 42px; /*45*/
+    margin-right: 2px;
+}
+
+.pdfAlarmReportOperatorAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    /*border: 2px solid green;*/
+    background-color: rgb(170, 170, 170);
+}
+
+.pdfAlarmReportOperatorMoreAvatar {
+    border: none;
+    background-color: rgb(66, 114, 171);   
+    margin-left: -10px;
+}
+
+.pdfAlarmReportOperatorAvatarText {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pdfAlarmReportOperatorMoreExpanded {
+    width: 150px;
+    margin-left: -120px;
+    position: absolute;
+    /*height: 100%;*/
+    margin-top: 10px;
+    border: 1px solid rgba(0,0,0,.15);
+}
+
+.pdfAlarmReportOperatorMoreExpanded_Arrow {
+    display: block;
+    position: absolute;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    height: 13px;
+    width: 12px;
+    top: -9px;
+    left: 126px;
+    border-right: 3px solid white;
+    z-index: 1040;
+    background-color: white;
+}
+
+.pdfAlarmReportOperatorMoreContainer {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 110px;
+}
+
+.pdfAlarmReportOperatorMore {
+    /*border: 1px solid rgba(0,0,0,.15);*/
+    background-color: white;
+    border-radius: .25rem;
+    height: 52px;
+    position: relative;
+    padding: 5px;
+}
+
+.pdfAlarmReportOperatorMoreAvatarText {
+    font-size: 12px;
+    /*position: relative;*/
+    float:left;
+    color: #5b5b5c;
+    position: relative;
+    top: 11px;
+    left: 5px;
+}
+
+.pdfAlarmReportOperatorNotSelected {
+    opacity: 0.5;
+}
+
+/******** Locations of Interest Section ********/
+#pdfAlarmReportLocationOfInt {
+    display: inline-block;
+    width: 30%;
+    margin-left: 2%;
+    min-width: 450px;
+}
+
+#pdfAlarmReportLocationOfIntImage {
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: 12px;
+}
+
+#pdfAlarmReportLocationOfIntCount {
+    float: left;
+    /*margin-top: 3px;*/
+}
+
+/******** Export Button Section ********/
+#pdfAlarmReportExport{
+    /*float: right;*/
+    margin-right: 16px;
+    margin-top: 16px;
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+#pdfAlarmReportExportButton {
+    width: 137px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: #4272b4;
+}
+
+#pdfAlarmReportExportText {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#pdfAlarmReportExportIcon {
+    float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -27px;
+}
+
+/********************************************************************************/
+/******** Alarm Report Content Section ********/
+#pdfAlarmReportContent {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+
+/********************************************************************************/
+/******** Header Section ********/
+#pdfAlarmReportHeader {
+    border-bottom: 1px solid #cccbcb;
+    height: 62px;
+    border-top: 1px solid #cccbcb;
+}
+
+.pdfAlarmReportHeaderLabel{
+    float:left;
+    margin-top: 17px;
+    margin-left: 20px;
+    color:#474747;
+}
+
+.pdfAlarmReportHeaderLabelColor{
+    color: #4272AC;
+}
+
+.pdfAlarmReportHeaderLabelFilter{
+    border-bottom: 2px solid darkgray;
+    /*font-weight: bold;*/
+    color: #4272AC;
+}
+
+.pdfAlarmReportHeaderLabelFilterPadding{
+    /*margin-left: 14px;*/
+}
+
+.pdfAlarmReportHeaderLabelFilter.padding{
+    margin-left: 14px;
+}
+
+.pdfAlarmReportHeaderLabelFilterClear {
+    background-image: url('../../Content/Images/Dashboard/delete-filter-result.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 6px;
+    margin-left: -1px;
+    position:absolute;
+}
+
+.pdfAlarmReportHeaderLabelActive {
+    position: relative;
+    margin-left: 14px;
+}
+
+#pdfAlarmReportHeaderSearchBox{
+    float: right;
+    margin-right: 9px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+
+/********************************************************************************/
+/******** Query Results Section ********/
+#pdfAlarmReportResults{
+    height: calc(100vh - 485px);
+    /*transform: scale(.9);*/
+}
+
+/******** Results Section ********/
+#pdfAlarmReportResultsContent {
+    width: 100%;
+    float:left;
+    height: 100%;
+    border-right: 1px solid #cccbcb;
+}
+
+#pdfAlarmReportResultsSortBar {
+    border-bottom: 1px solid #cccbcb;
+    height: 43px;
+    background-color: #f4f4f4;
+    padding-top: 13px;
+}
+
+.pdfAlarmReportResultsSortField {
+    float:left;
+    font-size: 13px;
+    color: #474747;
+}
+
+.pdfAlarmReportResultsHeader1 {
+    margin-left: 20px;
+    width: 70px;
+}
+
+.pdfAlarmReportResultsHeader2 {
+    margin-left: 5px;
+    padding-left: 3px;
+}
+
+.pdfAlarmReportResultsHeader3 {
+    margin-left: 110px;
+    padding-left: 3px;
+}
+
+.pdfAlarmReportResultsHeader4 {
+    margin-left: 165px;
+    padding-left: 3px;
+}
+
+.pdfAlarmReportResultsHeader5 {
+    margin-left: 124px;
+    padding-left: 3px;
+}
+
+.pdfAlarmReportResultsHeader6 {
+    margin-left: 124px;
+    padding-left: 3px;
+}
+
+.pdfAlarmReportResultsHeaderBorder {
+     border-left: 1px solid #8a8c8f;
+}
+
+.pdfAlarmReportResultsCol1 {
+    margin-left: 20px;
+    width: 31px;
+    text-align: center;
+    font-size: 12px;
+    float:left;
+}
+
+.pdfAlarmReportResultsCol2 {
+    margin-left: 8px;
+    width: 200px;
+    float:left;
+    
+}
+
+.pdfAlarmReportResultsCol3 {
+    margin-left: 15px;
+    float:left;
+    width: 200px;
+    margin-top: 7px;
+}
+
+.pdfAlarmReportResultsCol4 {
+    margin-left: 15px;
+    float:left;
+    width: 140px;
+    margin-top: 7px;
+}
+
+.pdfAlarmReportResultsCol5 {
+    margin-left: 15px;
+    float:left;
+    margin-top: 12px;
+    width:150px;
+}
+
+.pdfAlarmReportResultsCol6 {
+    margin-left: 15px;
+    float:left;
+    margin-top: 12px;
+    width: 80px;
+}
+
+.pdfAlarmReportResultsCol7 {
+    margin-left: 15px;
+    float: right;
+    margin-top: 7px;
+    width: 44px;
+    margin-right: 10px;
+}
+
+.pdfAlarmReportResultsItem {
+    height: 70px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #5b5b5b;
+}
+
+#pdfAlarmReportQueryResults {
+    height: calc(100% - 43px - 60px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.pdfAlarmReportResultsContainer {
+    page-break-inside:avoid;
+}
+
+.pdfAlarmReportResultsContainer:hover {
+    background: #e3f0f6;
+}
+
+.pdfAlarmReportResultsContainer.selected {
+    background: #C9DEF0;
+}
+
+.pdfAlarmReportResultsPriorityImage {
+    width: 31px;
+    height: 31px;
+}
+
+.pdfAlarmReportResultsItemType {
+    font-size: 16px;
+}
+
+.pdfAlarmReportResultsItemType.underline {
+    text-decoration:underline;
+}
+
+.pdfAlarmReportResultsItemType.bold {
+    font-weight: bold;
+}
+
+.pdfAlarmReportResultsItemTypeInfo {
+    float: left;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.pdfAlarmReportResultsPlatformName {
+    margin-left: 3px;
+    margin-right: 5px;
+    float: left;
+}
+
+.pdfAlarmReportResultsAttachement {
+    margin-left: 5px;
+    float: left;
+}
+
+.pdfAlarmReportResultsAttachNumber{
+    margin-left: 5px;
+    float: left;
+}
+
+.pdfAlarmReportResultsItemLocation {
+    font-size: 14px;
+}
+
+.pdfAlarmReportResultsItemState {
+    font-size: 14px;
+    float:left;
+}
+
+.pdfAlarmReportResultsItemStateImage {
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+.pdfAlarmReportResultsItemStateStatus {
+    float:left;
+    margin-left: 3px;
+}
+
+.pdfAlarmReportResultsItemStateTime1 {
+    float: left;
+    margin-left: 21px;
+}
+
+.pdfAlarmReportResultsItemDuration1 {
+    float: left;
+    margin-left: 21px;
+    font-size: 18px;
+}
+
+.pdfAlarmReportResultsItemDuration2 {
+    float: left;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 3px;
+}
+
+.pdfAlarmReportResultsItemReportedTime {
+    float: left;
+    margin-left: 21px;
+    font-size: 14px;
+}
+
+.pdfAlarmReportResultsItemAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: rgb(170, 170, 170);
+    float: left;
+}
+
+.pdfAlarmReportResultsItemAvatar-Available {
+    border: 2px solid green;
+}
+
+.pdfAlarmReportResultsItemAvatarText {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pdfAlarmReportResultsItemOperator {
+    /*float: left;*/
+    /*margin-left: 5px;*/
+    margin-top: 5px;
+    position: relative;
+    left: 5px;
+}
+
+
+#pdfAlarmReportResultsAlarmPanel{
+    height: 60px;
+    width: 70%;
+    border-top: 1px solid #cccbcb;
+    bottom: 0;
+    position: absolute;
+    background: #f4f4f4;
+}
+
+.pdfAlarmReportResultsAlarmPanelButton {
+    width: 144px;
+    font-size: 17px;
+    padding-left: 26px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    float: right;
+    margin-right: 13px;
+    margin-top: 13px;
+    border: 1px solid #939598;
+    font-weight: 500;
+    color: #231f20;
+    text-decoration: none;
+    /*background: #fff;*/
+    background-color: #dddddd;
+}
+
+.pdfAlarmReportResultsAlarmPanelButton:hover {
+    background-color: #e7e7e7;
+}
+
+.pdfAlarmReportResultsAlarmPanelButton.disable {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
+.pdfAlarmReportResultsItemExpanded {
+    background-color: #C0D5E7;
+}
+
+.expandedAlarmReportResultsItem {
+
+}
+
+/******** Map Section ********/
+#pdfAlarmReportMapSection {
+    overflow: hidden;
+}
+
+#pdfAlarmReportMap {
+    width: 100%;
+    float: left;
+    height: 500px;
+    position: relative;
+    page-break-inside:avoid;
+}
+
+#pdfAlarmReportMapContainer {
+    width: 100%;
+    float: left;
+    height: 500px;
+    position: relative;
+    page-break-inside:avoid;
+}
+
+/******** Media Queries Section ********/
+@media screen and (min-width: 688px) {
+    .pdfAlarmReportResultsOperatorHidden {
+        display: none;
+    }
+
+    .pdfAlarmReportResultsDurationHidden {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 853px) {
+    .pdfAlarmReportResultsOperatorHidden {
+        display: block;
+    }
+
+    .pdfAlarmReportResultsDurationHidden {
+        display: none;
+    }
+}

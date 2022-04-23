@@ -1,0 +1,128 @@
+﻿<div class="pbStepContent">
+	<div class="pbStep-header pointer" (click)="toggleExpandedGroup()">
+		<span class="pbStep-header-toggle group-header_Toggle">
+			<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+		</span>
+		<span class="pbStep-title" >
+			<span class="pbStep-titleStep">(Step 1) </span>
+			<span class="pbStep-titleName ellipsis" [style.color]="expandedState==='out' ? '#000000':'#4272b4'">{{getStepTitle()}}</span>
+		</span>
+	</div>
+	<div class="lpGroupList lpItemGroupList" [@slideDown]="expandedState">
+        <div [class.step1Scroll]="!step1Completed" [class.step2Scroll]="step1Completed">
+		    <div class="pbStep-item">
+			    <div class="pbStep-patrolLocation"><span style="color:red">* </span><span>Choose Patrol Location</span></div>
+			    <div class="pbStep-patrolLocationComp">
+				    <location-filter [scView]="'pbview'" [multiSelect]="false" [showFilter]="false" [filterOverride]="false" [defaultSelection]="false" [showButtons]="false" [readOnly]="isReadOnly"></location-filter>
+
+			    </div>
+		    </div>
+		    <div class="pbStep-item">
+			    <div class="pbStep-patrolName"><span style="color:red">* </span><span>Choose Patrol Name</span></div>
+			    <div>
+				    <input id="patrolName" type="text" class="form-control pbStep-PatrolNameText" placeholder="Enter patrol name" value="{{patrol.DisplayName}}" [(ngModel)]="patrol.DisplayName" />
+			    </div>
+		    </div>
+		    <div class="pbStep-item">
+			    <div class="pbStep-patrolType"><span style="color:red">* </span><span>Choose Patrol Type</span></div>
+			    <div class="radio pbStep-patrolTypeOptions">
+				    <div class="pbStep-option">
+					    <label class="pbStep-optionRadio">
+						    <input name="patrolType" type="radio" [(ngModel)]="patrol.Type" [value]="PatrolType.Ground" [checked]="patrol.Type==PatrolType.Ground" />
+						    <span><!--Placeholder--></span>
+						    <span class="pbStep-optionImage">
+							    <img style="margin-left: 3px;" src="../../Content/Images/Patrols/generic-robot.png" />
+						    </span>
+						    <span class="pbStep-optionText">
+							    <span>Robot</span>
+						    </span>
+					    </label>
+				    </div>
+				    <div class="pbStep-option">
+					    <label class="pbStep-optionRadio">
+						    <input name="patrolType" type="radio" [(ngModel)]="patrol.Type" [value]="PatrolType.Air" (checked)="patrol.Type==PatrolType.Air" />
+						    <span><!--Placeholder--></span>
+						    <span class="pbStep-optionImage">
+							    <img style="margin-left: 3px;" src="../../Content/Images/Patrols/drone.png" />
+						    </span>
+						    <span class="pbStep-optionText">
+							    <span>Drone</span>
+						    </span>
+					    </label>
+				    </div>
+			    </div>
+		    </div>
+		    <div class="pbStep-item">
+			    <div class="pbStep-patrolArea"><span style="color:red">* </span><span>Choose Patrol Area</span></div>
+			    <div class="pbStep-patrolAreaOptions">
+				    <div class="pbStep-option">
+					    <label class="pbStep-optionRadio">
+						    <input name="areaType" type="radio" [(ngModel)]="patrol.AreaType" [value]="AreaType.Perimeter" [checked]="patrol.AreaType==AreaType.Perimeter" />
+						    <span><!--Placeholder--></span>
+						    <span class="pbStep-optionImage">
+							    <img style="margin-left: 3px;" src="../../Content/Images/Patrols/perimeter-icon.png" />
+						    </span>
+						    <span class="pbStep-optionText">
+							    <span>Perimeter</span>
+						    </span>
+					    </label>
+				    </div>
+				    <div class="pbStep-option">
+					    <label class="pbStep-optionRadio">
+						    <input name="areaType" type="radio" [(ngModel)]="patrol.AreaType" [value]="AreaType.Large" [checked]="patrol.AreaType==AreaType.Large" />
+						    <span><!--Placeholder--></span>
+						    <span class="pbStep-optionImage">
+							    <img style="margin-left: 3px;" src="../../Content/Images/Patrols/large-area-icon.png" />
+						    </span>
+						    <span class="pbStep-optionText">
+							    <span>Large Area</span>
+						    </span>
+					    </label>
+				    </div>
+				    <div class="pbStep-option">
+					    <label class="pbStep-optionRadio">
+						    <input name="areaType" type="radio" [(ngModel)]="patrol.AreaType" [value]="AreaType.Small" [checked]="patrol.AreaType==AreaType.Small" />
+						    <span><!--Placeholder--></span>
+						    <span class="pbStep-optionImage">
+							    <img style="margin-left: 3px;" src="../../Content/Images/Patrols/small-area-icon.png" />
+						    </span>
+						    <span class="pbStep-optionText">
+							    <span>Small Area</span>
+						    </span>
+					    </label>
+				    </div>
+			    </div>
+		    </div>
+		    <div class="pbStep-item" style="display:none;">
+			    <div class="pbStep-patrolNotes"><span>Patrol Notes</span></div>
+			    <div>
+				    <input type="text" class="form-control" placeholder="Enter patrol notes" [(ngModel)]=patrol.Description />
+			    </div>
+		    </div>
+		    <div style="margin-top:10px; border-bottom:1px solid #c2c2c2;margin-top: 10px; border-bottom: 1px solid #c2c2c2; margin-left: 10px; width: calc(100% - 20px);"></div>
+		    <div class="pbStep-item">
+			    <div class="pbStep-mapOptions"><span>Map Options</span></div>
+			    <div class="pbStep-mapOptionsToggle">
+				    <span class="pbStep-mapOptionsToggleLabel">Show Robots and Active Alarms</span>
+				    <span class="pbStep-mapOptionsToggleComp">
+					    <toggle-button (change)="showRobotsAlarmsChanged($event)" [checked]="showRobotsAlarms"></toggle-button>
+				    </span>
+			    </div>
+		    </div>
+            <div class="pbStep-item" *ngIf="!step1Completed">
+                <div (click)="step1Completed=true;gotoStep2()"
+                     class="pb-nextStepBtn" [class.disabled]="disableNext()">
+                    <div class="pb-nextStepBtn-icon"></div>
+                    <div class="pb-nextStepBtn-text">Next Step</div>
+                </div>
+            </div>
+        </div>
+		<div class="pbStep-item pbNextBtnPanel" *ngIf="step1Completed === false">
+			<div class="pbStep-cancelNext" >
+				<button type="button" class="btn btn-default pbStepBtn" (click)="cancelBuilder()">Cancel</button>
+                <button type="button" class="btn btn-primary pbStepBtn" [disabled]="true">Save</button>
+				<!--<button type="button" class="btn btn-primary pbStepBtn" (click)="step1Completed=true;gotoStep2()" [disabled]="disableNext()">Next</button>-->
+			</div>
+		</div>
+	</div>
+ </div>

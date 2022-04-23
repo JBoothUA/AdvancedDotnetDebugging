@@ -1,0 +1,69 @@
+﻿:host >>> .value{
+    font-size:25px;
+    color:#58585a;
+}
+
+:host >>> .uom {
+    font-size: 19px !important;
+    color:#58585a !important;
+}
+
+:host >>> .property-label {
+    font-size:13px !important;
+    height: 18px !important;
+}
+
+.sensor-waiting {
+    opacity: .25;
+}
+
+.all-sensors-waiting {
+    width: 100%;
+    text-align: center;
+    height:100%;
+    padding-top:30px;
+}
+
+.item {
+    width: 50%;
+    float:left;
+    padding-left:15px;
+    margin-top:15px;
+    margin-bottom:10px;
+}
+
+.error-box {
+    float:left;
+    width:100%;
+    margin-top:10px;
+    text-align: center;
+}
+
+.error-msg {
+    font-weight: bold; 
+    color: #a1a1a2; 
+    font-size: 15px;
+}
+
+.flir-image-box {
+    float:left;
+    width:67px;
+    height:50px; 
+    background-color:black;
+}
+
+.flir-value-box {
+    float:left;
+    height:19px;
+    width:100%;
+    color:#58585a;
+}
+
+.flir-footer-label {
+    float: left; 
+    clear: left; 
+    color: #a1a1a2; 
+    font-size: 14px; 
+    margin-left: 78px; 
+    margin-top: -9px;
+}

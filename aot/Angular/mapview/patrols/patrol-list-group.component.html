@@ -1,0 +1,27 @@
+﻿<div class="lpItemGroup" *ngIf="getPatrols().length > 0">
+    <div class="group-header item-group-header pointer" (click)="toggleExpandedGroup()" >
+        <span class="group-header_Toggle">
+            <img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+        </span>
+        <span class="group-header_GroupName">
+           {{groupName}}
+        </span>
+        <span class="group-header_ItemCount">
+          ({{patrolTemplates.length}})
+        </span>
+    </div>
+    <div class="lpGroupList lpItemGroupList" [@slideDown]="expandedState">
+        
+        <div *ngFor="let patrolTemplate of getPatrols();trackBy: trackByPatrolFn">
+            <!-- Patrol List Item component is using changeDetection: ng.core.ChangeDetectionStrategy.OnPush, so change detection will only be triggered when an input variable
+                is changed to a new value. Objects in javascript are mutable, so changing a property of the patrol object will not be detected and trigger change detection.
+                Any object property that can change is passed in to the component as an input. Since these are primitive types, they are immutable and when changed will trigger change dection-->
+            <patrol-card [patrolTemplate]="patrolTemplate"
+                              [patrolInstance]="patrolService.getPatrolInstance(patrolTemplate.TemplateId)"
+                              [selected]="patrolTemplate.selected"
+                              [expanded]="patrolTemplate.expanded"
+                              [mapViewOptions]="mapViewOptions">
+            </patrol-card>
+        </div>
+    </div>
+</div>

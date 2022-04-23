@@ -1,0 +1,113 @@
+﻿<patrol-robot-base-card   [selected]="selected"
+                          [expanded]="expanded"
+                          [platform]="platform"
+                          [isOnPatrol]="patrolInstance || platform.PatrolTemplateSubmittedId"
+                          [patrolInstance]="patrolInstance"
+                          [statusClass]="getPlatformStatus()"
+                          [actionMenuOpen]="actionMenuOpen"
+                          (contextmenu)="openActionMenu($event, true)">
+    <div displayName>
+        <span title="View Concise Robot Monitor" (click)="handlePlatformNameClick($event)" 
+              class="lpItem_ItemName ellipsis" style="float:left;font-size:20px;text-decoration:underline;cursor:pointer;">
+            {{platform.DisplayName}}
+        </span>
+        <battery-life style="margin-left: 6px; margin-top: 10px;" 
+                      *ngIf="(platform.BatteryPercentage && platform.BatteryPercentage !== -1 && platform.BatteryPercentage < 20)"
+                      [batteryPercentage]="platformService.getPlatformBatteryPercentage(platform)"
+                      [showPercentage]="false"></battery-life>
+    </div>
+
+    <circle-progressbar progressBar
+                        [image]="platformService.getPlatformIconSrc(platform)"
+                        [completenessPercentage]="getPlatformPatrolCompleteness()"
+                        [hideProgressBar]="isProgressBarHidden()"
+                        [fillColor]="patrolService.getPatrolCompletnessColor(patrolInstance)"
+                        [size]="50"
+                        [strokeWidth]="5"
+                        [isDisabled]="isPaused()"
+                        style="float:left;clear:both;">
+
+        <div *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Paused" overlay>
+            <img (click)="resumeOnClick($event)" [ngClass]="{'pauseButton': true, 'notfication': showPauseNotfication()}" title="Resume Patrol" style="margin:-2px 0 0 -2px;" width="40" height="40" src="../../../Content/Images/Patrols/resume-patrol-large.png" />
+        </div>
+        <div *ngIf="patrolInstance && patrolInstance.CurrentStatus !== PatrolStatusValues.Paused" overlay>
+            <img (click)="pauseOnClick($event)" class="pauseButton" title="Pause Patrol" style="margin:-2px 0 0 -2px;" width="40" height="40" src="../../../Content/Images/Patrols/pause-patrol-large.png" />
+        </div>
+
+    </circle-progressbar>
+    <img *ngIf="platform.State.PlatformMode === PlatformMode.EstopPhysical" style="position: absolute; left: 42px; top: 39px; z-index: 2;" src="../../../Content/Images/Platforms/physical-estop-lock.png" />
+
+    <div indicator>
+        <!--TODO: paper clip logic here-->
+    </div>
+
+    <div actionMenu>
+        <div #platformActions title="Robot Actions" class="lpItem_ActionButton" (click)="openActionMenu($event)"
+             id="lpItem_ActionButton_{{platform.id}}" [class.actionMenuOpen]="actionMenuOpen"></div>
+    </div>
+
+    <div itemLink>
+        <div *ngIf="patrolInstance">
+            <span (click)="goToPatrol($event, patrolInstance.TemplateId)" class="ellipsis" style="max-width: 153px; float: left;text-decoration:underline;margin-left:5px;">{{patrolInstance.DisplayName}}</span>
+        </div>
+        <div *ngIf="!patrolInstance && !!platform.PatrolTemplateSubmittedId">
+            <span title="View Patrol in Patrol Panel" (click)="goToPatrol($event, platform.PatrolTemplateSubmittedId)" class="ellipsis" style="max-width: 153px; float: left; text-decoration:underline; margin-left:5px;">{{patrolService.getPatrolTemplate(platform.PatrolTemplateSubmittedId).DisplayName}}</span>
+        </div>
+    </div>
+
+    <div cardThirdLine>
+        {{platformService.getStateText(platform)}}
+    </div>
+    <div expandedCard>
+        <div class="container">
+            <div class="row nowrap" style="padding-top: 5px; padding-bottom: 5px;">
+                <div class="col-5 no-padding nowrap center-contents flex-center">
+                    <img src="{{getPlatformManufacturerIconSrc()}}" />
+                </div>
+                <div class="col-3 nowrap center-contents left-border-divider">
+                    <div>
+                        Battery
+                    </div>
+                    <div class="center-contents" style="padding-top: 5px;">
+                        <battery-life *ngIf="platform.BatteryPercentage && platform.BatteryPercentage !== -1" [batteryPercentage]="platformService.getPlatformBatteryPercentage(platform)"></battery-life>
+                        <img *ngIf="!platform.BatteryPercentage || platform.BatteryPercentage === -1" height="25" src="../../../Content/Images/loading-spinner-grey.gif">
+                    </div>
+                </div>
+                <div class="col-4 no-padding nowrap center-contents left-border-divider" style="padding-right: 5px;">
+                    <div>
+                        Heading - {{getPlatformHeadingCardinal()}}
+                    </div>
+                    <div>
+                        <img class="compass-heading-border" [style.transform]="getPlatformHeadingRotation()" src="../../../Content/Images/Platforms/heading-01.png" />
+                        <div style="display: inline-block; width: 30px;">
+                            {{getPlatformOrientation()}}&deg;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div  class="groupSections">
+            <div (click)="toggleExpandedSubSectionView(Subsections.RobotSensors)" class="group-header lpDetailsGroupHeader pointer">
+                <span class="group-header_Toggle">
+                    <img [class.rotate]="expandedSubSectionViewState(Subsections.RobotSensors) === 'in'"  class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=">
+                </span>
+                <span class="group-header_GroupName">Robot Sensors</span>
+            </div>
+            <div [@slideDown]="expandedSubSectionViewState(Subsections.RobotSensors)" class="subsection-content" style="float: left; width: 100%">
+                <platform-sensor-list [platform]="platform" style="float: left; width: 100%; min-height: 135px;"></platform-sensor-list>
+            </div>
+
+            <div (click)="toggleExpandedSubSectionView(Subsections.ActiveAlarms)" class="group-header lpDetailsGroupHeader pointer">
+                <span class="group-header_Toggle">
+                    <img [class.rotate]="expandedSubSectionViewState(Subsections.ActiveAlarms) === 'in'"  class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=">
+                </span>
+                <span class="group-header_GroupName">Active Alarms ({{alarmCount}})</span>
+            </div>
+            <div [@slideDown]="expandedSubSectionViewState(Subsections.ActiveAlarms)" class="subsection-content">
+                <alarm-table [alarms]="getAlarmList()"
+                             [showPriorityLine]="true"
+                             [showBadge]="false"></alarm-table>
+            </div>
+        </div>
+    </div>
+</patrol-robot-base-card>

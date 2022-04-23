@@ -1,0 +1,62 @@
+﻿<modal [width]="600" #dismissAlarmsModal>
+    <div class="modal-dialog-header">
+		<span *ngIf="alarms && alarms.length === 1">Dismiss Alarm</span>
+		<span *ngIf="alarms && alarms.length > 1">Dismiss Alarms</span>
+    </div>
+    <div class="modal-dialog-body">
+        <div class="row">
+            <div class="col-2">
+                <img alt="Dismiss Icon" src="../../Content/Images/Alarms/dismiss-icon.png" />
+            </div>
+			<div class="col-10" *ngIf="alarms">
+				<div class="bold" *ngIf="unackAlarms.length >= 1">
+					{{unackAlarms.length}} of the selected Alarms
+					<span *ngIf="unackAlarms.length === 1">has</span>
+					<span *ngIf="unackAlarms.length > 1">have</span>
+					<span style="color:red">not</span>
+					been Acknowledged.
+				</div>
+				<h1 *ngIf="alarms && alarms.length > 1">Why are you dismissing the {{alarms.length}} Alarms below?</h1>
+				<h1 *ngIf="alarms && alarms.length === 1">Why are you dismissing the "<i>{{alarms[0].Description}}</i>" Alarm?</h1>
+			</div>
+        </div>
+		<div *ngIf="alarms && alarms.length > 1">
+			<alarm-table [alarms]="alarms"></alarm-table>
+		</div>
+        <div class="row">
+            <div class="col-2"><!--Placeholder--></div>
+            <div class="col-10">
+                <div class="radio">
+                    <label class="row">
+                        <input type="radio" [checked]="dismissAlarmReason === 'No threat observed.'" name="reasonRadios" (click)="dismissAlarmReason = 'No threat observed.'; isCustomDismissAlarmReason = null;" />
+                        <span class="col-1"><!--Placeholder--></span>
+                        <span class="col-11" style="padding-left:25px">No threat observed.</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label class="row">
+                        <input type="radio" name="reasonRadios" (click)="dismissAlarmReason = 'Sensor is malfunctioning.'; isCustomDismissAlarmReason = null;" />
+                        <span class="col-1"><!--Placeholder--></span>
+                        <span class="col-11" style="padding-left:25px">Sensor is malfunctioning.</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label class="row">
+                        <input type="radio" name="reasonRadios" (click)="prepareCustomDismissAlarmReason()" [checked]="isCustomDismissAlarmReason" />
+                        <span class="col-1"><!--Placeholder--></span>
+                        <span class="col-11" style="padding-left:25px">
+                            <input class="form-control" placeholder="Enter custom reason" [(ngModel)]="customDismissAlarmReason" (click)="prepareCustomDismissAlarmReason();" />
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog-footer">
+        <button type="button" class="btn btn-default" (click)="hide()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="dismissAlarms()" [disabled]="!dismissAlarmReason && !customDismissAlarmReason">
+			<span *ngIf="alarms && alarms.length === 1">Dismiss Alarm</span>
+			<span *ngIf="alarms && alarms.length > 1">Dismiss Alarms</span>
+		</button>
+    </div>
+</modal>

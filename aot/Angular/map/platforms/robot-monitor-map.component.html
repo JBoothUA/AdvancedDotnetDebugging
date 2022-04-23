@@ -1,0 +1,10 @@
+﻿<div class="title" style="float: none">MAP</div>
+<div *ngIf="isMapLocked" (click)="setIsMapLocked(false)" class="lock"></div>
+<div *ngIf="!isMapLocked" (click)="setIsMapLocked(true)" class="unlock"></div>
+<div id="map" class="map-content"></div>
+
+<platform-marker *ngFor="let platform of platforms" [attr.id]="getMarkerId()" [MarkerId]="getMarkerId()" [Platform]="platform" [SentToPosition]="platform.SentToPosition" [Selected]="platform.Selected" [Orientation]="platform.Orientation"
+                 [Longitude]="platform.Position ? platform.Position.coordinates[0] : undefined" [Latitude]="platform.Position ? platform.Position.coordinates[1] : undefined"
+                 [ShowSelection]="true" [SmallMarker]="true" [HideLabel]="true" [ClickEvents]="false" [NotifyMovement]="true" (OnMove)="handleMove()"></platform-marker>
+
+<patrol-path [patrol]="patrolMapService.getActivePatrol()"  [pointCount]="patrolMapService.getActivePatrolPointCount()" id="patrolPathComponent"></patrol-path>

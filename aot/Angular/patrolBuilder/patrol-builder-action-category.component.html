@@ -1,0 +1,22 @@
+﻿<div class="lpGroup lpItemGroup">
+	<div class="pbActions-groupHeader group-header item-group-header pointer" (click)="toggleExpandedGroup()">
+		<span class="group-header_Toggle">
+			<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+		</span>
+		<span class="pbActions-categoryName group-header_GroupName">
+			{{actionCat.DisplayName}}
+		</span>
+	</div>
+	<div class="lpGroupList lpItemGroupList" unselectable='on' [@slideDown]="expandedState" [dragula]="'actionItemList'" >
+		<div *ngFor="let actionDef of actionCat.ActionDefinitions; let idx = index" [attr.data-catindex]="catIndex" [attr.data-actdefindex]="idx" [class.lpItemSelected]="actionDef.Selected" 
+			 class="pbActions-actionRow lpItem"  (dblclick)="actionDefDblClicked(actionDef)">  
+			<div *ngIf="actionDef.ActionType != ActionType.Play" class="pbActions-actionRowText">
+				<div class="pbActions-checkMark" unselectable='on' [class.pbActions-actionUsed]="doesCheckpointHaveAction(actionDef)">
+				</div>
+				<div class="pbActions-actionDefName" unselectable='on'>{{actionDef.DisplayName}}</div>
+				<div class="pbActions-addActionDefBtn" unselectable='on' title="Add Checkpoint Action" (click)="actionDefDblClicked(actionDef)">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+﻿<loading [visible]="isLoading" [override]="true"></loading>
+<dashboard-filter id="dashboardFilter"></dashboard-filter>
+<div id="dashboardContent">
+    <dashboard-header #dbheader id="dashboardHeader"></dashboard-header>
+    <dashboard-alarm #dbAlarm id="dashboardAlarm" *ngIf="dashboardService.getSelectedDashboardTab() === dashboardTab.Alarms"></dashboard-alarm>
+    <dashboard-patrol id="dashboardPatrol" *ngIf="dashboardService.getSelectedDashboardTab() === dashboardTab.Patrols"></dashboard-patrol>
+    <!--<dashboard-robot id="dashboardRobot" *ngIf="robotTabSelected"></dashboard-robot>-->
+</div>
+

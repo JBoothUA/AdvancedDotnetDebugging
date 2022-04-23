@@ -1,0 +1,24 @@
+﻿<div [style.width.px]="size" [style.height.px]="size">
+    <div style="position:absolute;z-index:2;" [style.width.px]="(size - strokeWidth*2)" [style.height.px]="(size - strokeWidth*2)" class="image">
+        <div style="position:absolute;z-index: 1;" [style.width.px]="(size - strokeWidth*2)" [style.height.px]="(size - strokeWidth*2)">
+            <ng-content onselect="overlay"></ng-content>
+        </div>
+        <img  [style.width.px]="(size - strokeWidth*2)" [style.height.px]="(size - strokeWidth*2)" *ngIf="image" src="{{image}}" />
+    </div>
+    <svg *ngIf="!hideProgressBar" [style.height]="size" [style.width]="size" >
+        <circle #svgCircle
+                [attr.r]="(size - strokeWidth)/2" 
+                [attr.cx]="size/2" 
+                [attr.cy]="size/2"
+                [attr.stroke-width]="strokeWidth - .05"  
+                [attr.stroke]="(isDisabled)? '#cacaca': '#9F9F9F'" fill="transparent" />
+
+        <circle [attr.stroke-dasharray]="dasharray"
+                [attr.stroke-dashoffset]="getDashOffset()"
+                [attr.r]="(size - strokeWidth)/2"
+                [attr.cx]="size/2"  
+                [attr.cy]="size/2" 
+                [attr.stroke-width]="strokeWidth" 
+                [attr.stroke]="fillColor" fill="transparent" />
+    </svg>
+</div>

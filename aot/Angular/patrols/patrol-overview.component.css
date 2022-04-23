@@ -1,0 +1,215 @@
+:host {
+    float: left;
+    width: calc(100%);
+}
+
+.header {
+    font-size: 12px;
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+    height:17px;
+}
+
+.header div {
+    float:left;
+}
+
+.displayName {
+    text-decoration:underline;
+    cursor:pointer;
+    margin-left:5px;
+}
+
+.patrolName {
+    float:left;
+    width:calc(100% - 22px);
+    text-decoration: none;
+}
+
+.disabledSort {
+    opacity:0.45;
+    cursor:default;
+}
+
+.disabledSort:hover {
+    background-image:url('../../Content/Images/sort-icon.png') !important;
+}
+
+patrol-plan.sortOrderAsc  >>> .point-item:last-child {
+    border-left:2px solid transparent !important;
+}
+
+.expand-all-btn {
+    float: right !important;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.expand-all-btn:hover {
+    color:#4272B3;
+}
+
+.btn-sort {
+    float: right !important;
+    margin-top: -12px;
+    cursor:pointer;
+    width:47px;
+    height:47px;
+    background-image:url('../../Content/Images/sort-icon.png');
+}
+
+.btn-sort:hover {
+     background-image:url('../../Content/Images/sort-icon-hover.png');
+}
+
+.asc {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+.content {
+    float:left;
+    position:relative;
+    width:100%;
+    margin-top: 18px;
+}
+
+.platformStatus {
+    float:left;
+    border-radius: 50%;
+    height: 13px;
+    width: 13px;
+    margin: 4px 2px 0 4px;
+}
+
+
+.point-time-pending {
+    float: right;
+    margin-top: 5px;
+    width: 22px;
+    height: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image:url('../../Content/Images/Patrols/loading-icon.gif');
+}
+
+
+
+.operatorInitials {
+    position: absolute;
+    top:0;
+    left:0;
+    background: #ABABAB; 
+    width: 25.5px; 
+    height: 25.5px; 
+    float: left; 
+    border-radius: 50%; 
+    text-align: center; 
+    vertical-align: middle; 
+    padding-top: 2px;
+}
+
+.group-header_Toggle {
+    float:left;
+}
+.patrolHistoryGroupHeader {
+    background-color: transparent !important;
+    border: none;
+}
+
+.rotate {
+    transform: rotate(-90deg);
+}
+
+.history-item-header-text {
+    font-weight:bold;
+    color:#515151;
+}
+
+.patrol-history-item {
+    border-top:1px solid #cccbcb;
+    float:left;
+    width:100%;
+}
+
+
+.point-item {
+    float:left;
+    height: 100%;
+    min-height: 40px;
+    position: relative;
+    width: calc(100% - 4px);
+    padding-bottom: 7px;
+    padding-left: 22px;
+}
+
+.solid-line {
+    border-left: 2px solid #90a3a9;
+}
+
+.point-name {
+    color:#5b5b5b;
+    font-size:18px;
+}
+
+.point-time {
+    font-size:13px;
+    color: #5b5b5b;
+    float:right;
+    margin-top:5px;
+}
+
+.action-header {
+    clear:both;
+    width:100%;
+    background-color:#ebecec;
+    min-height:27px;
+    border-left: 4px solid;
+    padding-left: 5px;
+    color:#5b5b5b;
+    padding-top: 2px;
+    font-size:13px;
+    cursor:pointer;
+}
+
+.action-status {
+    font-weight:bold;
+    margin-left:4px;
+}
+
+.action-header > span {
+    vertical-align: middle;
+}
+
+.action-header.in-progress {
+    border-color:#66398c;
+}
+
+.action-header.completed {
+    border-color:#249c49;
+}
+
+.time-stamp {
+    float: left;
+    margin-left: 58px;
+    clear: left;
+    color: #848484;
+    width: 100%;
+}
+
+.settings-btn {
+    float: right;
+    margin-top: -7px;
+}
+
+popover >>> .point-settings-dropBox {
+    background: white;
+    border: 1px solid lightgray;
+    width: 174px;
+    padding: 5px;
+}

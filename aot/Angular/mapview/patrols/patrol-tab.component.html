@@ -1,0 +1,50 @@
+﻿<div id="lpPatrols">
+    <div class="lpTabHeader">
+        <div class="lpTabHeader_Left">
+            <div class="lpTabHeader_Text">
+                Patrols
+            </div>
+            <div class="lpTabHeader_Count">
+                ({{getPatrolCount()}})
+            </div>
+        </div>
+        <div class="lpTabHeader_Right">
+            <div class="lpTabHeader_Text left-border float-right">
+                <div title="Grouping Options" class="settings-btn" [class.selected]="showSettingsTrays" (click)="showSettingsTrays = !showSettingsTrays;"></div>
+            </div>
+            <div class="lpTabHeader_Text float-right">
+                <div title="Reorder List" class="lpGroupOrderButton" [class.desc]="sortOrder === 'desc'" (click)="toggleGroupOrder()"></div>
+            </div>
+        </div>
+    </div>
+    <div style="top:56px;" *ngIf="showSettingsTrays" class="lpTabTray">
+        <span class="tray-label">Patrol Grouping</span>
+        <select class="lpTabHeader_GroupDropdown" [(ngModel)]="patrolService.groupSelection" (ngModelChange)="groupChanged($event)">
+            <option *ngFor="let group of groupOptions;trackBy: trackByOptionsFn" [ngValue]="group.value">{{group.name}}</option>
+        </select>
+    </div>
+    <div [ngClass]="{'blocked': showSettingsTrays}" 
+         (click)="showSettingsTrays = false;" 
+         class="lpItemListContainer" #patrolsContainer>
+        <div class="search-new-panel">
+            <div [class.searchFocus]="searchFocus">
+                <input (focus)="(searchFocus = true)" (blur)="(searchFocus = false)" [(ngModel)]="filterBy" type="text" placeholder="Search Patrols" />
+                <div class="input-clear" (click)="filterBy = null; ref.detectChanges()" *ngIf="filterBy"></div>
+            </div>
+            <div title="Create New Patrol" class="btn-newPatrol" (click)="showPatrolBuilder()"> New Patrol</div>
+        </div>
+        <div [style.pointer-events]="showSettingsTrays ? 'none' : 'all'"  id="lpPlatformsList" style="clear:both;">
+            <div *ngFor="let group of groupList;trackBy: trackByGroupFn">
+                <patrol-list-group [patrolTemplates]="getFilteredTemplates()"
+                                   [patrolInstances]="patrolInstances"
+                                   [groupName]="group"
+                                   [sortOrder]="sortOrder"
+                                   [groupSelection]="patrolService.groupSelection"
+                                   [mapViewOptions]="mapViewOptions"></patrol-list-group>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dialogs -->
+<patrol-context-menu></patrol-context-menu>

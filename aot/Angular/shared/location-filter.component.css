@@ -1,0 +1,293 @@
+﻿.filterContentExpanded {
+    border-bottom: 1px solid #cccbcb;
+    background-color: #c9def0;
+}
+
+#filterLocations {
+    width: 100%;
+    display: block;
+    border: 1px solid #cccbcb;
+}
+
+.filterLocationsContent {
+    vertical-align: middle;
+    height: 44px;
+}
+
+.filterLocationsContent.override {
+    background:  #efefef ;
+}
+
+.filterLocationsContent:hover {
+    /*background: #c9def0 ;*/
+    background: #e3f0f6;
+}
+
+.filterLocationsContent:active {
+    background: #c9def0 ;
+}
+
+#filterMarkerImage {
+    float: left;
+    margin-top: 8px;
+    margin-left: 15px;
+}
+
+#filterLocationsLabel {
+    float: left;
+    padding-left: 7px;
+    /*color: #0000CD;*/
+    color: #4272AC;
+    margin-top: 9px;
+}
+
+#filterLocationsLabelSingle {
+    float: left;
+    font-size: 13px;
+    padding-left: 7px;
+    margin-top: 5px;
+}
+
+#filterLocationsLabelSingle-LocInfo {
+    color: #4272AC;
+    font-weight: 500;
+}
+
+#filterLocationsToggle {
+    float: right;
+}
+
+.filterLocationsExpanded {
+    border: 1px solid #4272A0 !important;
+}
+
+.expandedFilterLocations {
+    border-right: 1px solid #898989;
+    width: 100%;
+	z-index: 1042;
+}
+
+.expandedFilterLocations.override {
+	height: 100%;
+	position: absolute;
+	background-color: white;
+	overflow:hidden;
+    border-right: 1px solid #4272A0;
+}
+
+.filterCheckBox {
+    background-image: url('../../Content/Images/Dashboard/checkmark-box.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    height: 24px;
+    width: 24px;
+}
+
+.filterCheckBox.selected {
+   background-image: url('../../Content/Images/Dashboard/checkmark-box-blue.png');
+}
+
+.filterLargeCB {
+    /*left: -5px;*/
+    float: left;
+    margin-top: 10px;
+}
+
+.filterSmallCB {
+    background-size: 24px;
+    float: left;
+    margin-top: 5px;
+}
+
+.filterCheck {
+    background-image: url('../../Content/Images/Dashboard/checkmark-gray.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    height: 24px;
+    width: 24px;
+}
+
+.filterCheck.selected {
+    background-image: url('../../Content/Images/Dashboard/checkmark-blue.png');
+}
+
+
+.filterLocationListItemCircle {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    float: left;
+    left: 10px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.filterVerticalLine {
+  border-left: 1px solid #8a8c8f;
+  float: left;
+  height: 14px;
+  margin-top: 11px;
+  margin-left: 20px;
+}
+
+.expandedFilterLocationsList {
+    padding-left: 5px;
+}
+
+.expandedFilterLocationListHeader{
+    height: 37px;
+}
+
+.expandedFilterLocationListHeader:hover{
+    background: #e3f0f6;
+}
+
+.expandedFilterLocationListHeaderText{
+    float: left;
+    left: 10px;
+    position: relative;
+    margin-top: 10px;
+    font-size: 16px;
+    /*cursor: default;*/
+    color: #585858;
+    font-weight: 500;
+}
+
+.expandedFilterLocationListItem {
+    height: 37px;
+}
+
+.expandedFilterLocationListItem:hover {
+    background: #e3f0f6;
+}
+
+.expandedFilterLocationListItemName {
+    float: left;
+    left: 15px;
+    position: relative;
+    margin-top: 7px;
+    /*cursor: default;*/
+}
+
+.expandedFilterLocationListItemLoc {
+    float: left;
+    left: 5px;
+    position: relative;
+    margin-top: 8px;
+    /*cursor: default;*/
+}
+
+#filterLocationsButtonRow {
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    height: 60px;
+}
+
+.filterLocationsButtons{
+    border: 1px solid #cccbcb;
+    padding: 10px 50px;
+    float: right;
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+}
+
+/*.filterLocationsButtons:hover {
+    background-color: #4272A0;
+    color: white;
+}*/
+
+#filterLocationsButtonsApply{
+    /*background-color: #4272A0;*/
+    background-color: #4272b4;
+    color: white;
+}
+
+#filterLocationsButtonsApply:hover{
+    background-color: #025aa5;
+}
+
+#filterLocationButtonCancel {
+    margin-right: 10px;
+    background-color: #dddddd;
+}
+
+#filterLocationButtonCancel:hover {
+    background-color: #e7e7e7;
+}
+
+#filterCustomerLocationHeader {
+    /*height: 40px*/;
+    padding-top: 10px;
+    /*padding-bottom: 10px;*/
+    float: left;
+}
+
+.filterCustLocHeader {
+    float: left;
+    padding-right: 10px;
+}
+
+.filterCustLocHeaderDiv {
+    border-bottom: 2px solid darkgray;
+}
+
+.filterCustLocHeaderText {
+    font-weight: bold;
+    color: #4272AC;
+}
+
+.filterCustLocHeaderClear {
+    background-image: url('../../Content/Images/Dashboard/delete-filter-result.png');
+    background-repeat: no-repeat;
+    background-size: 13px;
+    width: 13px;
+    height: 13px;
+    float: right;
+    margin-top: 5px;
+    margin-left: 3px;
+}
+
+
+.filterTextSize18 {
+    font-size: 18px;
+}
+
+.filterPointer:hover {
+    cursor: pointer;
+}
+
+.filterPriorityBackground-P5 {
+    background-color: #315777;
+}
+.filterPriorityBackground-P4 {
+    background-color: #27BBA1;
+}
+.filterPriorityBackground-P3 {
+    background-color: #F3B518;
+}
+.filterPriorityBackground-P2 {
+    background-color: #DB7828;
+}
+.filterPriorityBackground-P1 {
+    background-color: #D62329;
+    
+}
+
+.expandedFilterLocationListItem:hover .expandedFilterLocationListItemGoToIcon {
+    background-image: url('../../Content/Images/zoomed-location-row-selected.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    position: relative;
+    height: 34px;
+    width: 34px;
+    float: right;
+}
+
+.expandedFilterLocationListItemGoToIcon:hover {
+   background-image: url('../../Content/Images/zoomed-location-selected.png') !important;
+}
+

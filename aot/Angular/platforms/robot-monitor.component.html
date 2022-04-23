@@ -1,0 +1,299 @@
+﻿<div (window:resize)="onResize($event)" 
+     [ngClass]="{'robot-monitor': true, 'in-window': !isTearOff}" 
+     [attr.size]="size"
+     *ngIf="selectedPlatform">
+    <div class="command-bar">
+        <div class="patrol-platform-status">
+            <circle-progressbar progressBar
+                        [image]="platformService.getPlatformIconSrc(selectedPlatform)"
+                        [completenessPercentage]="patrolService.getPatrolCompleteness(patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id))"
+                        [hideProgressBar]="isProgressBarHidden(patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id))"
+                        [fillColor]="patrolService.getPatrolCompletnessColor(patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id))"
+                        [size]="58"
+                        [strokeWidth]="5" 
+                        [isDisabled]="isPaused()">
+
+                <div *ngIf="patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id) && patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id).CurrentStatus === PatrolStatusValues.Paused" overlay>
+                    <img (click)="resumeOnClick($event)" [ngClass]="{'pauseButton': true, 'notfication': showPauseNotfication()}" title="Resume Patrol" style="margin:-2px 0 0 -2px;" width="47" height="47" src="../../Content/Images/Patrols/resume-patrol-large.png" />
+                </div>
+                <div *ngIf="patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id) && patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id).CurrentStatus !== PatrolStatusValues.Paused" overlay>
+                    <img (click)="pauseOnClick($event)" class="pauseButton" title="Pause Patrol" style="margin:-2px 0 0 -2px;" width="47" height="47" src="../../Content/Images/Patrols/pause-patrol-large.png" />
+                </div>
+
+            </circle-progressbar>
+            <img *ngIf="selectedPlatform && selectedPlatform.State.PlatformMode === PlatformMode.EstopPhysical" class="locked-estop" src="../../Content/Images/Platforms/physical-estop-lock.png" />
+            
+            <div title="Choose Robot" class="platform-selection-btn dropdown" [class.no-platform-selection]="getPlatformList(selectedPlatform.id).length < 1" data-id="robotMonitor-platform">
+                <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <div style="float:left;">
+                        <div class="platform-display-name" >
+                            <span class="name ellipsis" style="float:left;">{{selectedPlatform.DisplayName}}</span>
+                            <battery-life *ngIf="selectedPlatform.BatteryPercentage >= 0 && selectedPlatform.BatteryPercentage  < 20"
+                                          [showPercentage]="false"
+                                          [batteryPercentage]="platformService.getPlatformBatteryPercentage(selectedPlatform)">
+                            </battery-life>
+                        </div>
+                        <div class="platform-site ellipsis">
+                            {{getLocName()}}
+                        </div>
+                    </div>
+                    <div class="dropdown-btn-icon">
+                        <img *ngIf="getPlatformList(selectedPlatform.id).length > 0" style="opacity: .65;" src="../../Content/Images/down-arrow.png" />
+                    </div>
+                </div>
+                <div *ngIf="getPlatformList(selectedPlatform.id).length > 0" class="dropdown-menu dropdown-menu-left dropdown-box platform-selection-dropdown" attr.aria-labelledby="robotMonitor">
+                    <div *ngFor="let platform of getPlatformList(selectedPlatform.id)" (click)="onPlatformChange(platform)"  class="platform-item lpItem">
+                        <div class="platform-status {{platformService.getPlatformStatusClass(platform)}}"></div>
+                        <span style="font-size:14px;float:left;margin-left:5px;">{{platform.DisplayName}}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <chooser-status [platformID]="selectedPlatform.id"
+                            [showPatrolName]="true"
+                            [showPatrolRunCount]="true"
+                            [patrolInstance]="patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id)"
+                            [disableDefaultAbout]="true"
+                            (onAbortClick)="handleAbortClick()"
+                            (onPatrolSelected)="handleOnPatrolSelected($event)"
+                            (onShow)="handleOnChooserShown()"
+                            (onHide)="handleOnChooserHide()">
+            </chooser-status>
+
+            <button title="Emergency Stop Robot" (click)="platformService.executeEStop(selectedPlatform)" class="btn btn-default estop-btn">
+                <img  src="../../Content/Images/Platforms/e-stop-robot-moving.png" />
+                <span>E-Stop</span>
+            </button>
+
+            <div class="action-panel dropdown" data-id="robotMonitor-commands">
+                <button title="Robot Actions" class="btn btn-default estop-btn action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span style="float: left; margin-left: 16px;">Actions</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-left dropdown-box command-dropdown"  attr.aria-labelledby="robotMonitor">
+                    <platform-command-list [hideVideoControlSection]="true" [platform]="selectedPlatform"></platform-command-list>
+                </div>
+            </div>
+
+        </div>
+
+        <div title="Open Robot Controller" class="controller-btn" (click)="controllerIsShown = true">
+            Controller
+        </div>
+        
+    </div>
+    <div *ngIf="widthSize === WindowSize.sm" class="media-panel">
+        <div class="main" style="overflow:hidden;">
+            <div style="float: left; width: 100%; height: 100%;" [dragula]="'moveElement'" [attr.itemIndex]="0">
+                <video-box 
+                           *ngIf="getFirstItem().type === ItemType.video"
+                           [heading]="selectedPlatform.Orientation"
+                           [showHeading]="true"
+                           [camera]="getFirstItem().data">
+                </video-box>
+                <robot-monitor-map *ngIf="(getFirstItem().type === ItemType.map)"
+                                   [platform]="selectedPlatform"
+                                   [isMapLocked]="isMapLocked"
+                                   (onMapLockedChanged)="isMapLocked = $event"
+                                   style="overflow:hidden;">
+                </robot-monitor-map>
+            </div>
+            
+        </div>
+        <div class="slider">
+            <div (click)="slideForward()" [ngClass]="{'nav': true, 'forward': true, 'disabled': sliderIndex === 0 }"></div>
+            <div (click)="slideBack()" [ngClass]="{'nav': true, 'backward': true, 'disabled': ((sliderIndex) >= (getSecondaryContent().length))}"></div>
+            <div class="item" (dblclick)="makeMainItem(i + 1 + sliderIndex)"  [dragula]="'moveElement'" *ngFor="let item of getSecondaryContent(); let i = index" [attr.itemIndex] ="(i + 1 + sliderIndex)">
+                <video-box *ngIf="(item.type === ItemType.video)" 
+                           [heading]="selectedPlatform.Orientation"
+                           [showHeading]="false"
+                           [camera]="item.data"
+                           style="margin-bottom:30px;">
+                </video-box>
+                <robot-monitor-map *ngIf="(item.type === ItemType.map)" 
+                                   [platform]="selectedPlatform" 
+                                   [isMapLocked]="isMapLocked"
+                                   (onMapLockedChanged)="isMapLocked = $event"
+                                   style="overflow:hidden;">
+                </robot-monitor-map>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="widthSize !== WindowSize.sm" class="media-panel">
+        <div class="slider">
+            <div class="item" (dblclick)="makeMainItem(i + 1)" [dragula]="'moveElement'" *ngFor="let item of getSecondaryContent(heightSize !== WindowSize.short); let i = index" [attr.itemIndex] ="(i + 1)">
+                <video-box *ngIf="item.type === ItemType.video"
+                           [heading]="selectedPlatform.Orientation"
+                           [showHeading]="false"
+                           [camera]="item.data">
+                </video-box>
+                <robot-monitor-map *ngIf="item.type === ItemType.map"
+                                   [platform]="selectedPlatform"
+                                   [isMapLocked]="isMapLocked"
+                                   (onMapLockedChanged)="isMapLocked = $event"
+                                   style="overflow:hidden;">
+                </robot-monitor-map>
+            </div>
+        </div>
+        <div class="main"> 
+            <div [dragula]="'moveElement'" [ngClass]="{'item':true, 'onlyOne': heightSize === WindowSize.short }" [attr.itemIndex]="0">
+                <video-box *ngIf="getFirstItem().type === ItemType.video"
+                           [heading]="selectedPlatform.Orientation"
+                           [showHeading]="true"
+                           [camera]="getFirstItem().data">
+                </video-box>
+
+                <robot-monitor-map *ngIf="getFirstItem().type === ItemType.map"
+                                   [platform]="selectedPlatform"
+                                   [isMapLocked]="isMapLocked"
+                                   (onMapLockedChanged)="isMapLocked = $event"
+                                   style="overflow:hidden;">
+                </robot-monitor-map>
+
+            </div>
+            <div (dblclick)="makeMainItem(itemList.length - 1)" [dragula]="'moveElement'" class="item" *ngIf="heightSize !== WindowSize.short" [attr.itemIndex]="(itemList.length - 1)">
+                <video-box *ngIf="getLastItem().type === ItemType.video"
+                           [heading]="selectedPlatform.Orientation"
+                           [showHeading]="true"
+                           [camera]="getLastItem().data">
+                </video-box>
+               
+                <robot-monitor-map *ngIf="getLastItem().type === ItemType.map"
+                                   [platform]="selectedPlatform"
+                                   [isMapLocked]="isMapLocked"
+                                   (onMapLockedChanged)="isMapLocked = $event"
+                                   style="overflow:hidden;">
+                </robot-monitor-map>
+            </div>
+        </div>
+    </div>
+    <div class="status-panel">
+        <div (click)="toggleExpandedSection(Sections.PatrolHistory)" class="group-header lpDetailsGroupHeader pointer">
+            <span class="group-header_Toggle">
+                <img [class.rotate]="!toggleExpandedSectionView(Sections.PatrolHistory)" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" 
+                     src="../../Content/Images/down-arrow.png">
+            </span>
+            <span class="status-color-bar available"></span>
+            <span class="group-header_GroupName">Patrol History</span>
+
+            <div #btnPointOptions (click)="showPointOptions($event)" class="settings-btn" style="float:right;margin-top: -3px;width: 50px;border-left: 1px solid #A9A9A9;"></div>
+
+            <div title="Reorder Points" class="btn-sort"
+                 (click)="toggleHistorySort()"
+                 [class.asc]="patrolHistorySortOrder === 0"
+                 style="width: 36px; height: 30px; margin-top: -1px; margin-right: 11px; background-position: -8px -8px;"></div>
+
+
+
+        </div>
+        <div [@slideDown]="toggleExpandedSectionView(Sections.PatrolHistory) ? 'out': 'in'"  class="subsection-content" [attr.expandedsections]="expandedSection.length">
+            <div *ngIf="!isLoadingHistory">
+                <!-- Started but not running -->
+                <div *ngIf="!patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id) && selectedPlatform.IsPatrolSubmitted"
+                        class="group-header lpDetailsGroupHeader patrolHistoryGroupHeader pointer"
+                        style="pointer-events:inherit;">
+                    <span class="group-header_Toggle">
+                        <img class="rotate group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon"
+                                style="opacity:0.5;" src="../../Content/Images/down-arrow.png">
+                    </span>
+                    <span class="lpGroupHeader_GroupName" style="vertical-align: middle;">
+                        <span class="history-item-header-text"> Today - </span> <img src="{{patrolService.getStatusIconSrc(1)}}" /> Pending
+                    </span>
+                </div>
+
+                <!--Currently Running Patrol-->
+                <patrol-overview *ngIf ="patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id)"
+                                    [patrolInstance]="patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id)"
+                                    [platform]="platformService.getPlatform(patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id).PlatformId)"
+                                    [expandedState]="expandedPatrolOverview === patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id).InstanceId || !expandedPatrolOverview"
+                                    [showSortButton]="false"
+                                    [showPathPoints]="showAllPatrolPoints"
+                                    [sortOrder]="patrolHistorySortOrder"
+                                    [nameOption]="2"
+                                    (onExpanded)="handlePatrolOverviewExpansion($event)">
+                </patrol-overview>
+
+                <!--History Patrols-->
+                <div *ngFor="let patrol of historyItems;let i = index">
+                    <patrol-overview [patrolInstance]="patrol"
+                                     [platform]="platformService.getPlatform(patrol.PlatformId)"
+                                     [expandedState]="(expandedPatrolOverview && expandedPatrolOverview === patrol.InstanceId) || (!expandedPatrolOverview && !patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id) && i === 0)"
+                                     [showSortButton]="false"
+                                     [showPathPoints]="showAllPatrolPoints"
+                                     [sortOrder]="patrolHistorySortOrder"
+                                     [nameOption]="2"
+                                     (onExpanded)="handlePatrolOverviewExpansion($event)">
+                    </patrol-overview>
+                </div>
+
+                <div *ngIf="historyItems.length === 0 && !patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id) && !selectedPlatform.IsPatrolSubmitted">
+                    <span style="font-weight: bold; height: 35px; float: left; vertical-align: middle; padding-top: 7px;">No Patrol History</span>
+                </div>
+
+            </div>
+           
+            <div  *ngIf="isLoadingHistory" style="font-weight: bold; font-size: 18px; clear: both; float: left; width: 100%; text-align: center;margin-top:40px;">
+                Loading Patrol History
+                <img height="27" class="loadingHistory" src="../../Content/Images/loading-spinner-grey.gif" />
+            </div>
+        </div>
+
+        
+        <div (click)="toggleExpandedSection(Sections.RobotSensors)" class="group-header lpDetailsGroupHeader pointer">
+            <span class="group-header_Toggle">
+                <img [class.rotate]="!toggleExpandedSectionView(Sections.RobotSensors)" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon"
+                     src="../../Content/Images/down-arrow.png">
+            </span>
+            <span class="status-color-bar {{(platformService.hasSensorData(selectedPlatform)) ? 'available' : 'p'}}"></span>
+            <span class="group-header_GroupName">Robot Sensors</span>
+        </div>
+        <div [@slideDown]="toggleExpandedSectionView(Sections.RobotSensors) ? 'out': 'in'" class="subsection-content" [attr.expandedsections]="expandedSection.length" >
+            <platform-sensor-list [platform]="selectedPlatform"></platform-sensor-list>
+        </div>
+
+        <div (click)="toggleExpandedSection(Sections.ActiveAlarms)" class="group-header lpDetailsGroupHeader pointer">
+            <span class="group-header_Toggle">
+                <img [class.rotate]="!toggleExpandedSectionView(Sections.ActiveAlarms)" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon"
+                     src="../../Content/Images/down-arrow.png">
+            </span>
+            <span class="status-color-bar {{getHighestAlarmPriorityClass(getAlarmList())}}"></span>
+            <span class="group-header_GroupName">Active Alarms ({{alarmCount}})</span>
+        </div>
+        <div [@slideDown]="toggleExpandedSectionView(Sections.ActiveAlarms) ? 'out': 'in'" class="subsection-content" [attr.expandedsections]="expandedSection.length" >
+            <alarm-table [alarms]="getAlarmList()"
+                         [showPriorityLine]="true"
+                         [showBadge]="false"></alarm-table>
+        </div>
+        
+    </div>
+</div>
+
+<loading [visible]="!selectedPlatform"></loading>
+
+<confirmation-dialog #confirmAbort
+                     [title]="'Abort the patrol?'"
+                     [confirmMessage]="'Are you sure you want to abort this patrol?'"
+                     [confirmBtnText]="'Abort'"
+                     (eventOnConfirm)="patrolService.abortPatrol(patrolService.getPatrolInstanceByPlatformId(selectedPlatform.id), getPatrolTemplateIdForAbort(), selectedPlatform.id)">
+</confirmation-dialog>
+
+<div class="controller-panel" [@slideOut]="(controllerIsShown) ? 'out' : 'in'" style="overflow:hidden;">
+    <robot-monitor-controller style="float:left; width:100%;height: 100%;position:relative;"
+                              (onHideController)="controllerIsShown = false"
+                              [platform]="selectedPlatform"
+                              [size]="widthSize">
+    </robot-monitor-controller>
+</div>
+<popover #popover [horizontalAligment]="'right'">
+    <div style="background: white; border: 1px solid lightgray; width: 174px; padding: 5px;">
+        <span style="font-size:13px;">Patrol Points</span>
+
+        <label style="margin-left:5px;" (change)="pointOptions.hide()">
+            <input name="patrolPoints_option" type="radio" [(ngModel)]="showAllPatrolPoints" [value]="false" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">Not Reached</span>
+        </label>
+        <label style="margin-left:5px;" (change)="pointOptions.hide()">
+            <input name="patrolPoints_option" type="radio" [(ngModel)]="showAllPatrolPoints" [value]="true" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">All</span>
+        </label>
+    </div>
+</popover>

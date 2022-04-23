@@ -1,0 +1,61 @@
+﻿.cmd-name > img {
+    float:left;
+    margin:0 5px;
+    height:35px;
+}
+
+.cmd-name > span {
+    float:left;
+    margin-top:5px;
+    margin-left:5px;
+}
+
+.volume-slider {
+    float: right; 
+    width: calc(100% - 265px); 
+    margin-right: 20px; 
+    margin-top: 12px;
+}
+
+.volume-level-loading{
+    float:right;
+    height:35px;
+    width:35px;
+    margin-right:5px;
+}
+
+.volume-level-error {
+    float: right; 
+    height: 17px; 
+    width: 17px; 
+    margin-right: 12px; 
+    margin-top: 6px;
+}
+
+:host >>> p-slider >>> .ui-slider-handle:first-child {
+    display:none;
+}
+
+
+:host >>> p-slider >>> .ui-slider {
+	background: #c4c4c4;
+}
+
+:host >>> p-slider >>> span:nth-of-type(2) {
+	display:none;
+}
+
+:host >>> p-slider >>> .ui-slider .ui-slider-handle {
+	background: url(./Content/Images/Admin/slider-button.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -1px;
+    height: 20px !important;
+    width: 20px !important;
+    background-size: contain;
+}
+
+
+:host >>> p-slider >>> .ui-slider .ui-slider-range {
+	background: #4272b4;
+}

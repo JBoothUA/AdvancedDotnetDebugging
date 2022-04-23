@@ -1,0 +1,14 @@
+﻿<span class="switch"
+      [class.checked]="checked"
+      [class.disabled]="disabled"
+      [class.switch-large]="size === 'large'"
+      [class.switch-medium]="size === 'medium'"
+      [class.switch-small]="size === 'small'"
+      [style.background-color]="getColor()"
+      [style.border-color]="getColor('borderColor')">
+    <small>
+        <span *ngIf="!getChecked()" class="toggleButtonText">{{getOffToggle()}}</span>
+    </small>
+	<span *ngIf="getChecked()" class="toggleButtonTextOn toggleButtonText">{{getOnToggle()}}</span>
+    <img *ngIf="errorState" class="errorIcon" src="/Content/images/Platforms/command-error.png" />
+</span>

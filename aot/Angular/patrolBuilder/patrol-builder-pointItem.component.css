@@ -1,0 +1,307 @@
+﻿.pointRow-outline {
+	position:absolute;
+	display:none;
+	float:left;
+	left: 0;
+	top:0;
+	height: 100%;
+	width: 100%;
+	border:3px solid transparent;
+	pointer-events:none;
+	background:none;
+}
+
+.pointRow {
+    font-size: 17px;
+    cursor: pointer;
+    color: #000000;
+    position: relative;
+    overflow: hidden;
+	min-height:35px;
+	border-bottom: 1px solid #c2c2c2;
+}
+
+.pointRow-outline.pointRow-expanded {
+	display:block;
+	border:3px solid #4272b4;
+}
+
+.pointRow:hover {
+	background: #e3f0f6;
+}
+.pointRow.lpItemSelected {
+	background: #C9DEF0;
+}
+.pointName {
+	position:relative;
+	display:inline-block;
+	float:left;
+	margin-left:40px;
+	margin-top:6px;
+}
+.pointNameImg {
+	position: relative;
+	display: inline;
+	float: left;
+	height: 27px;
+	width: 27px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pointNameImgOverlay {
+	 position: absolute;
+	 left: 16px;
+	 top: 16px;
+	 height: 15px;
+	 width: 15px;
+	 border: 1px solid white;
+	 border-radius: 50%;
+
+}
+
+.pointNameText {
+	position:relative;
+	display:inline;
+	float:left;
+	font-size: 17px;
+	margin-top:2px;
+	margin-left:5px;
+}
+.pointButtons {
+	position:relative;
+	float:right;
+	width: 80px;
+	margin-top:8px;
+	display:none;
+}
+
+.pbPointAddEditActionBtn {
+	position:relative;
+	float:left;
+	width: 25px;
+	height: 25px;
+	background-image: url('./content/images/patrols/checkpoint-actions-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	margin-right:10px;
+}
+.pbPointAddEditActionBtn:hover, .pointRow.lpItemSelected >>> .pbPointAddEditActionBtn:hover {
+	background-image: url('./content/images/patrols/checkpoint-actions-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pointRow.lpItemSelected >>> .pbPointAddEditActionBtn {
+	background-image: url('./Content/images/Patrols/checkpoint-actions-row-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pbPointDeleteBtn {
+	position:relative;
+	float:left;
+	width: 25px;
+	height: 25px;
+	background-image: url('./content/images/patrols/delete-icon-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	margin-top:2px;
+}
+.pbPointDeleteBtn:hover, .pointRow.lpItemSelected >>> .pbPointDeleteBtn:hover {
+	background-image: url('./content/images/patrols/delete-icon-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pointRow.lpItemSelected >>> .pbPointDeleteBtn {
+	background-image: url('./Content/images/Patrols/delete-icon-row-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+.pointRow:hover >>> .pointButtons, .pointRow.lpItemSelected >>> .pointButtons {
+	display:inline-block;
+}
+
+.pointRow:hover >>> .pointRowHeader-locDescEditIcon, .pointRow.lpItemSelected >>> .pointRowHeader-locDescEditIcon {
+	display:inline;
+}
+
+.pointRowHeader {
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+	padding-bottom: 5px;
+}
+.pointRowHeaderName {
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+	height:35px;
+}
+
+.pointRowHeader-locDesc {
+	position:relative;
+	display:block;
+	float:left;
+	margin-left: 72px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.pointRowHeader-locDesc:hover, .pointRowHeader-locDesc:active {
+	background-color: #dddddd;
+}
+
+.pointRowHeader-locDescText {
+	position:relative;
+	display:block;
+	float:left;
+	max-width:350px;
+}
+.pointRowHeader-locDescEditIcon {
+	position:relative;
+	display:none;
+	float:left;
+	margin-left: 5px;
+	margin-top: 6px;
+}
+.pointRowHeader-locDescEdit {
+	position:relative;
+	display:inline;
+	float:left;
+	margin-left: 72px;
+	margin-top: 5px;
+	width: calc(100% - 72px);
+}
+.pointRowHeader-locDescInput {
+	position:relative;
+	display:inline;
+	float:left;
+	padding-left:5px;
+	width: calc(100% - 100px);
+}
+
+.pointRowActions {
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+}
+
+.pointRowActions-headerRow {
+	position:relative;
+	display:block;
+	float:left;
+	width:100%;
+}
+
+.pointRowActions-headerRow > .lpGroup {
+	margin-bottom: 0;
+}
+
+.pointRowActions-headerRow.lpItemSelected {
+	background: #dae4ed;
+}
+
+.pointRowActions-headerText {
+	padding-right: 3px;
+	top: 4px;
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 15px;
+	font-weight:bold;
+	float:left;
+	margin-top:7px;
+}
+
+.pointRowActions-groupHeader {
+	padding-left: 35px;
+	padding-bottom: 8px;
+	height: 30px;
+}
+
+.pointRow:hover >>> .pointRowActions-groupHeader, pointRow.lpItemSelected >>> .pointRowActions-groupHeader {
+	background-color: #dae4ed;
+}
+
+.pointRowActions-groupHeader >>> .group-header_Toggle {
+	margin-right: 7px;
+	float:left;
+}
+
+.pointRowActions-actionsList {
+	position:relative;
+	float: left;
+	width: 100%;
+	padding-left: 35px;
+	background-color: white;
+}
+
+.pointRowActions-locDescInput {
+	position:relative;
+	display:inline;
+	float:left;
+	outline:none;
+	border:none;
+}
+
+.pointRowActionRow {
+	position:relative;
+	display:block;
+}
+.pointRowActionItem {
+	position:relative;
+	display: block;
+	font-size: 15px;
+	margin-left: 11px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	float: left;
+	width: calc(100% - 15px);
+}
+
+.pointRowActionItem-left {
+	position: relative;
+	display: inline;
+	float: left;
+}
+
+.pointRowActionItem-right {
+	position: relative;
+	display: inline;
+	float: left;
+	width: calc(100% - 42px);
+}
+
+.pointRowActionItem-actionIcon {
+	position: relative;
+	display: inline;
+	float: left;
+	height: 15px;
+	width: 15px;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 3px;
+}
+
+.pointRowActionItem-actionIndex {
+	position: relative;
+	display: inline;
+	float: left;
+	margin-left: 5px;
+	margin-right: 3px;
+	font-weight: bold;
+}
+.pointRowActionItem-actionPhrase {
+	position: relative;
+	display: inline;
+	font-size: 15px;
+}
+

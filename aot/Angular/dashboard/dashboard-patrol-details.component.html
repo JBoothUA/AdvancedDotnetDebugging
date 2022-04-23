@@ -1,0 +1,51 @@
+﻿<div class="patrolDetailsContainer" (click)="$event.stopPropagation()">
+
+    <div class="patrolDetailsInfoContainer dashboardRightBorder">
+        <div class="patrolDetailsInfoDiv">
+
+            <div class="patrolDetailsInfo patrolDetailsInfoElapsedTimeDiv">
+                <div class="patrolDetailsInfoTitle patrolDetailsInfoElapsedTimeTitle">Elapsed Time</div>
+                <img class="patrolDetailsInfoElapsedTimeIcon" src="../../Content/Images/Alarms/reported-icon.png" />
+                <div class="patrolDetailsInfoElapsedTime dashboardTextOverEllipsis" [innerHTML]="getPatrolElapsedTime()"></div>
+            </div>
+
+            <div class="patrolDetailsInfo patrolDetailsInfoCheckpointsDiv">
+                <div class="patrolDetailsInfoTitle patrolDetailsInfoCheckpointTitle">Checkpoints</div>
+                <!-- loop of 1 to get object for less processing -->
+                <div *ngFor="let checkPointStatus of getCheckPointStatusArray()">
+                    <div class="patrolDetailsInfoCheckpoints" *ngIf="checkPointStatus.FailedDisplayText != '' || checkPointStatus.SuccessfulCount > 0">
+                        <img class="patrolDetailsInfoCheckpointsStatusImg" alt="Patrol Status" src="/Content/Images/Dashboard/patrol-{{checkPointStatus.Icon}}.png" />
+                        <div class="patrolDetailsInfoCheckpointsCount">{{(checkPointStatus.FailedDisplayText) ? checkPointStatus.FailedDisplayText : checkPointStatus.SuccessfulCount}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="patrolDetailsInfoOperatorDiv">
+                <div class="patrolDetailsInfoOperator">
+                    <div class="patrolDetailsInfoOperatorInitials">{{getUserInitials()}}</div>
+                </div>
+                <div>
+                    <div class="patrolDetailsInfoTitle patrolDetailsInfoOperatorTitle">Operator</div>
+                    <div class="patrolDetailsInfoOperatorUser dashboardTextOverEllipsis">{{patrol.UserName}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="patrolDetailsInfoAlarmTable">
+            <alarm-table [alarms]="patrolAlarms"
+                         [headerText]="getAlarmHeaderText()"
+                         [showBadge]="false"
+                         [showPriorityLine]="true"></alarm-table>
+        </div>
+    </div>
+
+    <div class="patrolDetailsOverviewContainer">
+        <patrol-overview [patrolInstance]="patrol"
+                         [showPointOptionsButton] ="true"
+                         [platform]="dashboardPlatformService.getPlatform(patrol.PlatformId)"
+                         [expandedState]="true">
+        </patrol-overview>
+    </div>
+
+</div>

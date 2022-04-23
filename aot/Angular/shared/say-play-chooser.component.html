@@ -1,0 +1,43 @@
+﻿<div class="selectionType" *ngIf="mode === 'normal'">
+    <img *ngIf="!hideIcon" src="../../Content/Images/Patrols/play-audio-larger.png" />
+    <label style="margin-left:10px;" (click)="commandChange(CommandName.SayMessage)">
+        <input name="selectionType_{{groupID}}" type="radio" [(ngModel)]="selectedType" [value]="Type.Message" [checked]="selectedType === Type.Message" />
+        <span>Message</span>
+    </label>
+    <label style="margin-left:25px;" (click)="commandChange(CommandName.Play)">
+        <input name="selectionType_{{groupID}}" type="radio" [(ngModel)]="selectedType" [value]="Type.AudioFile" [checked]="selectedType === Type.AudioFile" />
+        <span>Audio File</span>
+    </label>  
+</div>
+<div class="selectionType compact" *ngIf="mode === 'compact'">
+    <label (change)="commandChangeCompact(CommandName.SayMessage, Type.Preset)">
+        <input name="selectionType_{{groupID}}" type="radio" [(ngModel)]="selectedType" [value]="Type.Preset" [checked]="selectedType === Type.Preset" />
+        <span>Preset Messages</span>
+    </label>
+    <label style="margin-left:5px;" (change)="commandChangeCompact(CommandName.SayMessage, Type.Custom)">
+        <input name="selectionType_{{groupID}}" type="radio" [(ngModel)]="selectedType" [value]="Type.Custom" [checked]="selectedType === Type.Custom" />
+        <span>Custom Message</span>
+    </label>
+    <label style="margin-left:5px;" (change)="commandChangeCompact(CommandName.Play, Type.AudioFile)">
+        <input name="selectionType_{{groupID}}" type="radio" [(ngModel)]="selectedType" [value]="Type.AudioFile" [checked]="selectedType === Type.Message" />
+        <span>Audio File</span>
+    </label>
+</div>
+
+<div id="presetsList{{groupID}}" [ngClass]="{'parameterList':true, 'compact':mode === 'compact'}" 
+     *ngIf="selectedType !== Type.Custom">
+    <div *ngFor="let preset of getPresetList()"	id="preset.Name{{groupID}}"
+         (click)="selectItem(preset.StringValue)"
+         [ngClass]="{'selectedItem':(selectedItem === preset.StringValue && !customItem)}"
+         class="item">
+        <img *ngIf="selectedType === Type.AudioFile" src="../../Content/Images/Patrols/audio-file.png" />
+        <img *ngIf="selectedType !== Type.AudioFile" src="../../Content/Images/Patrols/message-icon.png" />
+        <span>{{preset.StringValue}}</span>
+    </div>
+</div>
+
+<textarea *ngIf="selectedType === Type.Custom || selectedType === Type.Message" 
+          [(ngModel)]="customItem"
+          (keyup.enter) ="fireEnterEvent($event)"
+          (ngModelChange)="customValueChange($event)"
+          class="customMessage" placeholder="Enter custom message to say."></textarea>

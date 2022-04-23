@@ -1,0 +1,7 @@
+﻿<div *ngIf="command" [attr.commandName]="getCommandName()" class="platformCommandItem {{size}}" [class.hoverItem]="hoverItem" [class.disabled]="checkDisable()" [class.closeOnClick]="checkCloseOnClick()" (click)="handleClick($event)">
+	<img class="{{size}}" src="{{getCommandIconSrc()}}" />
+	{{getDisplayName()}}
+    <toggle-button class="toggle-button" *ngIf="command.toggleCommand && !loading" (change)="executePlatformCommand($event)" [checked]="getState()" [size]="'small'" [errorState]="toggleFailed"></toggle-button>
+    <img style="position: absolute; right: 5px;" height="20" *ngIf="loading" src="/Content/Images/loading-spinner-grey.gif" />
+    <img style="position: absolute; right: 5px;" height="20" *ngIf="nonToggleError" src="/Content/images/Platforms/command-error.png" />
+</div>

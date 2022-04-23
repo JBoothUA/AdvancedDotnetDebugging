@@ -1,0 +1,54 @@
+﻿<div *ngIf="visible" 
+     [class.image-viewer-dialog]="!fullscreenState || !popOutState"
+     [class.image-viewer-dialog-fullscreen]="fullscreenState"
+     [class.image-viewer-dialog-popout]="popOutState"
+     [draggable]="'#layoutRight'" 
+     handle="#imageViewerHeader"
+     [enabled]= "!fullscreenState || !popOutState"
+     #ImageViewer>
+    <div id="imageViewerHeader"
+         class="modal-header image-viewer-header"
+         [class.image-viewer-header-nondragable]="fullscreenState || popOutState">
+        <div [class.image-viewer-title]="!popOutState"
+             [class.image-viewer-title-popout]="popOutState">
+            {{imageTitle}}
+        </div>
+        <img title="Open New Window" *ngIf="!popOutState" class="pointer" (click)="popToNewWindow()" style="position:absolute; right:78px; height: 37px" src="/Content/images/ImageViewer/full-screen-icon.png" />
+        <img title="Open Full Screen Mode" *ngIf="!popOutState" class="pointer" (click)="toggleFullscreen()" style="position:absolute; right:45px;" src="{{fullscreenIcon}}" />
+        <img *ngIf="!popOutState" style="position:absolute; right:42px;" src="/Content/images/ImageViewer/divider-line.png" />
+        <img title="Close Image Viewer" *ngIf="!popOutState" class="pointer" (click)="close()" style="position:absolute; right: 0;" src="/Content/images/Alarms/x-icon.png" />
+    </div>
+    <div class="modal-body image-viewer-body" [class.image-viewer-body-popout]="popOutState">
+        <div class="{{ fullscreenState || popOutState ? 'row no-padding ' : '' }}" [class.image-viewer-body-popout]="popOutState">
+            <div class="col-2 col-md-4 no-padding" *ngIf = "!oneImage && (fullscreenState || popOutState)">
+                <div class="container-fluid image-viewer-left" [class.fullscreen]="fullscreenState" [class.popout]="popOutState">
+                    <div class="row image-viewer-left-margin">
+                        <div *ngFor="let image of imageList" class="col-md-6 col-sm-12 image-viewer-left-padding">
+                            <div class="image-viewer-left-placeholder" [class.lpAlarmImages]="!image.Selected" [class.lpItemContainerSelected]="image.Selected">
+                                <img class="image-center sm" (click)="onClickImage(image.Uri)" src="{{image.Uri}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="{{ fullscreenState || popOutState ? 'col-10 col-md-8 no-padding' : '' }}" [class.col-12]="oneImage && (fullscreenState || popOutState)">
+                <div #imageplaceholder id="image-placeholder" *ngIf="!waitingForImageList" class="image-viewer-placeholder" 
+                     [class.sm]="!fullscreenState && !popOutState" [class.fullscreen]="fullscreenState" [class.popout]="popOutState">
+                </div>
+                <div *ngIf="waitingForImageList" class="image-viewer-placeholder" [class.popout]="popOutState">
+                    <img class="loading-gif" [class.fullscreen]="fullscreenState" src="../../../Content/Images/loading-spinner-grey.gif"/>
+                </div>
+                <div class="image-viewer-filename-bar" *ngIf="!waitingForImageList">{{imageList[imageIndex].Label}}</div>
+                <div class="image-viewer-footer">
+                    <img class="pointer arrow-img" [class.darkenedPointer]="imageIndex === 0" (click)="previousImage()"
+                            style="margin-right: 18px;" *ngIf="imageList.length > 1"
+                            src="/Content/Images/arrow-left-small.png" />
+                    <span *ngIf="!waitingForImageList">Image {{imageIndex + 1}} of {{imageList.length}}</span>
+                    <img class="pointer arrow-img" [class.darkenedPointer]="imageIndex === imageList.length - 1" (click)="nextImage()"
+                            style="margin-left: 18px;" *ngIf="imageList.length > 1"
+                            src="/Content/images/arrow-right-small.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

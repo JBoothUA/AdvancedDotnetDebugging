@@ -1,0 +1,15 @@
+﻿<div class="alarmDetailsContainer" (click)="$event.stopPropagation()">
+    <div class="alarmDetailsAlarmInfoContainer dashboardRightBorder">
+        <alarm-details [alarm]="dashAlarm"></alarm-details>
+    </div>
+    <div class="alarmDetailsAlarmImageContainer">
+        <loading [visible]="loading" [override]="true"></loading>
+        <div id="alarmDetailsAlarmImageText" *ngIf="dashAlarm.Snapshots && dashAlarm.Snapshots.length > 0">Images ({{getImageCount()}})</div>
+        <div id="alarmDetailsAlarmImageText" *ngIf="!dashAlarm.Snapshots">Images</div>
+        <div id="alarmDetailsAlarmImageDivContainer" *ngIf="dashAlarm.Snapshots && dashAlarm.Snapshots.length > 0">
+            <div class="alarmDetailsAlarmImageDiv dashboardPointer" *ngFor="let image of dashAlarm.Snapshots; let i = index">
+                <img id="alarmDetailsImage" [class.lpAlarmImages]="!image.Selected" [class.lpItemContainerSelected]="image.Selected" (click)="selectImage(image.Uri)" src='{{image.Uri}}' />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿<div id="mainMenu" [@slideRight]="NavigationService.MainMenuState" (@slideRight.done)="animationDone($event)">
+    <div id="mainMenuHeader">
+        <img src="/Content/images/Menu/hxgn-smart-command-header.png" />
+    </div>
+    <div id="mainMenuUserArea" class="app-user">
+        <div class="userInfoArea">
+            <div class="userInfoAreaLeft">
+                <div class="customerName">{{UserService.currentUser.customerName}}</div>
+                <div>
+                    <span id="userImg">
+                        <img id="userThumbnail" src="{{ThumbnailSrc}}" />
+                    </span>
+                    <table id="userInfo">
+                        <tr>
+                            <td id="userName">{{UserService.currentUser.name}}</td>
+                        </tr>
+                        <tr id="userPosition">
+                            <td id="jobTitle">{{UserService.currentUser.title}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <button onclick="window.location.href='/Account/LogOff'" class="btn btn-default app-logout" style="float:right">Log Off</button>
+        </div>
+    </div>
+    <div id="mainMenuNavArea">
+        <div class="mainMenuSectionHeading" style="font-size:15px">SECTIONS</div>
+        <ng-container *ngFor="let item of MenuItems">
+            <main-menu-item [Id]="item.Id" [RouterLink]="item.RouterLink" [Text]="item.Text" [ImageSrc]="item.ImageSrc"></main-menu-item>
+        </ng-container>
+        <div class="mainMenuSectionHeading" style="font-size:15px">OTHER ACTIONS</div>
+		<main-menu-item [Id]="'MapLayers'" [RouterLink]="'/Administrator'" [Text]="'Map Layers'" [ImageSrc]="'/Content/Images/Menu/map-settings-icon.png'"></main-menu-item>
+        <div class="mainMenuSectionHeading" style="font-size:14px">RESOURCES</div>
+        <div>
+            <div class="row no-padding resourcesSection">
+                <span class="pointer" (click)="openAboutDialog()">About HxGN SMART Command</span>
+            </div>
+            <div class="row no-padding resourcesSection">
+                <span class="pointer" (click)="openHelpWindow()">Help</span>
+            </div>
+        </div>
+    </div>
+    <div class="logoArea">
+        <img src="/Content/images/Menu/hexagon-logo.png" />
+    </div>
+</div>

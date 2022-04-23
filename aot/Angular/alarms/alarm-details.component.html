@@ -1,0 +1,146 @@
+﻿<!--<div class="container">
+    <div class="row">
+        <div *ngIf="alarm.Priority" class="less-padding padding-left-20">
+            <div class="property-label">Priority</div>
+            <div class="property-text">{{alarm.Priority}}: {{getPriorityDisplayName()}}</div>
+        </div>
+        <div class="left-border no-padding" title="{{alarmService.convertDateDisplay(alarm.LastUpdateTime)}}">
+            <div class="property-label">Last Reported</div>
+            <div class="property-text">{{alarmService.convertDateDisplay(alarm.LastUpdateTime, true)}}</div>
+        </div>
+        <div *ngIf="alarm.UserId" class="left-border no-padding" style="position:relative">
+            <!-- TODO!!! Css Border-Radius > embedded image & GET RID OF MARGIN IT SHOULD BE JUST 1 ELEMENT, NOT 2 --
+            <img class="userPicBackground" style="margin-top:3px; margin-right:7px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAfCAYAAADwbH0HAAAACXBIWXMAAAsSAAALEgHS3X78AAABUUlEQVRIx+2Xy3HCQBBEH5uAycCEgCNAjsA6dACEQAgiA0IQZ+YgIrCIwJCBnAGKAF8GF8YgIz6ri/umkmrf9NZoPr3dbkdbmVly+CypbHtG7xKwg8ZAAjyf+ewTKIH8kkAawWaWArMGGA1BTCQVrcBm1gdy4I3btATGkrZ/gs1sCBRXuGxyn0panwU7tASeuK9qIDmEf4P9etd3dHrK+XB/7eHgRf5AKH52/sOx/y7vxNGrpHLvOCOeMoDeYrEYAh/E1UsAUuIrDV4GYysJwKgD8CjQkf7BUcF1B9w6eDeKrbJTcNEBuAiSKmAeETqXVHXWnYLPxRUwjQCdOuvXzFU+sHavJCXnCkgKbB4A3Ry333C0imy9TS7vCF36hLm9aJMws4knwrWjbg1kkmbXrDADh6ctAqi9NmT7RLplaes7PAEGJxJwBVReBYtTK8uxvgAPZYxNzeWojAAAAABJRU5ErkJggg==" />
+            <span class="userPicInitials" style="margin-left:4px">
+                <b>{{this.alarmService.convertUsernameToInitials(alarm.UserId)}}</b>
+            </span>
+        </div>
+        <div *ngIf="alarm.UserId" class="no-padding">
+            <div class="property-label">Operator</div>
+            <div class="property-text" title="{{alarm.UserId}}">{{alarm.getUserId()}}</div>
+        </div>
+    </div>
+</div>-->
+<slider [sensors]="alarmSensors"></slider>
+<div class="lpGroup" *ngIf="showImages">
+    <div class="group-header lpDetailsGroupHeader pointer" (click)="toggleExpandedImages()">
+        <span class="group-header_Toggle">
+            <img class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" [class.rotate]="alarm.ExpandedImages === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+        </span>
+        <span class="group-header_GroupName">
+            Images
+        </span>
+        <span class="group-header_ItemCount">
+            ({{getSnapshotsCount()}})
+        </span>
+    </div>
+    <div class="lpDetailsGroupList" [@slideDown]="alarm.ExpandedImages">
+        <div *ngIf="alarm.HasSnapshots && getSnapshotsCount() > 0" class="lpAlarmAttachmentWrapper row">
+            <div *ngFor="let alarmImage of alarm.Snapshots" class="lpAlarmAttachmentsList col-4">
+                <div class="lpAlarmImagePlaceholder" [class.lpAlarmImages]="!alarmImage.Selected" [class.lpItemContainerSelected]="alarmImage.Selected">
+                    <img title="Open Image Viewer" class="lpAlarmImage" (click)="selectImage(alarmImage.Uri)" src="{{alarmImage.Uri}}" />
+                </div>
+            </div>
+        </div>
+        <div *ngIf="alarm.HasSnapshots && getSnapshotsCount() === 0" class="lpAlarmImgLoading row">
+            <div class="lpAlarmImgLoadingText">Loading snapshot images...</div>
+            <img class="lpAlarmImgLoadingGif" src="/Content/Images/loading-spinner-grey.gif" />
+        </div>
+    </div>
+</div>
+<div class="lpGroup commentGroup" *ngIf="showComments">
+    <div class="group-header lpDetailsGroupHeader pointer" (click)="toggleExpandedComments()">
+        <span class="group-header_Toggle">
+            <img class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" [class.rotate]="alarm.ExpandedComments === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+        </span>
+        <span class="group-header_GroupName">
+            Comments
+        </span>
+        <span class="group-header_ItemCount">
+            ({{getCommentCount()}})
+        </span>
+    </div>
+    <div class="lpGroup" [@slideDown]="alarm.ExpandedComments">
+        <div class="lpAlarmComments">
+            <div class="lpAlarmCommentsInput">
+                <div class="float-right">
+                    <button [disabled]="!alarm.NewComment" type="button" class="btn btn-default lpAlarmCommentsInput_SubmitButton" (click)="addComment(alarm.NewComment)">
+                        Submit
+                    </button>
+                </div>
+                <div class="lpAlarmCommentsInput_Wrapper">
+                    <input type="text" placeholder="Enter comment here." class="form-control" [(ngModel)]="alarm.NewComment" focus="alarm.NewCommentFocused"
+                           (focus)="alarm.NewCommentFocused = true" (blur)="alarm.NewCommentFocused = false" (keydown.enter)="addComment(alarm.NewComment)">
+                </div>
+            </div>
+            <div class="lpAlarmCommentsDisplay">
+                <div *ngFor="let comment of alarm.Comments">
+                    <div class="lpComment lpComment_Border">
+                        <table class="lpCommentTable">
+                            <tr>
+                                <td class="lpCommentTable_LeftColumn">
+                                    <!-- TODO Css Circle > embedded image -->
+                                    <img lass="userPicBackground" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAfCAYAAADwbH0HAAAACXBIWXMAAAsSAAALEgHS3X78AAABUUlEQVRIx+2Xy3HCQBBEH5uAycCEgCNAjsA6dACEQAgiA0IQZ+YgIrCIwJCBnAGKAF8GF8YgIz6ri/umkmrf9NZoPr3dbkdbmVly+CypbHtG7xKwg8ZAAjyf+ewTKIH8kkAawWaWArMGGA1BTCQVrcBm1gdy4I3btATGkrZ/gs1sCBRXuGxyn0panwU7tASeuK9qIDmEf4P9etd3dHrK+XB/7eHgRf5AKH52/sOx/y7vxNGrpHLvOCOeMoDeYrEYAh/E1UsAUuIrDV4GYysJwKgD8CjQkf7BUcF1B9w6eDeKrbJTcNEBuAiSKmAeETqXVHXWnYLPxRUwjQCdOuvXzFU+sHavJCXnCkgKbB4A3Ry333C0imy9TS7vCF36hLm9aJMws4knwrWjbg1kkmbXrDADh6ctAqi9NmT7RLplaes7PAEGJxJwBVReBYtTK8uxvgAPZYxNzeWojAAAAABJRU5ErkJggg==" />
+                                    <span class="userPicInitials">
+                                        <b>{{comment.UserId != null ? this.alarmService.convertUsernameToInitials(comment.UserId) : '?'}}</b>
+                                    </span>
+                                </td>
+                                <td class="lpCommentTable_MiddleColumn">
+                                    <div class="lpCommentTable_User">
+                                        <b>{{comment.UserId}}</b>
+                                    </div>
+                                    <div class="lpCommentTable_Comment">
+                                        {{comment.CommentText}}
+                                    </div>
+                                </td>
+                                <td class="lpCommentTable_RightColumn">
+                                    <div class="lpCommentTable_Date">
+                                        {{alarmService.convertDateDisplay(comment.Timestamp)}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="lpGroup" *ngIf="showHistory">
+    <div class="group-header lpDetailsGroupHeader pointer" (click)="toggleExpandedHistory()">
+        <span class="group-header_Toggle">
+            <img class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" [class.rotate]="alarm.ExpandedHistory === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+        </span>
+        <span class="group-header_GroupName">
+            Alarm History
+        </span>
+    </div>
+    <div [@slideDown]="alarm.ExpandedHistory">
+        <div class="lpAlarmHistoryActions">
+            <table class="lpAlarmHistoryActionsTable">
+                <tr class="lpAlarmHistoryActionsTable_HeaderRow">
+                    <td class="lpAlarmHistoryActionsTable_HeaderRowUserCol" (click)="sortAlarmHistory('UserId')">
+                        Initiated by
+                    </td>
+                    <td class="lpAlarmHistoryActionsTable_HeaderRowActionCol" (click)="sortAlarmHistory('Action')">
+                        Action
+                    </td>
+                    <td class="lpAlarmHistoryActionsTable_HeaderRowDateCol" (click)="sortAlarmHistory('Timestamp')">
+                        Date/Time
+                    </td>
+                </tr>
+                <tr *ngFor="let history of alarmHistory" class="lpAlarmHistoryActionsTable_ActionRow">
+                    <td class="lpAlarmHistoryActionsTable_ActionRowUserCol">
+                        {{history.UserId || '?'}}
+                    </td>
+                    <td class="lpAlarmHistoryActionsTable_ActionRowActionCol">
+                        {{history.Action || '?'}}
+                    </td>
+                    <td class="lpAlarmHistoryActionsTable_ActionRowDateCol">
+                        {{alarmService.convertDateDisplay(history.Timestamp)}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

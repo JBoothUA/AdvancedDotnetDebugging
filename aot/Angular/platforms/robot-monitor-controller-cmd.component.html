@@ -1,0 +1,86 @@
+﻿<div  class="cmd-item" [class.selected]="isSelected" [class.disabled]="checkDisable()" [attr.commandname]="cmd.onCommand.CommandName">
+    <div class="cmd-header" [class.selected]="isSelected">
+        <div *ngIf="cmd.onCommand.CommandName !== CommandName.Volume" (click)="onSelection($event)" style="height: 100%; width: 100%; float: left;">
+            <div class="cmd-name">
+                <img style="float:left;margin:0 5px;height:35px;" src="{{getCmdIcon(cmd, showSelectedIcon())}}" />
+                <span style="float:left;margin-top:5px;margin-left:5px;">{{getCmdName()}}</span>
+            </div>
+            <div class="cmd-extra"></div>
+            <div class="cmd-toggle">
+                <toggle-button class="toggle-button" (change)="onSelection($event)" *ngIf="cmd.toggleCommand && !isLoading" [checked]="getState(cmd)" [errorState]="toggleFailed" [size]="'small'"></toggle-button>
+                <img height="32" *ngIf="cmd.toggleCommand && isLoading" src="/Content/Images/loading-spinner-grey.gif" />
+            </div>
+            <img *ngIf="nonToggleLoading" style="float: right;" height="32" src="/Content/Images/loading-spinner-grey.gif">
+            <img style="float:right; margin-top: 9px;" height="20" *ngIf="nonToggleError" src="/Content/images/Platforms/command-error.png" />
+        </div>
+
+        <div *ngIf="cmd.onCommand.CommandName === CommandName.Volume">
+            <platform-volume [platform]="platform"></platform-volume>
+        </div>
+    </div>
+    <div class="cmd-dialog" *ngIf="hasCmdDialog(cmd.onCommand.CommandName)"
+                            [@slideDown]="isSelected ? 'out': 'in'" (@slideDown.done)="onCmdDialogToggle($event)">
+        <div *ngIf="cmd.onCommand.CommandName === CommandName.Play">
+            <say-play-chooser #platformSayPlay
+                              [mode]="(size !== WindowSize.sm) ? 'normal' : 'compact'"
+                              [sayParameterList]="getSayParameterList()"
+                              [playParameterList]="cmd.onCommand.Parameters[0]"
+                              [commandName]="CommandName.SayMessage"
+                              (onCommandChange)="sayPlayCommandChanged($event)"
+                              (onValueChange)="sayPlayValueChanged($event)"
+                              (onEnterPress)="executeSayPlay()"
+                              [hideIcon]="true">
+            </say-play-chooser>
+
+            <button class="btn btn-primary" (click)="executeSayPlay()">Play</button>
+        </div>
+
+        <div *ngIf="cmd.onCommand.CommandName === CommandName.OrientPlatform">
+            <orient-robot #orientRobot [large]="(size !== WindowSize.sm) ? true : false"
+                          [dataItems]="platform"
+                          [initialMapZoom]="20"
+                          [orientationValue]="platform.Orientation"
+                          [valuePrompt]="'Orientation in Degrees'"
+                          (onOrientationChange)="orientValueChanged($event)">
+            </orient-robot>
+
+            <button class="btn btn-primary" (click)="executeOrientPlatform()">Orient</button>
+        </div>
+        
+        <div *ngIf="cmd.onCommand.CommandName === CommandName.LocalizeOnCharger">
+            <div style="font-weight:normal;float:left;width:100%;">
+                <img style="float:left;height:30px;margin-left:46px;" src="../../Content/Images/Platforms/robot-on-charger.png" />
+                <span style="float: left; font-size: 14px; margin-left: 10px; width: calc(100% - 127px); margin-top: 2px;">
+                    <span style="float:left;font-weight:bold;margin-right:10px;">Step 1</span>
+                    Place Ramsee {{platform.DisplayName}} on the charger.
+                </span>
+            </div>
+            <div style="font-weight:normal;float:left;width:100%;margin-top:15px;">
+                <img style="float:left;height:30px;margin-left:46px;" src="../../Content/Images/Platforms/reset-using-charger-location.png" />
+                <span style="float: left; font-size: 14px; margin-left: 10px; width: calc(100% - 127px); margin-top: 2px;">
+                    <span style="float:left;font-weight:bold;margin-right:10px;">Step 2</span>
+                    Press "Reset Robot Location" to reset {{platform.DisplayName}}'s location to the charger location.
+                </span>
+            </div>
+            <button class="btn btn-primary" style="width:auto;" (click)="executePlatformCommand($event)">Reset Robot Location</button>
+        </div>
+
+        <div *ngIf="cmd.onCommand.CommandName === CommandName.SetChargerLocation">
+            <div style="font-weight:normal;float:left;width:100%;">
+                <img style="float:left;height:30px;margin-left:46px;" src="../../Content/Images/Platforms/charger-location.png" />
+                <span style="float: left; font-size: 14px; margin-left: 10px; width: calc(100% - 127px); margin-top: 2px;">
+                    <span style="float:left;font-weight:bold;margin-right:10px;">Step 1</span>
+                    Put charger in the designated location.
+                </span>
+            </div>
+            <div style="font-weight:normal;float:left;width:100%;margin-top:15px;">
+                <img style="float:left;height:30px;margin-left:46px;" src="../../Content/Images/Platforms/robot-on-charger.png" />
+                <span style="float: left; font-size: 14px; margin-left: 10px; width: calc(100% - 127px); margin-top: 2px;">
+                    <span style="float:left;font-weight:bold;margin-right:10px;">Step 2</span>
+                    Place {{platform.DisplayName}} on the charger.
+                </span>
+            </div>
+            <button class="btn btn-primary" style="width:auto;" (click)="executePlatformCommand($event)">Set Charger Location</button>
+        </div>
+    </div>
+</div>

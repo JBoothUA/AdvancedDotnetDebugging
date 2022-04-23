@@ -1,0 +1,762 @@
+﻿.lpItem_SelectBox {
+	height:30px;
+}
+
+.group-header_Toggle {
+	margin-left: 0;
+}
+
+.ms-mainContent {
+	position:relative;
+	float:left;
+    z-index:1002;
+	width:100%;
+    height: calc(100vh - 50px);
+}
+.ms-dividerLine {
+	position:relative;
+	float:left;
+	width:100%;
+	border-bottom:2px solid #e6e6e6;
+}
+
+.ms-dialog {
+	position:relative;
+	float:left;
+	height: 100%;
+	border-right:1px solid #898989;
+}
+
+.ms-params {
+	position:relative;
+	/*float:left;*/
+	width:100%;
+	height: calc(100% - 60px);
+}
+.ms-locFilter {
+	position:relative;
+	width:408px;
+	height:100%;
+}
+.ms-locFilter >>> .expandedFilterLocations.override {
+	overflow-y:auto;
+	overflow-x:hidden;
+	height:calc(100% - 45px);
+	width:407px;
+}
+
+.ms-selectLocInitGraphics {
+	position:absolute;
+	top: 75px;
+	left:0;
+	width:100%;
+}
+.ms-selectLocationImg {
+	position:relative;
+	padding-left:160px;
+	float:left;
+	width:100%;
+	height: 81px;
+}
+.ms-selectLocationText  {
+	position: relative;
+	float:left;
+	padding-left:60px;
+	font-size: 19px;
+	font-style:italic;
+	color: #848484;	
+	width:100%;
+ }
+
+.ms-scrollable {
+	position:absolute;
+	top:46px;
+	left:0;
+	width:100%;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	height:calc(100% - 46px);
+}
+.ms-main {
+	position:relative;
+	float:left;
+    z-index:1002;
+	width:408px;
+	height:100%;
+    /*height: calc(100vh - 50px);*/
+    background:white;
+    color:black;
+}
+
+.ms-cancelSave {
+	position:relative;
+	float:left;
+	font-size:16px;
+	width:100%;
+	height:60px;
+	background-color:#efefef;
+	border-top:1px solid #898989;
+ }
+
+.ms-cancelSaveBtns 
+{
+	position:relative;
+	float:right;
+	margin: 10px 15px 10px 0;
+}
+.ms-cancelSaveBtns > button {
+	width:130px;
+}
+
+.mapSettings-btn {
+	position:relative;
+	float:left;
+	border:1px solid black;
+	margin-top:20px;
+	width:100px;
+	height:45px;
+}
+
+.ms-zoomCenterTextContent {
+	position:relative;
+	float:left;
+	margin:0 15px 0 15px;
+	padding-bottom:10px;
+}
+.ms-header {
+	padding-top:5px;
+	height:36px;
+}
+
+.ms-header-toggle {
+	position:relative;
+	float:left;
+	margin-top:3px;
+}
+
+.ms-title
+{
+	position:relative;
+	float:left;
+	padding-right:3px;
+	top:1px;
+	cursor:pointer;
+	vertical-align:middle;
+	font-size:17px;
+	font-weight:bold;
+}
+
+.ms-titleStep {
+	position:relative;
+	float:left;
+}
+
+.ms-titleName
+{
+	position:relative;
+	float:left;
+	margin-left:5px;
+	max-width:350px;
+	overflow:hidden
+}
+
+.ms-groupList {
+	position:relative;
+	float:left;
+}
+.ms-step1Content {
+	position:relative;
+	float:left;
+}
+
+.ms-clickMapImage {
+	position:relative;
+	padding:10px 0 0 140px;
+	float:left;
+	width:100%;
+	height: 81px;
+}
+.ms-zoomCenterText  {
+	position: relative;
+	float:left;
+	padding:20px 0 0 60px;
+	font-size: 19px;
+	font-style:italic;
+	color: #848484;	
+	width:100%;
+ }
+
+.ms-setZoomCenter {
+	position: relative;
+	float:left;
+	font-size: 16px;
+	padding:20px 0 10px 100px;
+	width: 100%;
+}
+
+.ms-mapArea {
+	position:relative;
+	float:left;
+	width:calc(100% - 409px);
+	height:100%;
+
+}
+.ms-zoomCenterValuesContent {
+	position: relative;
+	float:left;
+	width: 100%;
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+
+.ms-zoomLevelValue {
+	position:relative;
+	float:left;
+	width: 120px;
+	margin:10px 0 0 5px;
+}
+.ms-zoomLevelValueLabel {
+	position:relative;
+	float:left;
+	width:100%;
+	margin-bottom:5px;
+}
+
+.ms-mapZoomSpinner {
+	position:relative;
+	float:left;
+}
+.ms-mapCenterValue {
+	position:relative;
+	float:left;
+	margin:10px 0 0 10px;
+	width: 225px;
+}
+.ms-mapCenterValueLabel {
+	position:relative;
+	float:left;
+	width:100%;
+	margin-bottom:5px;
+}
+
+.ms-mapCenterInput {
+	position:relative;
+	float:left;
+	width: 100%;
+	height: 32px;
+}
+
+.ms-mapZoomInput {
+	position:relative;
+	float:left;
+	width: 100%;
+	height: 32px;
+}
+
+.ms-nextStep {
+	position:relative;
+	float:left;
+	width:100%;
+	margin-top:10px;
+}
+
+.ms-nextStepBtn {
+	position:relative;
+	float:left;
+	font-size:24px;
+	width:100%;
+	color: #4272B2;
+	cursor:pointer;
+
+}
+
+.ms-nextStepBtn {
+	position:relative;
+	float:left;
+	font-size:24px;
+	width:100%;
+	color: #4272B2;
+	cursor:pointer;
+}
+
+
+.ms-nextStepBtn.disabled {
+	opacity: .2;
+	cursor: default;
+}
+
+.ms-nextStepImg {
+	position:relative;
+	float:right;
+	width: 33px;
+	height: 33px;
+	margin-top:5px;
+	background-image:url('../../Content/Images/Admin/next-button.png'); 
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+.ms-nextStepBtn:hover > .ms-nextStepImg {
+	background-image:url('../../Content/Images/Admin/next-button-hover.png'); 
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+.ms-nextStepText {
+	position:relative;
+	float:right;
+	margin-right:10px;
+}
+
+.ms-nextStepBtn:hover {
+	color:#1E5AA5;
+}  
+.ms-customLayerTextContent {
+	position:relative;
+	float:left;
+	width: calc(100%-30px);
+	margin:0 15px 0 15px;
+}
+
+.ms-step2Content {
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.ms-addLayersImage {
+	position: relative;
+	float:left;
+	padding-top: 10px;
+	padding-left: 120px;
+	width:100%;
+	cursor: pointer;
+}
+.ms-addLayersText  {
+	position: relative;
+	float:left;
+	padding-top: 20px;
+	padding-left: 60px;
+	width:100%;
+	font-size: 19px;
+	font-style:italic;
+	padding-bottom: 10px;
+	color: #848484;
+ }
+
+.ms-layerDefMain {
+	position:absolute;
+	display:none;
+    z-index:1003;
+	top:0;
+	left:0;
+	height:calc(100vh - 110px);
+	width:100%;
+    background:white;
+    color:black;
+	displ
+}
+
+.ms-layerDefMain.expanded {
+	display:inline;
+}
+
+.ms-initLayersGraphic {
+	position:relative;
+	float:left;
+	width: 100%;
+}
+
+.ms-includeLayers {
+	position:relative;
+	float:left;
+	width: 100%;
+	margin-top:20px;
+}
+
+.ms-includeLayersLabel {
+	position:relative;
+	float:left;
+	font-size:15px;
+	font-weight:bold;
+	width:100%;
+	padding-bottom:10px;
+}
+
+.ms-includeLayersCheckboxSection {
+	position:relative;	 
+	float:left;
+	width:100%;
+}
+
+.ms-includeLayersCheckbox {
+    position: relative;
+	float:left;
+    height: 30px;
+    width: 30px;
+    background-image: url('../../Content/Images/Dashboard/checkmark-box.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ms-includeLayersCheckbox.selected {
+   background-image: url('../../Content/Images/Dashboard/checkmark-box-blue.png');
+}
+
+.ms-showOnStartupLabel {
+	position:relative;
+	float:left;
+	margin-top:3px;
+	color:#848484;
+}
+.ms-addNewlayerBtn {
+	position:relative;
+	float:right;
+	width: 100px;
+	height: 25px;
+
+}
+.ms-addNewlayerBtn {
+    cursor:pointer;
+    background-image: url('../../Content/Images/Patrols/new-patrol.png');
+    background-repeat:no-repeat;
+    float: right;
+    width: 92px;
+    text-align: right;
+    height: 22px;
+    margin-top:5px;
+}
+
+.ms-addNewlayerBtn:hover {
+    background-image: url('../../Content/Images/Patrols/new-patrol-hover.png');
+    color:#4272B3;
+}
+
+
+.ms-includeLayersList {
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.ms-includeLayersList.over {
+	background-color: #e3f0f6;
+	border:3px dashed #025aa5; 
+}
+
+#layersListDropZone, #layersListDropZoneEmpty {
+	position:relative;
+	float:left;
+	width: 100%;
+	padding:15px 0 10px 0;
+}
+
+.ms-layerCard{
+	position:relative;
+	display: flex;
+	justify-content:center;
+	float:left;
+	width: 100%;
+	padding-bottom:10px
+}
+
+.ms-layerCardCheckbox{
+	position:relative;
+	align-self: center;
+	float:left;
+	width:24px;
+	height:30px;
+    background-image:url('../../Content/Images/Dashboard/checkmark-gray.png');
+    background-repeat:no-repeat;
+    cursor:pointer;
+}
+
+.ms-layerCardCheckbox.selected {
+    background-image: url('../../Content/Images/Dashboard/checkmark-blue.png');
+}
+
+.ms-layerCardContent{
+	position:relative;
+	display: flex;
+	justify-content:center;
+	float:left;
+	margin-left:8px;
+	padding: 5px;
+	border:1px solid #c2c2c2;
+	width:100%;
+}
+
+.ms-layerCardContent:hover {
+	background-color:#e3f0f6;
+}
+
+.ms-layerCardContent.selected {
+	background-color:#c9def0;
+}
+
+.ms-dragIcon {
+	position:relative;
+	display: inline;
+	float:left;
+	align-self: center;
+	width: 30px;
+	cursor: move;
+}
+.ms-dragIconImg {
+	position:relative;
+	display:inline;
+	float:left;
+	background:url("./Content/images/Patrols/drag-indicator.png");
+	background-position:center;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 36px;
+}
+
+.ms-layerCardContent.selected >>> .ms-dragIconImg {
+	background:url("./Content/images/Patrols/drag-indicator-card-selected.png");
+	background-position:center;
+	background-repeat: no-repeat;
+}
+
+.ms-cardContent {
+	position:relative;
+	display:inline;
+	float:left;
+	/*padding-bottom:10px;*/
+	width: calc(100% - 30px);
+	overflow:hidden;
+	color: #848484;
+}
+.ms-tenantName {
+	position: relative;
+	display:block;
+	font-size: 14px;
+	width: 100%;
+	height: 32px;
+}
+
+.ms-tenantNameText {
+	position:relative;
+	display:inline;
+	float:left;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+
+.ms-layerCommands {
+	position:relative;
+	display:inline;
+	float:right;
+	display:none;
+}
+
+.ms-layerCardContent:hover >>> .ms-layerCommands {
+	display:inline;
+}
+
+.ms-layerCardContent.selected >>> .ms-layerCommands {
+	display:inline;
+}
+
+.ms-editIconImg {
+	position:relative;
+	float:left;
+	width: 30px;
+	height: 30px;
+	margin:-2px 5px 0 0;
+	background-image: url('./Content/images/Admin/edit-settings-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	cursor: pointer;
+}
+
+.ms-editIconImg:hover {
+	display:inline;
+	background-image: url('./Content/images/Admin/edit-settings-open.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ms-layerCardContent.selected >>> .ms-editIconImg {
+	display:inline;
+	background-image: url('./Content/images/Admin/edit-settings-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ms-layerCardContent.selected >>> .ms-editIconImg:hover {
+	display:inline;
+	background-image: url('./Content/images/Admin/edit-settings-open.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+.ms-deleteIconImg {
+	position:relative;
+	float:left;
+	width: 30px;
+	height: 30px;
+	background-image: url('./Content/images/Patrols/delete-icon-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	cursor:pointer;
+}
+.ms-deleteIconImg:hover {
+	display:inline;
+	background-image: url('./Content/images/Patrols/delete-icon-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ms-layerCardContent.selected >>> .ms-deleteIconImg {
+	display:inline;
+	background-image: url('./Content/images/Patrols/delete-icon-row-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ms-layerCardContent.selected >>> .ms-deleteIconImg:hover {
+	display:inline;
+	background-image: url('./Content/images/Patrols/delete-icon-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+.ms-layerName {
+	position: relative;
+	float:left;
+	font-size: 19px;
+	align-self:center;
+	width: calc(100% - 65px);
+}
+
+.ms-layerName > span {
+	position:relative;
+	display:inline;
+	float:left;
+	margin-top: -6px;
+	margin-right: 5px;
+	padding: 5px 0 5px 0;
+}
+
+.ms-assignToRobot {
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.ms-assignToRobot > .btn {
+	font-size: 14px;
+	height: auto;
+	border-radius:5px;
+	padding:5px 8px 5px 8px;
+	color:white;
+	background-color:#676767;
+}
+
+.ms-removedLayersLabel {
+	position:relative;
+	float:left;
+	font-size:15px;
+	font-weight:bold;
+	width:100%;
+	padding:10px 0 10px 0;		  
+}
+
+.ms-removedLayersList {
+	position:relative;
+	float:left;
+	width:100%;
+}
+
+.ms-removedLayersList.over {
+	background-color: #e3f0f6;
+	border:3px dashed #025aa5; 
+}
+
+#availLayersListDropZone, #availLayersListDropZoneEmpty {
+	position:relative;
+	float:left;
+	width: 100%;
+	padding:15px 0 10px 0;
+}
+
+.ms-layerCardPlaceholder {
+	position:relative;
+	float:left;
+	width:24px;
+	height:30px;
+}
+.ms-emptyLayersContainer {
+	position:relative;
+	float:left;
+	display: flex;
+	justify-content:center;
+	width: 347px;
+	height: 79px;
+	margin: 0 0 10px 30px;
+
+	background-color: #eff1f3;
+	border: 3px dashed #d7dadd;
+}
+
+.ms-dragLayerImg {
+	position:relative;
+	float:left;
+	align-self:center;
+	width:56px;
+	height:40px;
+	margin-left:20px;
+	background-image: url('./Content/images/Admin/drag-layer-icon.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.ms-dragLayerText {
+	position:relative;
+	float:left;
+	align-self:center;
+	width:calc(100% - 56px);
+	height:60px;
+	margin-left: 15px;
+}
+
+.ms-dragLayerText > span {
+	position:relative;
+	float:left;
+	width: 100%;
+	font-size: 19px;
+	font-style:italic;
+	color: #4e5559;
+}
+
+
+.ms-mapArea >>> .ms-polygonStyles.ms-moveCursor {
+	cursor:move;
+}
+
+.ms-mapArea >>> .editMarker {
+	border:none;
+}
+
+.ms-mapArea >>> .rotateMarker {
+	border:none;
+}
+
+.ms-linkBtnIcon {
+	position:relative;
+	float:left;
+	height:14px;
+	width:14px;
+	margin-right:5px;
+}
+
+.ms-linkBtnText {
+	position:relative;
+	float:left;
+}

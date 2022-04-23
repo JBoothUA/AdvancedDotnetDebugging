@@ -1,0 +1,203 @@
+﻿.modal.fade .linkMap-dialog{
+	transform: translate(0, 5%);
+}
+.linkMap-dialog {
+	max-width: 750px;
+}
+.linkMap-header {
+    color:white;
+    background-color:#414042;
+    padding:8px;
+    text-align:center;
+    width:100%;
+    font-size:18px;
+}
+
+.linkMap-closeBtn {
+	position: relative;
+	float:right;
+	height: 30px;
+	width:30px;
+	background:url("./Content/Images/Alarms/x-icon.png");
+	background-position:center;
+}
+
+.linkMap-dialog-body {
+ 	position: relative;
+	display:block;
+	line-height:1.5;
+	margin: 15px 10px 5px 10px;
+	width:calc(100% - 20px);
+}
+
+.linkMapBtn {
+	width: 125px;
+}
+
+.linkMap-footer {
+	position:relative;
+	display:block;
+	padding:10px;
+}
+
+.linkMap-okCancelBtns {
+	position:relative;
+	float:right;
+
+}
+
+.linkMap-prompt {
+	position:relative;
+	float:left;
+	margin-left:20px;
+}
+
+.linkMap-linkIcon {
+	position:relative;
+	float:left;
+	width:49px;
+	height: 50px;
+	margin-right:10px;
+	background:url("./Content/Images/Admin/link-icon-for-dialog.png");
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+.linkMap-promptText {
+	position:relative;
+	float:left;
+	width: calc(100% - 59px);
+	font-size:18px;
+	margin-top:15px;
+ }
+
+.linkMap-body {
+	position:relative;
+	float:left;
+	margin-left:75px;
+	width: 410px;
+	height:150px;
+	margin-top:10px;
+}
+
+.linkMap-label {
+	position:relative;
+	float:left;
+	font-size:16px;
+	width:100%;
+}
+.linkMap-asterix {
+	position:relative;
+	float:left;
+	font-size:24px;
+	color:red;
+	margin-left:5px;
+	margin-right:10px;
+	margin-top:1px;
+}
+.linkMap-labelText {
+	float:left;
+	margin-top:4px;
+}
+
+.linkMap-robotsDropDown {
+	position:relative;
+	float:left;
+	width:calc(100% - 39px);
+	margin-left:25px;
+}
+
+.linkMap-robotsDropDown >>> label {
+	font-size:14px;
+	margin-bottom:0;
+	background:none;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	font-weight:normal;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-label-container {
+	width:100%;
+	white-space:nowrap;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-item > label {
+	width: 320px;
+}
+
+.linkMap-robotsDropDown >>>.ui-state-default {
+    background: none;
+    color: #4272b4;
+}
+.linkMap-robotsDropDown >>> .ui-multiselect-trigger {
+    border-left: none;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect {
+	width:100%;
+	background: #efefef;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect:hover {
+	width:100%;
+	background:#e3f0f6;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-trigger {
+	border-left:none;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect .ui-multiselect-trigger .fa {
+	font-size:18px;
+	margin-top:.7em;
+	margin-left:-.3em;
+}
+
+.linkMap-robotsDropDown >>> .ui-state-default a:hover{
+	color:#4272b4; 
+}
+
+.linkMap-robotsDropDown >>> .ui-state-default a {
+	color:black; 
+}
+
+.linkMap-robotsDropDown >>> .ui-multistate-panel {
+	padding:0;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-header {
+	margin-bottom:0;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-panel .ui-multiselect-item:not(.ui-state-highlight):hover {
+  	background:#e3f0f6;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-panel .ui-multiselect-items-wrapper {
+	padding:0;
+}
+
+.linkMap-robotsDropDown >>> .ui-state-default:hover {
+	background:#e3f0f6;
+}
+
+.linkMap-robotsDropDown >>> .ui-multiselect-close  {
+	font-size:20px;
+	top:.15em;
+}
+
+.linkMap-robotsDropDown >>> .ui-state-highlight {
+	background:#c9def0;
+}
+.linkMap-robotsDropDown >>> .ui-state-hover {
+	background:#e3f0f6;
+}
+
+.linkMap-robotsDropDown >>> .ui-multistate-panel .ui-multistate-item:not(.ui-state-highlight):hover {
+	background:#e3f0f6;
+}
+
+.linkMap-robotsDropDown >>> .ui-multistate-panel .ui-multistate-list {
+	padding:0;
+}
+

@@ -1,0 +1,62 @@
+﻿<div class="pbStepContent">
+    <div>
+        <div class="pbStep-header pointer" (click)="toggleExpandedGroup()">
+            <span class="pbStep-header-toggle group-header_Toggle">
+                <img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+            </span>
+            <span class="pbStep-title">
+                (Step 2) Draw Patrol
+            </span>
+        </div>
+        <div class="lpGroupList lpItemGroupList" [@slideDown]="expandedState">
+            <div class="pbStep-initGraphic" *ngIf="patrol.Points.length == 0">
+                <div class="pbStep-clickMapImage">
+                    <img src="../../Content/Images/Patrols/build-patrol-graphic.png" />
+                </div>
+                <div class="pbStep-initGraphicText">
+                    <span>Click on Map to Draw Patrol</span>
+                </div>
+            </div>
+            <div *ngIf="patrol.Points.length > 0">
+                <div class="pbPoints-header">
+                    <div class="pbPoints-header-text">
+                        Patrol Points ({{patrol.Points.length}})
+                    </div>
+                    <div [class.active]="numCheckpoints > 0" class="pbPoint-header-expandCollapse" [title]="expandCollapseBtnTooltip" (click)="expandCollapseAllActions()">
+                        {{expandCollapseBtnText}}
+                    </div>
+                </div>
+                <div style="height: calc(100vh - 287px); overflow-y: auto;">
+                    <div *ngFor="let patrolPoint of patrol.Points; let idx=index">
+                        <patrol-builder-pointItem [selected]="patrolPoint.Selected" [patrolPoint]="patrolPoint" [patrol]="patrol" [pointName]="patrolPoint.DisplayName" [pointDescription]="patrolPoint.Description"
+                                                  [pointCount]="patrolMapService.getActivePatrolPointCount()" (onToggleActionGroup)="updateExpandedActionsCnt($event)">
+                        </patrol-builder-pointItem>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="pbStep-item">
+		<div class="pbStep-cancelSave">
+			<button type="button" class="pbStepBtn btn btn-default" (click)="cancelBuilder()">Cancel</button>
+			<button type="button" class="pbStepBtn btn btn-primary" (click)="savePatrol()" [disabled]="disableSave()">Save</button>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- Dialogs -->
+<modal>
+	<div class="modal-dialog-header">
+		<span>Unable To Save Patrol</span>
+	</div>
+	<div class="modal-dialog-body">
+		<div class="modal-dialog-icon" [ngStyle]="{ 'background-image': 'url(' + warningIcon + ')' }"></div>
+		<div>This patrol is currently being executed and cannot be saved at this time.</div>
+	</div>
+	<div class="modal-dialog-footer">
+		<button type="button" class="btn btn-default" (click)="hideErrorDialog()">Close</button>
+	</div>
+</modal>
+<patrol-builder-actionsDialog #actionsDialog></patrol-builder-actionsDialog>

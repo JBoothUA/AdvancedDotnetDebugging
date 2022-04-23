@@ -1,0 +1,74 @@
+﻿<!--<joystick (onMove)="processJoystick($event)" style="float:left;height:100px;width:100px;position:absolute;"></joystick>-->
+<div class="panel" [@slideOut]="(!isShown) ? 'in' : 'out'" (@slideOut.done)="animationDone($event)">
+    
+    <div *ngIf="platform" >
+        <div title="Close Concise Robot Monitor"  (click)="onClose()" class="close-btn"> </div>
+        <div title="Open New Window" (click)="onTearOff()" class="expand-btn"> </div>
+        <button title="Robot Actions" #platformActions (click)="openActionMenu($event)" class="btn btn-default estop-btn action-btn" style="">Actions</button>
+        <robot-card [platform]="platform"
+                    [expanded]="false"
+                    [selected]="false"
+                    [mapViewOptions]="mapViewOptions"
+                    [disablePlatformTabScroll]="false"></robot-card>
+        <div class="scroll-content">
+            <video-box style="height:250px;margin-top:10px;width:calc(100% - 20px);margin-left:10px"
+                       [heading]="platform.Orientation"
+                       [showHeading]="true"
+                       [camera]="platform.Cameras[0]">
+            </video-box>
+
+            <div class="content-box">
+                <div (click)="slideForward()" [ngClass]="{'nav': true, 'forward': true, 'disabled': sliderIndex === 0}"></div>
+                <div (click)="slideBack()" [ngClass]="{'nav': true, 'backward': true, 'disabled': ((sliderIndex + 2) >= (getSecondaryCamras().length))}"></div>
+                <video-box *ngFor="let camera of getSecondaryCamras()"
+                           class="slider-item"
+                           [heading]="platform.Orientation"
+                           [showHeading]="false"
+                           [camera]="camera">
+                </video-box>
+            </div>
+
+            <div class="content-box" style="margin-bottom:10px;height:auto !important;padding:0;">
+                <platform-command-list [hideVideoControlSection]="true" [platform]="platform" style="width:100%;"></platform-command-list>
+            </div>
+
+        </div>
+        <div class="manual-control-panel">
+            <div (click)="joystickExpanded = !joystickExpanded" class="header">
+                <div  class="expane-toggle-icon" [class.collapse-toggle-icon]="joystickExpanded"></div>
+                JOYSTICK
+            </div>
+            <div class="joystick-content">
+                <div class="patrol-controls">
+                    <div style="float: left; margin: 10px; margin-left: 32px; margin-top: 23px;">
+                        <div (click)="onPausePatrol()" [ngClass]="{'patrol-command': true, 'disabled': !isPatrolPausedEnabled()}" *ngIf="!isPatrolResumeEnabled()" style="margin-bottom: 14px;">
+                            <img src="../../Content/Images/Patrols/pause-patrol.png" />
+                            Pause Patrol
+                        </div>
+                        <div (click)="onResumePatrol()" [ngClass]="{'patrol-command': true}" *ngIf="isPatrolResumeEnabled()" style="margin-bottom: 14px;">
+                            <img height="17" src="../../Content/Images/Patrols/resume-patrol-large.png" />
+                            Resume Patrol
+                        </div>
+                        <div (click)="confirmAbortPatrol()" [ngClass]="{'patrol-command': true, 'disabled': !(patrolService.getPatrolInstanceByPlatformId(platform.id)) && !platform.PatrolTemplateSubmittedId}">
+                            <img src="../../Content/Images/Patrols/abort-icon.png" />
+                            Abort Patrol
+                        </div>
+                    </div>
+                    <div title="Emergency Stop Robot" (click)="platformService.executeEStop(platform)" [ngClass]="{'patrol-command': true}" style="float: left; margin-left: 28px; margin-top: 10px;">
+                        <img style="float:left;" src="../../Content/Images/Patrols/e-stop-large.png" />
+                        <span style="float: left; clear: left; width: 100%; text-align: center; margin-top: 4px;">E-Stop</span>
+                    </div>
+                </div>
+                <div class="joystick">
+                    <img src="../../Content/Images/Platforms/center-joystick.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<confirmation-dialog #confirmAbort
+                     [title]="'Abort the patrol?'"
+                     [confirmMessage]="'Are you sure you want to abort this patrol?'"
+                     [confirmBtnText]="'Abort'"
+                     (eventOnConfirm)="abortPatrol()"></confirmation-dialog>

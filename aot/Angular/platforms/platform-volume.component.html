@@ -1,0 +1,23 @@
+﻿<div class="cmd-name">
+    <img src="{{getIcon()}}" />
+    <span>{{(volumeCmd) ? volumeCmd.DisplayName : ''}}</span>
+</div>
+<div *ngIf="!isLoadingVolumeLevel" class="cmd-toggle" style="float:right;">
+    <toggle-button class="toggle-button" (change)="handleMuteChange($event)" *ngIf="!isMuteLoading" [errorState]="muteError" [checked]="!isMuted" [size]="'small'"></toggle-button>
+    <img height="32" *ngIf="isMuteLoading" src="/Content/Images/loading-spinner-grey.gif" />
+</div>
+<div *ngIf="volumeCmd" class="volume-slider ">
+    <p-slider [(ngModel)]="volumeState" 
+              [range]="true" 
+              [min]="0" 
+              [max]="100"
+              [disabled]="isDisabled || isMuted"  
+              (onChange)="volumeChanging = true"
+              (onSlideEnd)="handleVolumeChange($event)"></p-slider>
+</div>
+<div *ngIf="isLoadingVolumeLevel" class="volume-level-loading">
+    <img style="height:35px;" src="../../Content/Images/loading-spinner-grey.gif" />
+</div>
+<div *ngIf="!isLoadingVolumeLevel && volumeLevelError" class="volume-level-error">
+    <img src="/Content/images/Platforms/command-error.png" />
+</div>

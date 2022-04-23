@@ -1,0 +1,69 @@
+<div class="lpItemWrapper noselect">
+    <div class="lpItemContainer"  [class.lpItemContainerSelected]="expanded || selected" [class.actionMenuOpen]="!selected && actionMenuOpen" data-id="card_{{(patrolTemplate) ? patrolTemplate.TemplateId : platform.id}}" [class.lpItemSelected]="selected" (dblclick)="handleDblClick($event)" (click)="handleClick($event)">
+        <div [class.lpItemSelected]="selected" [ngClass]="statusClass"  class="lpItem lpItem_LayoutContainer" (contextmenu)="openActionMenu($event)">
+            <div class="sch-indicator">
+                <img src="../../Content/Images/Patrols/scheduler-add-new.png" /> None
+            </div>
+            <div class="lpItem_LeftColumnTable progressBars">
+                <ng-content select="[progressBar]"></ng-content>
+                <ng-content select="[indicator]"></ng-content>
+            </div>
+            <div class="lpItem_MiddleColumn">
+                <div class="lpPlatform_MiddleColFirstRow">
+                    <ng-content select="[displayName]"></ng-content>
+                </div>
+                <div class="lpPlatform_MiddleColSecondRow" >
+                    <div class="percentComplete">
+                        <div *ngIf="patrolTemplate">
+                            <span *ngIf="patrolInstance || patrolTemplate.IsPatrolSubmitted">
+                                <img *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Paused" src="../../Content/Images/Patrols/pause-patrol.png" />
+                                {{getPatrolcompletenessText()}}% Complete |
+                            </span>
+                            <span *ngIf="!patrolInstance && !patrolTemplate.IsPatrolSubmitted">Available |</span>
+                        </div>
+                        <div *ngIf="!patrolTemplate">
+                            <span *ngIf="patrolInstance || platform.IsPatrolSubmitted">
+                                <img *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Paused" src="../../Content/Images/Patrols/pause-patrol.png" />
+                                {{getPatrolcompletenessText()}}% Complete |
+                            </span>
+                            <span *ngIf="!patrolInstance && !platform.IsPatrolSubmitted">{{platformService.getAvailableText(platform)}} |</span>
+                        </div>
+                    </div>
+                    <ng-content *ngIf="isOnPatrol" select="[itemLink]"></ng-content>
+                    <div *ngIf="!isOnPatrol" class="ellipsis" style="max-width: 196px;float:left; padding-left:5px;">
+                        {{getLocationDisplayname()}}
+                    </div>
+                    
+                </div>
+                <div class="card-third-line">
+                    <div *ngIf="isOnPatrol && !isEstopEnabled()">
+                       {{getPatrolRunText()}}
+                    </div>
+                   
+                    <ng-content *ngIf="!isOnPatrol || isEstopEnabled()" select="[cardThirdLine]" ></ng-content>
+                </div>
+                <chooser-status #chooserStatus
+                                (click)="chooserOpen = true"
+                                [patrolInstance]="(patrolInstance) ? patrolInstance : null"
+                                [patrolTemplateID]="(patrolTemplate) ? patrolTemplate.TemplateId : null"
+                                [platformID]="(!patrolTemplate) ? platform.id : null"
+                                [disabled]="isEstopEnabled()"></chooser-status>
+                <button title="Emergency Stop Robot" (click)="platformService.executeEStop(platform)" class="btn btn-default estop-btn" [attr.disabled]="(!platform)?true: null">
+                    <img *ngIf="platform" src="../../Content/Images/Platforms/e-stop-robot-moving.png" />   
+                    <img  *ngIf="!platform" src="../../Content/Images/Platforms/e-stop-robot-not-moving.png" />
+                    <span>E-Stop</span>
+                </button>
+            </div>
+            <div class="lpItem_RightColumn" (click)="actionMenuOpen = true">
+                <!--Command btns-->
+                <ng-content onselect="actionMenu"></ng-content>
+                
+                <div title="Show/Hide Details" class="lpItem_ExpandButton" [class.expanded]="expanded" (click)="toggleExpandedView()">
+                </div>
+            </div>
+        </div>
+		<div [hidden]="!expanded" class="expandedCard" (click)="blockSelection($event)">
+			<ng-content select="[expandedCard]"></ng-content>
+		</div>
+    </div>
+</div>

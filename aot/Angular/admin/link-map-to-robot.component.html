@@ -1,0 +1,32 @@
+﻿<div *ngIf="dialogVisible" class="modal fade" tabindex="-1" [ngClass]="{'in': animatedOpaque}"
+	 [ngStyle]="{'display': dialogVisible ? 'block' : 'none', 'opacity': animatedOpaque ? 1 : 0}">
+	<div class="linkMap-dialog modal-dialog">
+		<div class="linkMap-dialog-content modal-content">
+			<div class="linkMap-header">
+				<span>{{'Link Robot Map with Robot(s)' + layerName }}</span>
+				<div class="linkMap-closeBtn btn" (click)="hide()"></div>
+			</div>
+			<div class="linkMap-dialog-body">
+				<div class="linkMap-prompt">
+					<div class="linkMap-linkIcon" [ngStyle]="{ 'background-image': 'url(' + linkIcon + ')' }"></div>
+					<div class="linkMap-promptText">{{linkRobotsMessage}}</div>
+				</div>
+				<div class="linkMap-body">
+					<div class="linkMap-label">
+						<span class="linkMap-asterix">*</span>
+						<span class="linkMap-labelText">Choose Robot(s)</span>
+					</div>
+					<div class="linkMap-robotsDropDown linkMap-dropDown">
+						<p-multiSelect [options]="robots" [scrollHeight]="'160px'" (panelStyle)="{width:'100%'}" [maxSelectedLabels]="1" [defaultLabel]="'Available Robots'" [(ngModel)]="selectedRobots" (onChange)="selectedRobotsChanged($event)"></p-multiSelect>
+					</div>
+				</div>
+			</div>
+			<div class="linkMap-footer modal-dialog-footer">
+				<div class="linkMap-okCancelBtns">
+					<button type="button" class="linkMapBtn btn btn-default" (click)="hide()">Cancel</button>
+					<button type="button" class="linkMapBtn btn btn-primary" [disabled]="selectedRobots.length === 0" (click)="linkMapToRobot()">Link Robot(s)</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

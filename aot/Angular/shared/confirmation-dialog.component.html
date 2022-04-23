@@ -1,0 +1,11 @@
+﻿<modal #confirmModal>
+    <div class="modal-dialog-header">{{title}}</div>
+    <div class="modal-dialog-body">
+		<div *ngIf="confirmIcon !== ''" class="modal-dialog-icon" [ngStyle]="{ 'background-image': 'url(' + confirmIcon + ')' }"></div>
+		<div class="modal-dialog-message">{{confirmMessage}}</div>
+	</div>
+    <div class="modal-dialog-footer">
+        <button (click)="cancel()" class="btn">{{cancelBtnText}}</button>
+        <button (click)="confirm()" class="btn btn-primary">{{confirmBtnText}}</button>
+    </div>
+</modal>

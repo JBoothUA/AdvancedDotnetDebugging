@@ -1,0 +1,44 @@
+﻿.inputBox {
+    border: 1px solid #939598;
+    width:400px;
+    float:left;
+}
+
+.searchFocus {
+    color: #464a4c !important;
+    background-color: #fff !important;
+    border-color: #5cb3fd !important;
+    outline: 0 !important;
+}
+
+#inputSearchBox {
+    padding-left: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 375px;
+    font-size: 16px;
+    color: #a3a3a3;
+    background-image: url('../../Content/Images/Dashboard/search-magnifying-glass.png');
+    background-repeat:no-repeat;
+    background-position:left 5px center;
+    float: left;
+    border: none;
+}
+
+.input-clear {
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-top: 13px;
+    background-image: url('../../Content/Images/Patrols/save-x-icon-not-selected.png');
+    cursor:pointer;
+}
+
+.input-clear:hover {
+    background-image: url('../../Content/Images/Patrols/save-x-icon-hover-or-selected.png');
+}
+
+input[type="text"]:focus {
+    outline:none;
+    border:none;
+}

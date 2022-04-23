@@ -1,0 +1,21 @@
+﻿:host >>> .front {
+    background-image: url('../../../Content/Images/Platforms/center-joystick.png')!important;
+    background-size:cover !important;
+    background-color: transparent !important;
+    opacity: 1.0 !important;
+}
+
+:host >>> .back {
+    background-image: url('../../../Content/Images/Platforms/joystick-not-selected.png')!important;
+    background-size:cover !important;
+    background-color: transparent !important;
+    opacity: 1.0 !important;
+}
+
+:host >>> .moving {
+    background-image: url('../../../Content/Images/Platforms/joystick-selected.png')!important;
+}
+
+:host >>> .nipple {
+    opacity: 1.0 !important;
+}

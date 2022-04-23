@@ -1,0 +1,16 @@
+﻿<circle-progressbar [image]="getPatrolIconSrc()"
+                    [completenessPercentage]="getPatrolCompleteness()"
+                    [hideProgressBar]="patrol.IsTemplate && !patrol.PlatformId"
+                    [fillColor]="patrolService.getPatrolCompletnessColor(patrol)"
+                    [size]="size"
+                    [strokeWidth]="strokeWidth"
+                    [isDisabled]="isPaused()">
+    <div *ngIf="showPauseResumeButton()">
+        <div *ngIf="patrol.CurrentStatus === PatrolStatusValues.Paused" overlay>
+            <img (click)="resumeOnClick($event)" [ngClass]="{'pauseButton': true, 'notfication': showPauseNotfication()}" title="Resume Patrol" style="margin:-2px 0 0 -2px;" width="40" height="40" src="../../Content/Images/Patrols/resume-patrol-large.png" />
+        </div>
+        <div *ngIf="patrol.CurrentStatus !== PatrolStatusValues.Paused" overlay>
+            <img (click)="pauseOnClick($event)" class="pauseButton" title="Pause Patrol" style="margin:-2px 0 0 -2px;" width="40" height="40" src="../../Content/Images/Patrols/pause-patrol-large.png" />
+        </div>
+    </div>
+</circle-progressbar>

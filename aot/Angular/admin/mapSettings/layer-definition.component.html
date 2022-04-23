@@ -1,0 +1,155 @@
+﻿<!--<div class="layerDef-layerMain stopSelection" [@slideOut]="(!isShown) ? 'in' : 'out'">-->
+<div class="layerDef-layerMain stopSelection">
+	<div class="layerDef-defContent">
+		<div class="layerDef-header">
+			<div class="layerDef-headerText">{{newLayer ? 'Create Layer' : 'Edit Layer'}}</div>
+			<div class="layerDef-collapseBtn btn" title="Cancel edits" (click)="closeDialog()"></div>
+		</div>
+		<div class="layerDef-dividerLine"></div>
+		<div class="layerDef-layerContent">
+			<div class="layerDef-name">
+				<div class="layerDef-label">
+					<span class="layerDef-asterix">*</span>
+					<span class="layerDef-labelText">Name</span>
+				</div>
+				<div>
+					<input id="layerName" type="text" class="layerDef-layerNameInput form-control" (title)="mapLayer.Name" placeholder="Enter Name" [(ngModel)]="mapLayer.Name" (ngModelChange)="checkCanSave()" (blur)="layerNameInputChanged($event)" />
+				</div>
+			</div>
+			<div class="layerDef-format">
+				<div class="layerDef-label">
+					<span class="layerDef-asterix">*</span>
+					<span class="layerDef-labelText">Format</span>
+				</div>
+				<div *ngIf="newLayer" class="layerDef-formatDropDown layerDef-dropDown">
+					<p-dropdown [options]="layerFormats" [autoWidth]="false" [(ngModel)]="mapLayer.LayerFormat" (onChange)="layerFormatChanged($event)"></p-dropdown>
+				</div>
+				<div *ngIf="!newLayer" class="layerDef-formatReadonly">
+					<label class="layerDef-formatReadonlyLabel">{{getFormatLabel()}}</label>
+				</div>
+			</div>
+			<div class="layerDef-url">
+				<div class="layerDef-label">
+					<span class="layerDef-asterix">*</span>
+					<span *ngIf="mapLayer.LayerFormat!==LayerFormat.Image && mapLayer.LayerFormat!==LayerFormat.PlatformImage" class="layerDef-labelText">URL</span>
+					<span *ngIf="mapLayer.LayerFormat===LayerFormat.Image || mapLayer.LayerFormat===LayerFormat.PlatformImage" class="layerDef-labelText">{{mapLayer.LayerFormat === LayerFormat.Image?'Image':'Robot Map'}}</span>
+				</div>
+				<div *ngIf="mapLayer.LayerFormat!==LayerFormat.Image && mapLayer.LayerFormat!==LayerFormat.PlatformImage">
+					<input id="layerUrl" type="text" class="layerDef-layerUrlInput form-control" (title)="mapLayer.URL" placeholder="Enter URL" [(ngModel)]="mapLayer.URL" (ngModelChange)="checkCanSave()" (blur)="layerURLInputChanged($event)" />
+				</div>
+				<div *ngIf="mapLayer.LayerFormat===LayerFormat.Image || mapLayer.LayerFormat===LayerFormat.PlatformImage" class="layerDef-urlDropDown layerDef-dropDown layerDef-comboBox">
+					<p-dropdown [options]="images" [autoWidth]="false" [editable]="false" [placeholder]="getImagePlaceholderText()" [(ngModel)]="selectedImage" (onChange)="layerURLDropdownChanged($event)"></p-dropdown>
+				</div>
+			</div>
+			<div *ngIf="mapLayer.LayerFormat===LayerFormat.WMS && wmsLayers && wmsLayers.length > 0" class="layerDef-wms">
+				<div class="layerDef-label">
+					<span class="layerDef-asterix">*</span>
+					<span class="layerDef-labelText">WMS Layers</span>
+				</div>
+				<div class="layerDef-wmsDropDown layerDef-dropDown">
+					<p-multiSelect [options]="wmsLayers" [scrollHeight]="'160px'" (panelStyle)="{width:'100%'}" [maxSelectedLabels]="1" [defaultLabel]="'Choose WMS Layers'" [(ngModel)]="selectedWMSLayers" (onChange)="wmsLayerChanged($event)"></p-multiSelect>
+				</div>
+			</div>
+			<div *ngIf="mapLayer.LayerFormat===LayerFormat.Image || mapLayer.LayerFormat===LayerFormat.PlatformImage" class="layerDef-uploadImage">
+				<div class="layerDef-uploadImageBtn" (click)="uploadImage()">
+					<div class="layerDef-uploadImageImg"></div>
+					<div class="layerDef-uploadImageText">Upload a New Image</div>
+				</div>
+			</div>
+			<div *ngIf="(mapLayer.LayerFormat===LayerFormat.Image || mapLayer.LayerFormat===LayerFormat.PlatformImage) && (mapLayer.Anchors.length === 0)" class="layerDef-placeImageBtn">
+				<button type="button" class="btn btn-primary" (click)="placeImageOnMap()" [disabled]="!mapLayer.URL || mapLayer.URL === ''">Place Image On Map</button>
+			</div>
+			<div *ngIf="showLower" class="layerDef-lowerSection">
+				<div class="layerDef-dividerLine"></div>
+				<div *ngIf="mapLayer.LayerFormat===LayerFormat.Image" class="layerDef-constrainAngle">
+					<div class="layerDef-constrainAngleCheckbox">
+						<div class="lpItem_SelectBox" [class.selected]="mapLayer.IsConstrainedTo90" (click)="toggleConstrainedTo90()"></div>
+						<div class="layerDef-constrainAngleLabel">Constrain 90&#176; Angle</div>
+					</div>
+				</div>
+				<div *ngIf="(mapLayer.LayerFormat===LayerFormat.Image && mapLayer.IsConstrainedTo90)" class="layerDef-maintainAspect">
+					<div class="layerDef-maintainAspectCheckbox">
+						<div class="lpItem_SelectBox" [class.selected]="mapLayer.IsMaintainAspect" (click)="toggleMaintainAspect()"></div>
+						<div class="layerDef-maintainAspectLabel">Maintain Aspect</div>
+					</div>
+				</div>
+				<div *ngIf="((mapLayer.LayerFormat===LayerFormat.Image && mapLayer.IsConstrainedTo90)  || mapLayer.LayerFormat===LayerFormat.PlatformImage)" [class.indented]="mapLayer.LayerFormat===LayerFormat.Image" class="layerDef-rotation">
+					<div class="layerDef-label">
+						<span class="layerDef-labelText">Rotation</span>
+					</div>
+					<div class="layerDef-spinner">
+						<p-spinner [(ngModel)]="layerRotation" [inputId]="'layerDef-rotationId'" step="1" [readonly]="true" [disabled]="mapLayer.LayerFormat===LayerFormat.Image && !mapLayer.IsConstrainedTo90" size="15" [min]="-180" max="180" (onChange)="onRotateSpinnerChange($event)"></p-spinner>
+					</div>
+				</div>
+				<div class="layerDef-minMaxZoom">
+					<div class="layerDef-minMaxZoomCheckbox">
+						<div class="lpItem_SelectBox" [class.selected]="mapLayer.IsMinMaxZoomDefined" (click)="toggleMinMaxZoomDefined()"></div>
+						<div class="layerDef-minMaxZoomLabel">Min and Max Zoom</div>
+					</div>
+					<div *ngIf="mapLayer.IsMinMaxZoomDefined" class="layerDef-minMaxZoomValues">
+						<div class="layerDef-zoomValueLabel">
+							<span class="layerDef-zoomValueLabelText">Max Zoom Level</span>
+						</div>
+						<div class="layerDef-zoomLevelValue">
+							<div class="layerDef-zoomLevelValueSpinner layerDef-spinner">
+								<p-spinner class="layerDef-zoomSpinner" step="1" [inputId]="'layerDef-maxZoomId'" [(ngModel)]="mapLayer.MaxZoomLevel" (onChange)="onMaxZoomChanged($event)" [readonly]="true" size="15" min="0" max="40"></p-spinner>
+								<div class="layerDef-useMapPosBtn" (click)="setMaxZoomLevel()">
+									<div class="layerDef-useMapPosImg"></div>
+									<div class="layerDef-useMapPosLabel">Use Map Position</div>
+								</div>
+							</div>
+						</div>
+						<div class="layerDef-zoomValueLabel" style="margin-top:5px;">
+							<span class="layerDef-zoomValueLabelText">Min Zoom Level</span>
+						</div>
+						<div class="layerDef-zoomLevelValue">
+							<div class="layerDef-zoomLevelValueSpinner layerDef-spinner">
+								<p-spinner class="layerDef-zoomSpinner" step="1" [inputId]="'layerDef-minZoomId'" [(ngModel)]="mapLayer.MinZoomLevel" (onChange)="onMinZoomChanged($event)" [readonly]="true" size="15" min="0" max="40"></p-spinner>
+								<div class="layerDef-useMapPosBtn" (click)="setMinZoomLevel()">
+									<div class="layerDef-useMapPosImg"></div>
+									<div class="layerDef-useMapPosLabel">Use Map Position</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="mapLayer.IsMinMaxZoomDefined" class="layerDef-dividerLine"></div>
+
+				<div class="layerDef-opacity">
+					<div class="layerDef-label">
+						<span class="layerDef-labelText">Opacity</span>
+					</div>
+					<div class="layerDef-opacityInput">
+						<input type="text" readonly [(ngModel)]="opacityStr"/>
+					</div>
+					<div class="layerDef-opacitySlider">
+						<p-slider #opacitySlider class="primeng-slider" [(ngModel)]="opacityRange" [range]="true" [min]="0" [max]="100" (onChange)="onOpacityChange($event)"></p-slider>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<upload-dialog #uploadDialog 
+               (onUploadComplete)="handleOnUploadComplete($event)"
+			   [tenant]="tenant"
+               [location]="location"
+               [instructionText]="(mapLayer.LayerFormat === 3) ? 'Choose or drag both file types to add a new Robot Map.' : 'Choose or drag png file to add a new image.'"
+               [titleText]="(mapLayer.LayerFormat === 3) ? 'Add New Robot Map' : 'Add New Image'"
+               [showJSONFileUpload]="mapLayer.LayerFormat === 3">
+</upload-dialog>
+
+<modal>
+	<div class="modal-dialog-header">
+		<span>Error</span>
+	</div>
+	<div class="modal-dialog-body" [ngStyle]="{'display':'flex','justify-content':'left', 'padding-left':'0', 'padding-right':'0'}">
+		<div class="modal-dialog-icon" [ngStyle]="{ 'background-image': 'url(' + warningIcon + ')' }"></div>
+		<div class="modal-dialog-message" [ngStyle]="{'align-self': 'center', 'width':'calc(100% - 75px)'}">{{errorMessage}}</div>
+	</div>
+	<div class="modal-dialog-footer">
+		<button type="button" class="btn btn-default" (click)="hideErrorDialog()">Close</button>
+	</div>
+</modal>

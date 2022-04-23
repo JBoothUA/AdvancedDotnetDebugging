@@ -1,0 +1,7 @@
+﻿<nav class="circular-menu" [class.unclickable]="!open">
+    <div #menu class="circle">
+        <radial-menu-item *ngFor="let command of radialCommands" [id]="command.button.Id" [name]="command.button.Name" [active]="command.button.Active"
+                          [visible]="command.button.Visible" [image]="command.button.Image" [selected]="command.button.Selected" [action]="command.button.Action"
+                          (onAction)="closeOnClick ? closeMenu() : undefined" [error]="command.button.Error" [loading]="command.loading"></radial-menu-item>
+    </div>
+</nav>

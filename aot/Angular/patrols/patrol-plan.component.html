@@ -1,0 +1,131 @@
+﻿<div *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Aborted && 
+            sortType === SortType.Desc &&
+            patrolInstance.EndedTime" class="point-item solid-line" style="padding-bottom:24px;">
+    <div class="icon">
+        <img pointIcon src="../../Content/Images/Patrols/aborted-patrol-timeline.png" />
+    </div>
+    <div>
+        <span class="point-name">Patrol Aborted</span>
+        <span class="point-time">{{getTimeSince(patrolInstance.EndedTime)}}</span>
+    </div>
+</div>
+
+<div *ngFor="let point of getPoints() | order: (sortType === SortType.Asc) ? 'asc' : 'desc'" class="point-item"
+     [ngClass]="getPointBorderClass(point)">
+
+    <div *ngIf="!isAlarmPoint(point)" style="margin-bottom:10px;">
+        <div [ngClass]="{'whitBackground': point.CurrentStatus === PointStatusValues.InTransit, 'icon':true}">
+            <div *ngIf="hasSnapshots(point)" class="attachment-icon" style="left: 19px; z-index: 9; top: -5px;">
+                <img src="../../Content/Images/attachment-icon.png" />
+            </div>
+
+            <square-progressbar *ngIf="(patrolInstance && (patrolService.getPointStatus(point, patrolInstance.Points) !== PointStatusValues.ActionsPerformed &&
+                                            point.CurrentStatus !== PointStatusValues.InTransit &&
+                                            point.CurrentStatus !== PointStatusValues.NotReached) && patrolService.isCheckPoint(point))"
+                                [completenessPercentage]="patrolService.getPointCompletness(point)"
+                                [image]="patrolService.getPointIconSrc(point, patrolInstance)"
+                                [fillColor]="patrolService.getPointCompletenessColor(point)"
+                                [size]="34"></square-progressbar>
+            
+            <img pointIcon *ngIf="(patrolInstance && (patrolService.getPointStatus(point, patrolInstance.Points) === PointStatusValues.ActionsPerformed || point.CurrentStatus === PointStatusValues.InTransit ||
+                             point.CurrentStatus === PointStatusValues.NotReached || (!patrolService.isCheckPoint(point))))"
+                 [src]="patrolService.getPointIconSrc(point, patrolInstance, (point.Ordinal === patrolPoints.length))"
+                 [class.pathPoint]="!patrolService.isCheckPoint(point)"
+                 [class.blink]="showInTransit(point)" />
+
+            <img *ngIf="!patrolInstance" [src]="patrolService.getPointIconSrc(point,null, point.Ordinal === patrolPoints.length)" [class.pathPoint]="!patrolService.isCheckPoint(point)" />
+
+            <img *ngIf="patrolService.isCheckPoint(point) && point.Ordinal === 1" class="startIcon" src="/Content/Images/Patrols/first-point.png" />
+            <img *ngIf="patrolService.isCheckPoint(point) && ((patrolInstance && point.Ordinal === patrolInstance.Points.length) || (!patrolInstance && point.Ordinal === patrolPoints.length))" class="startIcon" src="/Content/Images/Patrols/last-point.png" />
+        </div>
+        <div style="margin-top:-4px;">
+            <span class="point-name">{{point.DisplayName}}</span>
+            <span class="not-reached-point" style="font-size: 13px;">{{getBracketText(point)}}</span>
+        
+            <div *ngIf="patrolInstance && patrolInstance.CurrentStatus !== PatrolStatusValues.Aborted && ((patrolService.getPointStatus(point, patrolInstance.Points) !== PointStatusValues.ActionsPerformed &&
+                             point.CurrentStatus !== PointStatusValues.NotReached) && (!patrolService.isCheckPoint(point) && point.CurrentStatus !== PointStatusValues.Reached))" class="point-time-pending"></div>
+
+            <div *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Aborted && ((patrolService.getPointStatus(point, patrolInstance.Points) !== PointStatusValues.ActionsPerformed &&
+                             point.CurrentStatus !== PointStatusValues.NotReached) && (!patrolService.isCheckPoint(point) && point.CurrentStatus !== PointStatusValues.Reached))" class="point-time">{{getTimeSince(patrolInstance.EndedTime)}}</div>
+
+            <span *ngIf="(patrolInstance && (patrolService.getPointStatus(point, patrolInstance.Points) === PointStatusValues.ActionsPerformed ||
+                               point.CurrentStatus === PointStatusValues.NotReached )) || (!patrolService.isCheckPoint(point) && point.CurrentStatus === PointStatusValues.Reached )" class="point-time">{{getTimeSince(getActionsCompletedTime(point))}}</span>
+        </div>
+        <span class="point-description" *ngIf="point.Description">{{point.Description}}</span>
+        <div *ngIf="patrolService.isCheckPoint(point)"
+             [ngClass]="getActionHeaderStatusClass(point)"
+             (click)="toggleExpandedActionView(point.PointId)" class="action-header">
+
+            <span class="group-header_Toggle">
+                <img [class.rotate]="expandedActionViewState(point.PointId) === 'in'" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=">
+            </span>
+            <span class="action-status">{{getActionHeaderStatusText(point)}}</span>
+            <span class="action-text">{{getActionHeaderDescription(point)}}</span>
+        </div>
+        <div *ngIf="expandedActionViewState(point.PointId) === 'out'" style="float:left;width:100%;">
+            <div *ngFor="let action of point.Actions | order: (sortType === SortType.Asc) ? 'asc' : 'desc'; let i = index" class="action-item">
+                <p>
+                    <img src="{{getActionStatusIconSrc(action, point.CurrentStatus)}}" />
+                    <span class="action-status">{{getActionOrder(i, point.Actions.length, sortType)}} - {{getDisplayActionPhase(action)}}</span>
+                    <span *ngIf="action.CurrentStatus" style="font-style:italic;">({{getActionStatusText(action, point.CurrentStatus === PointStatusValues.NotReached)}})</span>
+                </p>
+                <div class="images" style="margin-left: 27px;" *ngIf="action.Images">
+                    <div title="Open Image Viewer" class="snapshot" (click)="selectActionImage(snapshot.Uri, action)" [class.selected]="snapshot.Selected" *ngFor="let snapshot of action.Images"
+                         [ngStyle]="{'background-image': 'url(' + snapshot.Uri + ')'}">
+                        
+                    </div>
+                </div>
+                <div class="images" style="margin-left: 27px;" *ngIf="action.HasSnapshots && !action.Images">
+                    <span class="loading-image-label">Loading snapshot images...</span>
+                    <div class="loading-image"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isAlarmPoint(point)" style="margin-bottom:10px;">
+        <div class="icon">
+            <img [src]="point.getPriorityIconSrc()" />
+            <img class="startIcon" *ngIf="point.State === 2" alt="Acknowledged" src="/Content/Images/Alarms/acknowledge-icon.png" />
+            <img class="startIcon" *ngIf="point.State === 3" alt="Acknowledged" src="/Content/Images/Dashboard/cleared-icon.png" />
+            <img class="startIcon" *ngIf="point.State === 4" alt="Acknowledged" src="/Content/Images/Dashboard/dismiss-icon.png" />
+        </div>
+        <div class="attachment-icon" *ngIf="point.Snapshots && point.Snapshots.length > 0">
+            <img src="../../Content/Images/attachment-icon.png" />
+        </div>
+        <div style="margin-top:-4px;">
+            <span class="point-name">{{point.Description}}</span>
+            <span class="label-alarm" style="font-size: 13px;">(Alarm)</span>
+            <span class="point-time">{{getTimeSince(point.Created.Timestamp)}}</span>
+        </div>
+        <div (click)="toggleExpandedActionView(point.Id)"
+             class="action-header {{getAlarmClass(point)}}">
+            <span class="group-header_Toggle">
+                <img [class.rotate]="expandedActionViewState(point.Id) === 'in'" class="group-header_ToggleIcon lpDetailsGroupHeader_ToggleIcon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=">
+            </span>
+            <span class="action-status">{{getAlarmStatusHeader(point)}}:</span>
+            <span class="action-text">{{getAlarmStatusTimeStamp(point)}} </span>
+        </div>
+        <div class="images" *ngIf="expandedActionViewState(point.Id) === 'out'">
+            <div title="Open Image Viewer" class="snapshot" (click)="selectImage(snapshot.Uri, point)" [class.selected]="snapshot.Selected" *ngFor="let snapshot of point.Snapshots"
+                 [ngStyle]="{'background-image': 'url(' + snapshot.Uri + ')'}">  
+            </div>
+            <div *ngIf="!point.Snapshots || (point.Snapshots && point.Snapshots.length === 0)">
+                <span style="font-weight:bold;">No snapshots available</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="patrolInstance && patrolInstance.CurrentStatus === PatrolStatusValues.Aborted && 
+            sortType === SortType.Asc && 
+            patrolInstance.EndedTime" class="point-item">
+    <div class="icon">
+        <img pointIcon src="../../Content/Images/Patrols/aborted-patrol-timeline.png" />
+    </div>
+    <div>
+        <span class="point-name">Patrol Aborted</span>
+        <span class="point-time">{{getTimeSince(patrolInstance.EndedTime)}}</span>
+    </div>
+</div>

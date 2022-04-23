@@ -1,0 +1,79 @@
+﻿<modal #commandPlatformModal (onCancel)="platformMapService.removeGoToLocationIconHandler(); hide();">
+	<div class="modal-dialog-header" *ngIf="commandDef">
+		<!--Say and Play Commands-->
+		<div *ngIf="commandDef.CommandName === CommandName.SayMessage || commandDef.CommandName === CommandName.Play">
+			{{platform.DisplayName}} - Play Audio
+		</div>
+		<!--Orient Platform Command-->
+		<div *ngIf="commandDef.CommandName === CommandName.OrientPlatform">
+			{{platform.DisplayName}} - Orient Robot
+		</div>
+		<!--Go To Location-->
+		<div *ngIf="commandDef.CommandName === CommandName.GoToLocation">
+			{{platform.DisplayName}} - Go to <span *ngIf="alarm">Alarm</span><span *ngIf="!alarm">Location</span>
+		</div>
+		<!--Other Commands-->
+		<div *ngIf="commandDef.CommandName !== CommandName.SayMessage &&
+					commandDef.CommandName !== CommandName.Play &&
+					commandDef.CommandName !== CommandName.OrientPlatform">
+			{{commandDef.DisplayName}}
+		</div>
+	</div>
+	<div class="modal-dialog-body" *ngIf="commandDef" [style.padding]="commandDef.CommandName === CommandName.OrientPlatform ? '0' : ''">
+		<!--Say and Play Commands-->
+		<div *ngIf="commandDef.CommandName === CommandName.SayMessage || commandDef.CommandName === CommandName.Play">
+			<div class="row">
+				<say-play-chooser #platformSayPlay
+								  (onEnterPress)="executeCommand(false)"
+								  [sayParameterList]="getParameterList(CommandName.SayMessage)"
+								  [playParameterList]="getParameterList(CommandName.Play)"
+								  [commandName]="commandDef.CommandName"
+								  [mode]="'normal'"
+								  (onCommandChange)="commandChanged($event)"
+								  (onValueChange)="valueChanged($event)"></say-play-chooser>
+			</div>
+		</div>
+		<!--Orient Platform Command-->
+		<div *ngIf="commandDef.CommandName === CommandName.OrientPlatform">
+			<orient-robot [large]="true" [dataItems]="platform" [initialMapZoom]="20" [orientationValue]="platform.Orientation" [valuePrompt]="'Orientation in Degrees'" (onOrientationChange)="customValueChange($event)"></orient-robot>
+		</div>
+		<!--Other Commands-->
+		<div *ngIf="commandDef.CommandName !== CommandName.SayMessage &&
+					commandDef.CommandName !== CommandName.Play &&
+			 		commandDef.CommandName !== CommandName.OrientPlatform">
+			<div>
+				<div class="row" *ngIf="commandDef.CommandName !== CommandName.GoToLocation">
+					{{commandDef.Prompt}}
+				</div>
+				<div class="row" *ngIf="commandDef.CommandName === CommandName.GoToLocation">
+					<div class="col-2">
+						<img alt="Go To Location" src="../../Content/Images/Platforms/go-to-location-large.png" />
+					</div>
+					<h1 *ngIf="!platform.Patrol" class="col-10">
+						Are you sure you want to send {{platform.DisplayName}} to
+						<span *ngIf="alarm">the {{alarm.Description}} Alarm</span><span *ngIf="!alarm">this location</span>?
+					</h1>
+					<h1 *ngIf="platform.Patrol" class="col-10">
+						Are you sure you want to pause the patrol {{platform.Patrol.DisplayName}} and send {{platform.DisplayName}} to
+						<span *ngIf="alarm">the {{alarm.Description}} Alarm</span><span *ngIf="!alarm">this location</span>?
+					</h1>
+				</div>
+			</div>
+			<div *ngFor="let parameter of getParameters()">
+				<command-platform-parameter-item [parameter]="parameter"></command-platform-parameter-item>
+			</div>
+		</div>
+	</div>
+	<div class="modal-dialog-footer" *ngIf="commandDef">
+		<div>
+			<button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+			<button type="button" class="btn btn-primary" (click)="executeCommand(true)" *ngIf="commandDef.CommandName === CommandName.GoToLocation">
+				Go to <span *ngIf="alarm">Alarm</span><span *ngIf="!alarm">Location</span>
+			</button>
+			<button type="button" class="btn btn-primary" (click)="executeCommand(true)" *ngIf="commandDef.CommandName === CommandName.SayMessage || commandDef.CommandName === CommandName.Play">Play and Close</button>
+			<button type="button" class="btn btn-primary" (click)="executeCommand(false)" *ngIf="commandDef.CommandName === CommandName.SayMessage || commandDef.CommandName === CommandName.Play">Play</button>
+			<button type="button" class="btn btn-primary" (click)="executeCommand(true)" *ngIf="commandDef.CommandName !== CommandName.SayMessage && commandDef.CommandName !== CommandName.Play">Submit and Close</button>
+			<button type="button" class="btn btn-primary" (click)="executeCommand(false)" *ngIf="commandDef.CommandName !== CommandName.SayMessage && commandDef.CommandName !== CommandName.Play && commandDef.CommandName !== CommandName.GoToLocation">Submit</button>
+		</div>
+	</div>
+</modal>

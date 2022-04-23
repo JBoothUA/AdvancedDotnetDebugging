@@ -1,0 +1,10 @@
+﻿<div class="property-label" [ngClass]="{'sensor-waiting': !value}">{{label}}</div>
+<div class="property-value">
+	<img class="icon" [ngClass]="{'sensor-waiting': !value}" src="{{image}}" />
+	<span *ngIf="value" class="value" >{{value}}</span>
+    <span *ngIf="!value" class="value"><img height="20" src="../../Content/Images/loading-spinner-grey.gif" /></span>
+	<span [ngClass]="{'sensor-waiting': !value}" style="font-size:small" class="uom" [innerHTML]="getUom()"></span>
+</div>
+<div class="footer-label">
+    {{footerLabel}}
+</div>

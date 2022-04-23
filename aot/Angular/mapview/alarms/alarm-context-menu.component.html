@@ -1,0 +1,6 @@
+﻿<div *ngIf="visible">
+    <div class="contextMenuBackdrop" (click)="hide()" (contextmenu)="hide($event)"></div>
+    <div class="contextMenu">
+        <alarm-action-menu [alarm]="alarm" [callback]="hide"></alarm-action-menu>
+    </div>
+</div>

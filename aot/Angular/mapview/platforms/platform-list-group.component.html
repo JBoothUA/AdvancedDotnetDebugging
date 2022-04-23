@@ -1,0 +1,21 @@
+﻿<div class="lpGroup lpItemGroup">
+	<div class="group-header item-group-header pointer" (click)="toggleExpandedGroup()">
+		<span class="group-header_Toggle">
+			<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+		</span>
+		<span class="group-header_GroupName">
+			{{groupName}}
+		</span>
+		<span class="group-header_ItemCount">
+			({{getPlatforms().length}})
+		</span>
+	</div>
+	<div class="lpGroupList lpItemGroupList" [@slideDown]="expandedState">
+		<div *ngFor="let platform of getPlatforms()">
+            <robot-card [platform]="platform" 
+                        [expanded]="platform.Expanded" 
+                        [selected]="platform.Selected" 
+                        [mapViewOptions]="mapViewOptions"></robot-card>
+		</div>
+	</div>
+</div>

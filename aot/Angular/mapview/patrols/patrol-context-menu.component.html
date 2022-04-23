@@ -1,0 +1,20 @@
+﻿<div *ngIf="visible">
+    <div class="contextMenuBackdrop" (click)="hide()" (contextmenu)="hide($event)"></div>
+    <div class="contextMenu" style="width:170px;">
+        <span [ngClass]="{'dropdown-item': true, 'disable':patrolService.isOnPatrol(patrolTemplate)}"
+              style="height:38px; padding:6px 1.5rem;" (click)="hide($event);onEditClick()">
+            <img width="27" src="../../../Content/Images/Patrols/edit-patrol-icon.png" />
+            Edit Patrol
+        </span>
+        <span [ngClass]="{'dropdown-item': true, 'disable':patrolService.isOnPatrol(patrolTemplate)}"
+              style="height:38px; padding:6px 1.5rem;" (click)="hide($event);onDeleteClick()">
+            <img width="27" style="float: left; margin-left: -2px; margin-right: 5px;" src="../../../Content/Images/Patrols/delete-patrol-icon.png" />
+            Delete Patrol
+        </span>
+    </div>
+</div>
+<confirmation-dialog #confirmDelete
+                     [title]="'Are you sure?'"
+                     [confirmMessage]="'Are you sure you want to delete this patrol?'"
+                     [confirmBtnText]="'Delete'"
+                     (eventOnConfirm)="patrolService.deletePatrolTemplate(patrolTemplate)"></confirmation-dialog>

@@ -1,0 +1,18 @@
+﻿:host >>> .ui-slider {
+	background: #c4c4c4;
+}
+
+:host >>> .primeng-slider >>> span:nth-of-type(2) {
+	display:none;
+}
+
+:host >>> .ui-slider .ui-slider-handle {
+	background:url('./Content/Images/Admin/slider-button.png');
+	background-position:center;
+	background-repeat:no-repeat;
+	margin-top:-3px;
+}
+
+:host >>> .ui-slider .ui-slider-range {
+	background: #4272b4;
+}

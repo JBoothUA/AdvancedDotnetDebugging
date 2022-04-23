@@ -1,0 +1,40 @@
+﻿.pbMain {
+	position:relative;
+	float:left;
+    z-index: 1001;
+    height: 100%;
+    background: white;
+    color: black;
+	border-right: 1px solid #898989;
+}
+.pbContent {
+	position:relative;
+	display:block;
+	width: 469px;
+	height: calc(100vh - 106px);
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style:italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-style:italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-style:italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-style:italic;
+}
+
+.pbHeader {
+	position: relative;
+	height: 56px;
+}
+
+.patrol-builder-step2 {
+	margin-top:20px;
+}

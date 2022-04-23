@@ -1,0 +1,34 @@
+﻿<div class="container slider-container" style="padding-top:1rem; padding-bottom:1rem" *ngIf="sensors">
+    <div class="row">
+        <div *ngIf="sensors.length > 3" class="mobile-target arrow left-arrow arrow-img">
+            <img class="arrow-img" src="../../Content/Images/arrow-left-small.png" [class.disabled]="propertySliderOffset === 0" (click)="propertySliderOffset = (!propertySliderOffset) ? 0 : propertySliderOffset - 1" />
+        </div>
+        <div *ngIf="sensors[propertySliderOffset]" class="no-padding col-4 sensor" [class.left-sensor]="sensors.length > 3">
+            <div class="property-label ellipsis">{{getDisplayName(sensors[propertySliderOffset])}}</div>
+            <div class="property-value table">
+                <img style="padding-right:2px" src="{{getPropertyTypeImage(sensors[propertySliderOffset])}}.png" />
+                <span>{{getSensorValue(sensors[propertySliderOffset].Values[0])}}</span>
+                <span style="font-size:small" [innerHTML]="getPropertyTypeUnitOfMeasure(sensors[propertySliderOffset].Type)"></span>
+            </div>
+        </div>
+        <div *ngIf="sensors[propertySliderOffset + 1]" class="no-padding col-4 sensor middle-sensor">
+            <div class="property-label">{{getDisplayName(sensors[propertySliderOffset + 1])}}</div>
+            <div class="property-value table">
+                <img style="padding-right:2px" src="{{getPropertyTypeImage(sensors[propertySliderOffset + 1])}}.png" />
+                <span>{{getSensorValue(sensors[propertySliderOffset + 1].Values[0])}}</span>
+                <span style="font-size:small" [innerHTML]="getPropertyTypeUnitOfMeasure(sensors[propertySliderOffset + 1].Type)"></span>
+            </div>
+        </div>
+        <div *ngIf="sensors[propertySliderOffset + 2]" class="no-padding col-4 sensor" [class.right-sensor]="sensors.length > 3">
+            <div class="property-label">{{getDisplayName(sensors[propertySliderOffset + 2])}}</div>
+            <div class="property-value table">
+                <img style="padding-right:2px" src="{{getPropertyTypeImage(sensors[propertySliderOffset + 2])}}.png" />
+                <span>{{getSensorValue(sensors[propertySliderOffset + 2].Values[0])}}</span>
+                <span style="font-size:small" [innerHTML]="getPropertyTypeUnitOfMeasure(sensors[propertySliderOffset + 2].Type)"></span>
+            </div>
+        </div>
+        <div *ngIf="sensors.length > 3" class="mobile-target arrow right-arrow arrow-img">
+            <img class="arrow-img" src="../../Content/Images/arrow-right-small.png" [class.disabled]="propertySliderOffset + 3 >= sensors.length" (click)="propertySliderOffset = (propertySliderOffset + 3 >= sensors.length) ? propertySliderOffset : propertySliderOffset + 1" />
+        </div>
+    </div>
+</div>

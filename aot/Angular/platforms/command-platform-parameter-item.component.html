@@ -1,0 +1,18 @@
+﻿<div *ngIf="parameter">
+	<!--Everything but Boolean-->
+	<div *ngIf="parameter.Type !== 3">
+		<div *ngFor="let preset of getParameterPresets()">
+			<command-parameter-preset [parametername]="response" [preset]="preset"></command-parameter-preset>
+		</div>
+
+		<div>
+			<input type="radio" name="response" value="custom"> <input type="text" name="">
+		</div>
+	</div>
+
+	<!--Boolean-->
+	<div *ngIf="parameter.Type === 3">
+		<input type="radio" name="response" value="true"> On<br>
+		<input type="radio" name="response" value="false"> Off
+	</div>
+</div>

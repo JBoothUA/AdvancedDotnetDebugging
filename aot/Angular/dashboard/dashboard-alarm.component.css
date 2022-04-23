@@ -1,0 +1,698 @@
+﻿#alarmReport {
+    color: #5b5b5c;
+    /*overflow-x: auto;*/
+    height: calc(100vh - 50px - 193px - 18px);
+    position: relative;
+    min-width: 1103px;
+}
+
+/********************************************************************************/
+/******** Criteria Section ********/
+#alarmReportFilterCriteria {
+    border-bottom: 1px solid #9d9d9d;
+    height: 160px;
+    min-height: 160px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding-left: 22px;
+    /*width: calc(100vw - 110px - 22px - 18px - 18px);*/
+}
+
+.alarmReportFilterCriteriaText {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 17px;
+    font-size: 23px;
+}
+
+.alarmReportFilterCriteriaDiv {
+    min-width: 250px;
+}
+
+.alarmReportFilterCriteriaImage90 {
+    -moz-transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    transform:scale(0.9);
+}
+
+
+/******** Priority Section ********/
+
+#alarmReportPriority {
+    display: inline-block;
+    width: 20%;
+    min-width: 250px;
+}
+
+#alarmReportPriorityLeft {
+    float: left;
+}
+
+#alarmReportPriorityRight {
+    float:left;
+    /*display:grid;
+    grid-row-gap: 5px;*/
+    margin-left: 10px;
+}
+
+.alarmReportPriorityCircle {
+    width: 12px;
+    height: 12px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+}
+
+.alarmReportPriorityLabel {
+    margin-right: 5px;
+    float: left;
+    margin-left: 5px;
+    margin-top: -5px;
+}
+
+#alarmReportPriorityDonutChart {
+    width: 88px !important;
+    height: 88px !important;
+}
+
+.alarmReportPriorityDonutChartInnerText {
+    margin-top: -70px;
+    position: absolute;
+    /*margin-left: 25px;*/
+    font-size: 35px;
+    color: #929292;
+    width:88px;
+    text-align: center;
+}
+
+.alarmReportPriorityDonutChartInnerTextLargeCount {
+    margin-top: -62px;
+    font-size: 25px;
+}
+
+#alarmReportPriorityDonutLegend ul {
+    list-style: none; 
+    margin:0px;
+    padding:0px;
+}
+
+.alarmReportPriorityDonutLegendItem {
+    display:inline-block;
+    width:13px; 
+    height:13px; 
+    margin-right:5px; 
+    border-radius:10px
+}
+
+.alarmReportPriorityLegendItemDisable {
+    opacity: 0.2;
+    cursor: default !important;
+}
+
+.alarmReportPriorityLegendTextDisable {
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+
+
+/******** Operators Section ********/
+#alarmReportOperators {
+    display: inline-block;
+    width: 20%;
+    margin-left: 2%;
+}
+
+#alarmReportOperatorImage {
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: 12px;
+}
+
+#alarmReportOperatorCount {
+    float: left;
+    margin-right: 3px;
+}
+
+.alarmReportOperator {
+    float: left;
+    margin-top: 42px; /*45*/
+    margin-right: 2px;
+}
+
+.alarmReportOperatorAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgb(170, 170, 170);
+}
+
+.alarmReportOperatorAvatar.selected {
+    border: 4px solid #37a4e4 ;
+}
+.alarmReportOperatorAvatar.notselected {
+    opacity: 0.5;
+}
+
+.alarmReportOperatorAvatar.more {
+    border: none;
+    background-color: rgb(66, 114, 171);   
+    margin-left: -10px;
+    position: absolute;
+}
+
+.alarmReportOperatorAvatarText {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.alarmReportOperatorMoreExpanded {
+    width: 150px;
+    margin-left: -124px;
+    position: absolute;
+    margin-top: 48px;
+    border: 1px solid rgba(0,0,0,.15);
+}
+
+.alarmReportOperatorMoreExpanded_Arrow {
+    display: block;
+    position: absolute;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    height: 13px;
+    width: 12px;
+    top: -9px;
+    left: 126px;
+    border-right: 3px solid white;
+    z-index: 1040;
+    background-color: white;
+}
+
+.alarmReportOperatorMoreContainer {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 110px;
+}
+
+.alarmReportOperatorMore {
+    /*border: 1px solid rgba(0,0,0,.15);*/
+    background-color: white;
+    border-radius: .25rem;
+    height: 52px;
+    position: relative;
+    padding: 5px;
+    z-index: 1000;
+}
+
+.alarmReportOperatorMoreAvatarText {
+    font-size: 12px;
+    /*position: relative;*/
+    float:left;
+    color: #5b5b5c;
+    position: relative;
+    top: 11px;
+    left: 5px;
+}
+
+.alarmReportOperatorNotSelected {
+    opacity: 0.5;
+}
+
+/******** Locations of Interest Section ********/
+#alarmReportLocationOfInt {
+    display: inline-block;
+    width: 30%;
+    margin-left: 2%;
+    min-width: 450px;
+}
+
+#alarmReportLocationOfIntImage {
+    float: left;
+    width:auto;
+    height:auto;
+    margin-top: 12px;
+}
+
+#alarmReportLocationOfIntCount {
+    float: left;
+}
+
+/******** Export Button Section ********/
+#alarmReportExport{
+    /*float: right;*/
+    margin-right: 16px;
+    margin-top: 16px;
+    top: 0px;
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+}
+#alarmReportExportButton {
+    width: 137px;
+    height: 41px;
+    border-radius: 20px;
+    background-color: #4272b4;
+}
+
+#alarmReportExportText {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#alarmReportExportingText {
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    margin-right: 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#alarmReportExportIcon {
+    float: right;
+    margin-right: 15px;
+    position: relative;
+    margin-top: -27px;
+}
+
+#alarmReportExportingIcon {
+    float: right;
+    margin-right: 20px;
+    position: relative;
+    margin-top: -13px;
+}
+
+/********************************************************************************/
+/******** Header Section ********/
+#alarmReportHeader {
+    border-bottom: 1px solid #cccbcb;
+    height: 62px;
+}
+
+.alarmReportHeaderLabel{
+    float:left;
+    margin-top: 17px;
+    margin-left: 20px;
+    color:#474747;
+}
+
+.alarmReportHeaderLabel.padding{
+    margin-left: 10px !important;
+}
+
+.alarmReportHeaderLabelColor{
+    color: #4272AC;
+}
+
+.alarmReportHeaderLabelFilter{
+    border-bottom: 2px solid darkgray;
+    /*font-weight: bold;*/
+    color: #4272AC;
+    /*color:#474747;*/
+}
+
+.alarmReportHeaderLabelFilterPadding{
+    margin-left: 14px;
+}
+
+.alarmReportHeaderLabelFilter.padding{
+    margin-left: 14px;
+}
+
+.alarmReportHeaderLabelFilterClear {
+    background-image: url('../../Content/Images/Dashboard/delete-filter-result.png');
+    background-repeat: no-repeat;
+    background-size: 18px;
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin-top: 6px;
+    margin-left: -1px;
+    position:absolute;
+}
+
+.alarmReportHeaderLabelActive {
+    position: relative;
+    margin-left: 14px;
+}
+
+#alarmReportHeaderSearchBox{
+    float: right;
+    margin-right: 10px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+
+/********************************************************************************/
+/******** Query Results Section ********/
+#alarmReportResults{
+    /*height: calc(100vh - 425px);*/
+    height: calc(100vh - 485px);
+}
+
+/******** Results Section ********/
+#alarmReportResultsContent {
+    width: 70%;
+    float:left;
+    height: 100%; /*calc(100% - 60px);*/
+    border-right: 1px solid #cccbcb;
+}
+
+#alarmReportResultsSortBar {
+    border-bottom: 1px solid #cccbcb;
+    height: 43px;
+    background-color: #f4f4f4;
+    padding-top: 13px;
+}
+
+.alarmReportResultsSortField {
+    float:left;
+    font-size: 13px;
+    color: #474747;
+}
+
+.alarmReportResultsHeader1 {
+    margin-left: 20px;
+    width: 70px;
+}
+
+.alarmReportResultsHeader2 {
+    margin-left: 5px;
+    padding-left: 3px;
+}
+
+.alarmReportResultsHeader3 {
+    margin-left: 110px;
+    padding-left: 3px;
+}
+
+.alarmReportResultsHeader4 {
+    margin-left: 165px;
+    padding-left: 3px;
+}
+
+.alarmReportResultsHeader5 {
+    margin-left: 124px;
+    padding-left: 3px;
+}
+
+.alarmReportResultsHeader6 {
+    margin-left: 124px;
+    padding-left: 3px;
+}
+
+.alarmReportResultsHeaderBorder {
+     border-left: 1px solid #8a8c8f;
+}
+
+.alarmReportResultsCol1 {
+    margin-left: 20px;
+    width: 31px;
+    text-align: center;
+    font-size: 12px;
+    float:left;
+}
+
+.alarmReportResultsCol2 {
+    margin-left: 8px;
+    width: 200px;
+    float:left;
+    
+}
+
+.alarmReportResultsCol3 {
+    margin-left: 15px;
+    float:left;
+    width: 200px;
+    margin-top: 7px;
+}
+
+.alarmReportResultsCol4 {
+    margin-left: 15px;
+    float:left;
+    width: 140px;
+    margin-top: 7px;
+}
+
+.alarmReportResultsCol5 {
+    margin-left: 15px;
+    float:left;
+    margin-top: 9px;
+    width:150px;
+}
+
+.alarmReportResultsCol6 {
+    margin-left: 15px;
+    float:left;
+    margin-top: 5px;
+    width: 90px;
+}
+
+.alarmReportResultsCol7 {
+    margin-left: 15px;
+    float: right;
+    margin-top: 7px;
+    width: 44px;
+    margin-right: 10px;
+}
+
+.alarmReportResultsItem {
+    height: 70px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #5b5b5b;
+    border-right: 1px solid rgba(204, 203, 203, 0.4); /*cccbcb*/
+}
+
+.alarmReportResultsItem:hover {
+    background: #e3f0f6;
+}
+
+.alarmReportResultsItem.selected {
+    background: #C9DEF0;
+}
+
+.alarmReportResultsItem.expanded {
+    background-color: #C0D5E7;
+    border-bottom: 1px solid #9d9d9d;
+}
+
+#alarmReportQueryResults {
+    /*height: calc(100% - 43px - 60px);*/
+    height: calc(100% - 43px);
+    /*overflow-y: scroll;*/
+    overflow-x: hidden;
+}
+
+/*#alarmReportQueryResults::-webkit-scrollbar {
+    width: 12px;
+}*/
+
+.alarmReportResultsContainer.expanded {
+    border: 2px solid #4272b4;
+}
+
+.alarmReportResultsPriorityImage {
+    width: 31px;
+    height: 31px;
+}
+
+.alarmReportResultsItemType {
+    font-size: 16px;
+}
+
+.alarmReportResultsItemType.underline {
+    text-decoration:underline;
+}
+
+.alarmReportResultsItemType.bold {
+    font-weight: bold;
+}
+
+.alarmReportResultsItemTypeInfo {
+    float: left;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.alarmReportResultsPlatformName {
+    margin-left: 3px;
+    margin-right: 5px;
+    float: left;
+}
+
+.alarmReportResultsAttachement {
+    margin-left: 5px;
+    float: left;
+}
+
+.alarmReportResultsAttachNumber{
+    margin-left: 5px;
+    float: left;
+}
+
+.alarmReportResultsItemLocation {
+    font-size: 14px;
+}
+
+.alarmReportResultsItemState {
+    font-size: 14px;
+    float:left;
+}
+
+.alarmReportResultsItemStateImage {
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+.alarmReportResultsItemStateStatus {
+    float:left;
+    margin-left: 3px;
+}
+
+.alarmReportResultsItemStateTime1 {
+    float: left;
+    margin-left: 21px;
+}
+
+.alarmReportResultsItemDuration1 {
+    float: left;
+    margin-left: 21px;
+    font-size: 18px;
+}
+
+.alarmReportResultsItemDuration2 {
+    float: left;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 3px;
+}
+
+.alarmReportResultsItemReportedTime {
+    float: left;
+    margin-left: 21px;
+    font-size: 14px;
+}
+
+.alarmReportResultsItemAvatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: rgb(170, 170, 170);
+    float: left;
+}
+
+.alarmReportResultsItemAvatar-Available {
+    border: 2px solid green;
+}
+
+.alarmReportResultsItemAvatarText {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.alarmReportResultsItemOperator {
+    /*float: left;*/
+    /*margin-left: 5px;*/
+    margin-top: 5px;
+    position: relative;
+    left: 5px;
+}
+
+
+#alarmReportResultsAlarmPanel{
+    height: 60px;
+    width: 70%;
+    border-top: 1px solid #cccbcb;
+    bottom: 0;
+    position: absolute;
+    background: #f4f4f4;
+}
+
+.alarmReportResultsAlarmPanelButton {
+    width: 144px;
+    font-size: 17px;
+    padding-left: 26px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    float: right;
+    margin-right: 13px;
+    margin-top: 13px;
+    border: 1px solid #939598;
+    font-weight: 500;
+    color: #231f20;
+    text-decoration: none;
+    /*background: #fff;*/
+    background-color: #dddddd;
+}
+
+.alarmReportResultsAlarmPanelButton:hover {
+    background-color: #e7e7e7;
+}
+
+.alarmReportResultsAlarmPanelButton.disable {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
+/******** Map Section ********/
+#alarmReportMap {
+    width: 30%;
+    float:left;
+    /*height: calc(100% - 60px);*/
+    height: 100%;
+}
+
+#alarmReportMapContainer {
+    height: calc(100% - 60px);
+}
+
+/******** Media Queries Section ********/
+@media screen and (min-width: 688px) {
+    .alarmReportResultsOperatorHidden {
+        display: none;
+    }
+
+    .alarmReportResultsDurationHidden {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 853px) {
+    .alarmReportResultsOperatorHidden {
+        display: block;
+    }
+
+    .alarmReportResultsDurationHidden {
+        display: none;
+    }
+}

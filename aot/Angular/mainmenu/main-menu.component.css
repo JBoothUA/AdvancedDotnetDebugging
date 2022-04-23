@@ -1,0 +1,97 @@
+#mainMenu {
+    width: 364px;
+    background-color: #414042;
+    color: white;
+    height: 100vh;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+#mainMenuHeader {
+	height:50px;
+}
+.app-user {
+	margin-right: 18px;
+	margin-left: 18px;
+    overflow: hidden;
+    min-width: 328px;
+}
+.userInfoArea {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+.userInfoArea .userInfoAreaLeft {
+    overflow: visible;
+    float: left;
+    padding-bottom: 10px;
+}
+.userInfoArea .customerName {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#userImg {
+	float:left;
+}
+#userThumbnail {
+    height: 40px;
+    width: 40px;
+}
+#userInfo {
+	position:relative;
+	left: 10px;
+	top: 1px;
+	float:left;
+}
+#userName {
+	font-size: 17px;
+}
+#userPosition {
+	position: absolute;
+	top: 21px;
+	font-size: 12px;
+}
+#userControlDropdown {
+	position: relative;
+	top: 5px;
+	float:right;
+	height: 30px;
+}
+#mainMenuDivider {
+	display: block;
+	height:1px;
+	margin-left:18px;
+}
+/*#mainMenuFacilityArea {}
+#facilityDropdown {
+    width: calc(100% - 36px);
+	height: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 18px;
+	margin-left: 18px;
+}*/
+.mainMenuSectionHeading {
+    padding-left: 15px;
+    height: 26px;
+    line-height: 26px;
+    background-color: #303031;
+}
+.resourcesSection {
+    padding-left: 15px;
+    padding-top: 15px;
+}
+.resourcesSection span{
+    font-size: 18px;
+    font-family: Segoe UI;
+    color: rgb(232, 232, 232);
+}
+.logoArea {
+    width: 144px;
+    bottom: 5px;
+    left: calc(50% - 77px);
+    position: absolute;
+}

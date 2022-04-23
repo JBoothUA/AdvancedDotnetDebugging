@@ -1,0 +1,178 @@
+﻿.pbActions-actionCard{
+	position:relative;
+	display: flex;
+	justify-content:center;
+	float:left;
+	padding: 5px;
+	border:1px solid #c2c2c2;
+	margin: 5px 8px 5px 8px;
+	width: calc(100% - 16px)
+}
+
+.pbActions-dragIcon {
+	position:relative;
+	display: inline;
+	float:left;
+	align-self: center;
+	width: 30px;
+	cursor: move;
+}
+.pbActions-dragIconImg {
+	position:relative;
+	display:inline;
+	float:left;
+	background:url("./Content/images/Patrols/drag-indicator.png");
+	background-position:center;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 36px;
+}
+.pbActions-cardContent {
+	position:relative;
+	display:inline;
+	float:left;
+	width: calc(100% - 30px);
+	overflow:hidden;
+}
+.pbActions-commands {
+	position:relative;
+	display:inline;
+	float:right;
+}
+
+.pbActions-ToggleBtn {
+	position:relative;
+	display:block;
+	width: 62px;
+	height: 32px;
+	overflow:hidden;
+}
+
+.pbActions-actionDisplayName {
+	position: relative;
+	display:block;
+	font-size: 15px;
+	width: 100%;
+	height: 30px;
+}
+
+.pbActions-displayNameText {
+	position:relative;
+	display:inline;
+	float:left;
+	margin-top: 3px;
+	margin-right: 5px;
+}
+
+
+.pbActions-copyIconImg {
+	position:relative;
+	float:left;
+	width: 30px;
+	height: 30px;
+	background-image: url('./Content/images/Patrols/duplicate-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	cursor:pointer;
+}
+.pbActions-copyIconImg:hover {
+	background-image: url('./Content/images/Patrols/duplicate-selected-or-hover.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.pbActions-deleteIconImg {
+	position:relative;
+	float:left;
+	width: 30px;
+	height: 30px;
+	background-image: url('./Content/images/Patrols/delete-icon-not-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	border:none;
+	cursor:pointer;
+	margin-top:3px;
+}
+.pbActions-deleteIconImg:hover {
+	background-image: url('./Content/images/Patrols/delete-icon-selected.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pbActions-params {
+	position:relative;
+	display:block;
+	width: 100%;
+}
+.pbActions-presetRadio {
+	position:relative;
+	display:block;
+	font-size:14px;
+}
+
+.pbActions-dwellRadio {
+	position: relative;
+	display:inline;
+	float: left;
+	margin-right: 5px;
+}
+
+input[type='text']
+{
+	font-size: 14px;
+	color:#4272b4;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style:italic;
+}
+
+.pbActions-customRadio {
+	position: relative;
+	display:block;
+	width: 300px;
+}
+
+.pbActions-radioInput {
+	position:relative;
+	display:inline;
+	float: right;
+}
+
+.pbActions-radioBtn {
+	position:relative;
+	display: inline;
+	float:left;
+} 
+.pbActions-radioText {
+	position:relative;
+	left:-5px;
+	top: -3px;
+}
+
+.pbActions-playParams {
+	position: relative;
+	display: block;
+	float: left;
+	width: 100%;
+}
+.pbActions-paramLabel {
+	position: relative;
+	display:block;
+	float: left;
+	width: 100%;
+	font-size: 16px;
+}
+.pbActions-input {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.pbActions-ParamLabels {
+	position:relative;
+	display:block;
+	float: left;
+	font-size: 15px;
+	margin-bottom: 5px;
+
+}

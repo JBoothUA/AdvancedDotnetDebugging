@@ -1,0 +1,5 @@
+﻿<div title="{{name}}" class="radial-menu-item-wrapper" [class.hover]="active" [class.hidden]="!visible" [class.selected]="selected">
+    <img src="{{getImageSrc()}}" (click)="onclick()" height="30" width="30" [style.opacity]="active ? 1 : .75" [class.loading]="loading"
+         [style.cursor]="active ? 'pointer' : 'not-allowed'" [style.margin-left]="image.OffsetLeft + 'px'" [style.margin-top]="image.OffsetTop + 'px'" />
+    <img *ngIf="error" class="errorIcon" src="/Content/images/Platforms/command-error.png" />
+</div>

@@ -1,0 +1,34 @@
+﻿<div class="platformCommandList container">
+    <div class="header row">
+        <platform-command-item class="col-4" [command]="pausePatrol" [platform]="platform" [callback]="callbackFunc" [hoverItem]="false" [size]="'medium'"></platform-command-item>
+        <platform-command-item class="col-4 header-item" [command]="abortPatrol" [platform]="platform" [callback]="callbackFunc" [hoverItem]="false" [size]="'medium'"></platform-command-item>
+        <platform-command-item class="col-4 header-item" style="padding-left: 20px;" [command]="eStop" [platform]="platform" [callback]="callbackFunc" [hoverItem]="false" [size]="'medium'"></platform-command-item>
+    </div>
+    <div class="row">
+        <div class="col-6 command-col command-col-left">
+            <div class="col-header">
+                <div class="text">Quick Actions</div>
+            </div>
+            <div *ngFor="let item of actions">
+                <platform-command-item class="action-item" [command]="item" [platform]="platform" [callback]="callbackFunc"></platform-command-item>
+            </div>
+        </div>
+        <div class="col-6 command-col">
+            <div class="col-header">
+                <div class="text">Navigation</div>
+            </div>
+            <div *ngFor="let item of navigation">
+                <platform-command-item [command]="item" [platform]="platform" [callback]="callbackFunc"></platform-command-item>
+            </div>
+            <div class="col-header" *ngIf="!hideVideoControlSection">
+                <div class="text">Video &amp; Controls</div>
+            </div>
+            <div *ngIf="!hideVideoControlSection">
+                <div *ngFor="let item of controls">
+                    <platform-command-item [command]="item" [platform]="platform" [callback]="callbackFunc"></platform-command-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

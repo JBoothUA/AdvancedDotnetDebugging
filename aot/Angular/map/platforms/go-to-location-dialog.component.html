@@ -1,0 +1,21 @@
+﻿<modal #goToLocationModal>
+    <div *ngIf="platform" class="modal-dialog-header">
+		{{platform.DisplayName}} - Go to Location
+    </div>
+    <div class="modal-dialog-body">
+        <div class="row">
+            <div class="col-2">
+                <img alt="Go To Location" src="../../../Content/Images/Platforms/go-to-location-large.png" />
+            </div>
+            <h1 *ngIf="platform" class="col-10">
+				Are you sure you want to abort Go to Location for {{platform.DisplayName}}?
+			</h1>
+        </div>
+    </div>
+    <div class="modal-dialog-footer">
+        <button type="button" class="btn btn-default" (click)="hide()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="cancelGoToLocation()">
+			Abort Go to Location
+		</button>
+    </div>
+</modal>

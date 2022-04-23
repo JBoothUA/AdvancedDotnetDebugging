@@ -1,0 +1,69 @@
+﻿<div [class.pointRow-expanded]="expandedState==='out'" [class.lpItemSelected]="patrolPoint.Selected" class="pointRow" (click)="onClick($event)" (dblclick)="onDblClick($event)">
+	<div class="pointRowHeader">
+		<div class="pointRowHeaderName">
+			<div class="pointName">
+				<div class="pointNameImg" [ngStyle]="{ 'background-image': 'url(' + getBackgroundStyle(patrolPoint) + ')' }">
+					<img *ngIf="patrolService.isCheckPoint(patrolPoint) == true && patrolPoint.Ordinal == 1" class="pointNameImgOverlay" src="../../Content/Images/Patrols/first-point.png" />
+					<img *ngIf="patrolService.isCheckPoint(patrolPoint) == true && patrolPoint.Ordinal == patrol.Points.length" class="pointNameImgOverlay" src="../../Content/Images/Patrols/last-point.png" />
+				</div>
+				<div *ngIf="patrolService.isCheckPoint(patrolPoint) == true" class="pointNameText ellipsis">{{patrolPoint.DisplayName}} (Point {{patrolPoint.Ordinal}})</div>
+				<div *ngIf="patrolService.isCheckPoint(patrolPoint) == false" class="pointNameText ellipsis">{{patrolPoint.DisplayName}}</div>
+			</div>
+			<div class="pointButtons">
+				<div class="pbPointAddEditActionBtn" title="Add/Edit Checkpoint Actions" (click)="addEditActions(patrolPoint)">
+				</div>
+				<div class="pbPointDeleteBtn" title="Delete Point" (click)="removePoint(patrolPoint)">
+				</div>
+			</div>
+		</div>
+		<div *ngIf="editDescription == false && patrolPoint.Description && patrolPoint.Description != ''" class="pointRowHeader-locDesc" (click)="editPointDescriptionInline($event)">
+			<span class="pointRowHeader-locDescText ellipsis">{{patrolPoint.Description}}</span>
+			<img class="pointRowHeader-locDescEditIcon pointer" src="../../Content/Images/Patrols/edit-locations-icon.png" />
+		</div>
+		<div *ngIf="editDescription == true" class="pointRowHeader-locDescEdit">
+			<input #locDescInput class="pointRowHeader-locDescInput" type="text" placeholder="Enter description" [(ngModel)]="patrolPoint.Description"
+					(blur)="finishEditPointDescriptionInline($event)" (dblclick)="$event.stopPropagation()" (click)="$event.stopPropagation()" />
+		</div>
+	</div>
+	<div class="pointRowActions">
+		<div *ngIf="(patrolPoint.Actions && patrolPoint.Actions.length)" [class.lpItemSelected]="patrolPoint.Selected" class="pointRowActions-headerRow">
+			<div class="lpGroup lpItemGroup">
+				<div class="pointRowActions-groupHeader group-header item-group-header pointer" (click)="toggleExpandedGroup()">
+					<span class="group-header_Toggle">
+						<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" (click)="$event.stopPropagation(); toggleExpandedGroup()" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+					</span>
+					<span *ngIf="(patrolPoint.Actions && patrolPoint.Actions.length)" class="pointRowActions-headerText">
+						{{patrolPoint.Actions.length}} {{patrolPoint.Actions.length > 1 ? "Actions" : "Action"}}
+					</span>
+				</div>
+				<div class="pointRowActions-actionsList lpGroupList lpItemGroupList" [@slideDown]="expandedState">
+					<div *ngFor="let action of patrolPoint.Actions; let idx=index" class="pointRowActionRow lpItem">
+						<div class="pointRowActionItem">
+							<div class="pointRowActionItem-left">
+								<span><img class="pointRowActionItem-actionIcon pointer" src="../../Content/Images/Patrols/action-icon.png" /></span>
+								<span class="pointRowActionItem-actionIndex">
+									{{(idx + 1).toString()}} -
+								</span>
+							</div>
+							<div class="pointRowActionItem-right">
+								<span class="pointRowActionItem-actionPhrase">
+									<b>{{getActionCommandDisplayName(action)}}</b><i>{{getActionPhraseString(action)}}</i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pointRow-outline" [class.pointRow-expanded]="expandedState==='out'">
+	</div>
+</div>
+<!-- Dialogs -->
+<confirmation-dialog #confirmOverwriteActions
+					 [title]="'Overide Actions'"
+					 [confirmIcon]="'../../Content/Images/warning.png'"
+					 [confirmMessage]="overideMessage"
+					 [confirmBtnText]="'Overide Actions'"
+					 (eventOnConfirm)="patrolBuilderService.notifyPatrolPointEditSelected(patrolPoint)"></confirmation-dialog>
+

@@ -1,0 +1,36 @@
+﻿<div class="group-header item-group-header pointer {{headerClass}}" (click)="toggleExpandedGroup()">
+	<span>
+		<img class="group-header_ToggleIcon item-group-header_ToggleIcon" [class.rotate]="expandedState === 'in'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAJCAYAAADkZNYtAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgElEQVQY043PQQ2DQBAF0AcGWgk4KBJQwCKtlVAF7UjAAThAAijYXjY9NKTwb5N5k5+pcs5SSp3/WSNiqvq+n3BznEd9EkJbYzyJ3zUGzAfwGRH3qjzYYMJlB44R0UENEbGgw/YD59IMqpzzd5NSGvAq44YmItZdXA5aXLGUxm8+YQMu9hXPBTQAAAAASUVORK5CYII=" />
+	</span>
+	<span *ngIf="showBadge" class="group-header_ItemCount badge badge-pill {{getHighestPriority()}}">{{alarms.length}}</span>
+    <span *ngIf="showPriorityLine" class="vertical-divide {{getHighestPriority()}}" style="margin-left: 5px;"></span>
+    <span class="property-text">{{headerText}}</span>
+</div>
+<div [@slideDown]="expandedState">
+	<div class="container property-text" [class.scroll-area]="scrollingGroups">
+		<div class="row margin-bottom-7 table-header {{subheaderClass}}">
+			<div class="col-5">Description</div>
+			<div class="col-4 left-border-no-padding">Status</div>
+			<div class="col-3 left-border-no-padding">Reported</div>
+		</div>
+		<div class="row margin-bottom-7 {{itemClass}}" *ngFor="let alarm of alarms;trackBy: trackByAlarmFn" [class.selected]="checkSelection(alarm)" (click)="onclick(alarm, $event)" (contextmenu)="onContextMenu(alarm, $event)">
+			<div class="col-5 ellipsis" style="padding-left: 5px;" title="Open {{alarm.Description}} in Alarm Panel">
+				<span style="margin-top:5px" class="small-priority-circle {{'p' + alarm.Priority}}"></span>
+				<span class="clickable" (click)="goToAlarm(alarm)">{{alarm.Description}}</span>
+			</div>
+			<div class="col-4 nowrap">
+				<img [hidden]="alarm.State !== 1" alt="Reported" src="../../../Content/Images/Alarms/reported-icon.png" />
+				<img [hidden]="alarm.State !== 2" alt="Acknowledged" src="../../../Content/Images/Alarms/acknowledge-icon.png" />
+                <img [hidden]="alarm.State !== 3" alt="Cleared" src='../../../Content/Images/Dashboard/cleared-icon.png' />
+                <img [hidden]="alarm.State !== 4" alt="Dismissed" src='../../../Content/Images/Dashboard/dismiss-icon.png' />
+				<!--<span>{{alarm.State === 2 ? 'Acknowledged' : 'Reported'}}</span>-->
+                <span [hidden]="alarm.State !== 1">Reported</span>
+                <span [hidden]="alarm.State !== 2">Acknowledged</span>
+                <span [hidden]="alarm.State !== 3">Cleared</span>
+                <span [hidden]="alarm.State !== 4">Dismissed</span>
+			</div>
+			<div class="col-3 nowrap">{{alarm.getAlarmTime()}} ago</div>
+		</div>
+	</div>
+</div>
+<hr />

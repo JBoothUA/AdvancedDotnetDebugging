@@ -1,0 +1,50 @@
+﻿<div class="expandedEventArea" [class.smallMarker]="SmallMarker" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+	
+	<img #GoToLocationIcon class="goToLocationIcon" *ngIf="!isDisabled()" [hidden]="MapZoom < MapZoomThreshold || !Hover || Dragging" 
+		 (mousedown)="Dragging = true" src="../../../Content/Images/Platforms/go-to-location-arrow.png" title="Drag to Location/Alarm" />
+	<img *ngIf="MapZoom >= MapZoomThreshold && (ShowSelection || Platform.Selected)" 
+		 class="platform-marker-selection unclickable" src="/Content/images/main-selection-cross-hairs.png" />
+
+    <div title="{{Platform.DisplayName}}" *ngIf="MapZoom >= MapZoomThreshold" class="platform-marker-icon" [class.selected]="ShowSelection || Platform.Selected || Hover" (click)="select($event)" (dblclick)="zoomTo()" (contextmenu)="openRadial($event)">
+        <circle-progressbar *ngIf="!ShowSelection && !Platform.Selected && !Hover" [image]="PlatformService.getPlatformIconSrc(Platform)"
+                            [completenessPercentage]="getPlatformPatrolCompleteness()"
+                            [hideProgressBar]="isProgressBarHidden()"
+                            [fillColor]="patrolService.getPatrolCompletnessColor(patrolService.getPatrolInstanceByPlatformId(Platform.id))"
+                            [size]="50"
+                            [strokeWidth]="5"></circle-progressbar>
+        <img *ngIf="!ShowSelection && !Platform.Selected && !Hover && Platform.State.PlatformMode === PlatformMode.EstopPhysical" style="height:19px;position: absolute; left: 34px; top: 33px; z-index: 2;" src="../../../Content/Images/Platforms/physical-estop-lock.png" />
+        
+        <circle-progressbar *ngIf="ShowSelection || Platform.Selected || Hover" [image]="PlatformService.getPlatformIconSrc(Platform)"
+                            [completenessPercentage]="getPlatformPatrolCompleteness()"
+                            [hideProgressBar]="isProgressBarHidden()"
+                            [fillColor]="patrolService.getPatrolCompletnessColor(patrolService.getPatrolInstanceByPlatformId(Platform.id))"
+                            [size]="60"
+                            [strokeWidth]="5"></circle-progressbar>
+        <img *ngIf="(ShowSelection || Platform.Selected || Hover) && Platform.State.PlatformMode === PlatformMode.EstopPhysical" style="position: absolute; left: 36px; top: 36px; z-index: 2;" src="../../../Content/Images/Platforms/physical-estop-lock.png" />
+    </div>
+    <div class="platform-marker-wrapper" [class.hidden]="MapZoom >= MapZoomThreshold" [class.unclickable]="MapZoom >= MapZoomThreshold" [class.selected]="ShowSelection || Platform.Selected || Hover" 
+         (click)="select($event)" (dblclick)="zoomTo()">
+        <div class="platform-marker-inner-wrapper">
+            <img #HeadingIcon class="platform-marker-image platform-rotating-image" src="{{MapService.getPlatformMarkerImage(Platform)}}" />
+        </div>
+        <div class="platform-marker-label platform-marker-label-small" [class.hidden]="!ShowSelection && !Platform.Selected && !Hover">
+            {{Platform.DisplayName}}
+        </div>
+    </div>
+        
+    <img #Cone class="platform-camera-cone platform-rotating-image unclickable" [class.selected]="ShowSelection || Platform.Selected" [class.hidden]="MapZoom < MapZoomThreshold" src="/Content/images/Platforms/front-camera-cone.png" />
+    <img #Heading class="platform-heading platform-rotating-image unclickable" [class.selected]="ShowSelection || Platform.Selected" [class.hidden]="MapZoom < MapZoomThreshold" src="{{getHeadingImage()}}" />
+	
+    <div *ngIf="MapZoom >= MapZoomThreshold && (!HideLabel && (ShowSelection || Platform.Selected))" class="sc-marker-label platform-marker-label">
+        <div class="left-side">
+            <div class="description" title="{{Platform.DisplayName}}">{{Platform.DisplayName}}</div>
+            <div (click)="goToPatrol(Platform)">
+               {{PlatformService.getPlatformPatrolDisplayName(Platform)}}
+            </div>
+        </div>
+        <div class="action-button">
+            <img #platformActions class="action-button-icon" src="/Content/images/Alarms/action-button-alarm-popout.png" (click)="openActionMenu($event)" title="Robot Actions"/>
+        </div>
+    </div>
+    <platform-radial-menu [platform]="Platform"></platform-radial-menu>
+</div>

@@ -1,0 +1,42 @@
+﻿<div id="lpAlarms">
+    <div class="lpTabHeader">
+        <div class="lpTabHeader_Left">
+            <div class="lpTabHeader_Text">
+                Alarms
+            </div>
+            <div class="lpTabHeader_Count">
+                ({{getAlarmCount()}})
+            </div>
+        </div>
+        <div class="lpTabHeader_Right">
+			<div class="lpTabHeader_Text left-border float-right">
+				<div title="Grouping/Multi-select Options" class="settings-btn" [class.selected]="showSettingsTrays" (click)="showSettingsTrays = !showSettingsTrays;"></div>
+			</div>
+			<div class="lpTabHeader_Text float-right">
+				<div title="Reorder List" class="lpGroupOrderButton" [class.desc]="alarmService.sortOrder === 'desc'" (click)="toggleGroupOrder()"></div>
+			</div>
+        </div>
+    </div>
+	<div style="top:56px;" *ngIf="showSettingsTrays" class="lpTabTray">
+		<span class="tray-label">Alarm Grouping</span>
+		<select class="lpTabHeader_GroupDropdown lpTabTray_Control" [(ngModel)]="alarmService.groupSelection" (ngModelChange)="groupChanged($event)">
+			<option *ngFor="let group of groupOptions;trackBy: trackByOptionsFn" [ngValue]="group.value">{{group.name}}</option>
+		</select>
+	</div>
+	<div style="top:118px;" *ngIf="showSettingsTrays" class="lpTabTray">
+        <span class="multiSelect-wrapper pointer" (click)="toggleSelectionCheckboxes()" [class.selected]="multiSelect">
+            <span class="multiSelect"></span>
+            <span class="tray-label multiSelect-label">Multi-Select Mode</span>
+        </span>
+		<span class="select-all lpTabTray_Control" (click)="toggleAllAlarms()">{{toggleDisplay}}</span>
+	</div>
+    <div class="alarmListWrapper" (click)="showSettingsTrays = false;">
+        <div class="lpItemListContainer" #alarmsContainer id="lpAlarmListContainer" [style.pointer-events]="showSettingsTrays ? 'none' : 'all'"
+             [ngClass]="{'blocked': showSettingsTrays}">
+            <alarm-list-group *ngFor="let group of groupList;trackBy: trackByGroupFn" [alarms]="alarms" [multiSelect]="multiSelect" [groupName]="group"
+                              [groupSelection]="alarmService.groupSelection" [sortOrder]="alarmService.sortOrder" [mapViewOptions]="mapViewOptions"></alarm-list-group>
+        </div>
+    </div>
+</div>
+
+<alarm-context-menu></alarm-context-menu>

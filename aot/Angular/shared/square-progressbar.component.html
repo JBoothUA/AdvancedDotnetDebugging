@@ -1,0 +1,30 @@
+﻿<div [style.width.px]="size" [style.height.px]="size">
+    <svg [style.width.px]="adjustedSize" [style.height.px]="adjustedSize">
+        <rect [attr.stroke-dasharray]="dasharray"
+              [attr.stroke-dashoffset]="0"
+              [attr.x]="strokeWidth/2"
+              [attr.y]="strokeWidth/2"
+              [attr.width]="adjustedSize - strokeWidth"
+              [attr.height]="adjustedSize - strokeWidth"
+              stroke="#9F9F9F"
+              [attr.stroke-width]="strokeWidth"
+              rx="3px" ry="3px" fill="transparent" />
+        
+        <rect #svgRect [attr.stroke-dasharray]="dasharray"
+              [attr.stroke-dashoffset]="getDashOffset()"
+              [attr.x]="strokeWidth/2"
+              [attr.y]="strokeWidth/2"
+              [attr.width]="adjustedSize - strokeWidth"
+              [attr.height]="adjustedSize - strokeWidth"
+              [attr.stroke]="fillColor"
+              [attr.stroke-width]="strokeWidth"
+              rx="3px" ry="3px" fill="transparent" />
+    </svg>
+    <div [style.width.px]="adjustedSize - (strokeWidth * 2)" 
+         [style.height.px]="adjustedSize - (strokeWidth * 2)">
+        <img [attr.src]="image"
+             [style.width.px]="imageSize"
+             [style.height.px]="imageSize" />
+    </div>
+    
+</div>

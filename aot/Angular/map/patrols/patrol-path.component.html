@@ -1,0 +1,13 @@
+﻿<div *ngIf="patrol">
+		<patrol-marker *ngFor="let point of patrol.Points" 
+                       [attr.id]="point.PointId" 
+                       [point]="point" 
+                       [patrol]="patrol" 
+                       [selected]="point.Selected" 
+                       [pointStatus]="point.CurrentStatus" 
+                       [ordinal]="point.Ordinal" 
+                       [dirtyToggle]="patrol.dirtyToggle"
+                       [iPatrolService]="patrolService"
+                       [iPatrolMapService]="patrolMapService">
+        </patrol-marker>
+</div>

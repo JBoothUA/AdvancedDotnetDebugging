@@ -1,0 +1,54 @@
+﻿<modal #clearAlarmsModal>
+    <div class="modal-dialog-header">
+		<span *ngIf="alarms && alarms.length === 1">Clear Alarm</span>
+		<span *ngIf="alarms && alarms.length > 1">
+			<span *ngIf="unackAlarms.length >= 1">
+				Acknowledge and
+			</span>
+			Clear Alarms
+		</span>
+    </div>
+    <div class="modal-dialog-body">
+        <div class="row">
+            <div class="col-2">
+                <img alt="Clear Alarm" src="../../Content/Images/Alarms/clear-icon.png" />
+            </div>
+            <h1 class="col-10">
+				<span *ngIf="alarms && alarms.length === 1">
+					Are you sure you want to Clear the "<i>{{alarms[0].Description}}</i>" Alarm?
+				</span>
+				<span *ngIf="alarms && alarms.length > 1">
+					<span class="bold" *ngIf="unackAlarms.length >= 1">
+						{{unackAlarms.length}} of the selected Alarms 
+						<span *ngIf="unackAlarms.length === 1">has</span>
+						<span *ngIf="unackAlarms.length > 1">have</span>
+						<span style="color:red">not</span>
+						been Acknowledged.
+						<br />
+					</span>
+					<span>Are you sure you want to</span>
+					<span *ngIf="unackAlarms.length >= 1">
+						Acknowledge and
+					</span>
+					Clear the {{alarms.length}} Alarms below?
+				</span>
+			</h1>
+            <h1 *ngIf="alarms && alarms.length === 1" class="col-10"></h1>
+        </div>
+        <div *ngIf="alarms && alarms.length > 1">
+			<alarm-table [alarms]="alarms"></alarm-table>
+		</div>
+    </div>
+    <div class="modal-dialog-footer">
+        <button type="button" class="btn btn-default" (click)="hide()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="clearAlarms()">
+			<span *ngIf="alarms && alarms.length === 1">Clear Alarm</span>
+			<span *ngIf="alarms && alarms.length > 1">
+				<span *ngIf="unackAlarms.length >= 1">
+					Acknowledge and 
+				</span>
+				Clear Alarms
+			</span>
+		</button>
+    </div>
+</modal>

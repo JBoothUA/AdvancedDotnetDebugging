@@ -1,0 +1,77 @@
+﻿<div class="lpItemWrapper">	
+    <div id="item_{{alarm.Id}}_selectbox" *ngIf="multiSelect" [class.selected]="alarm.Selected" class="lpItem_SelectBox" (click)="selectAlarm()"></div>
+    <div class="lpItemContainer" [class.lpItemContainerSelected]="alarm.Selected || alarm.Expanded">
+        <div class="lpItem lpItem_LayoutContainer P{{alarm.Priority}}" [class.lpItemSelected]="alarm.Selected" (click)="toggleSelected($event)" (dblclick)="zoomTo()" (contextmenu)="openActionMenu($event)">
+            <table class="lpItem_LeftColumnTable">
+                <tr>
+                    <td>
+                        <span title="Priority {{alarm.Priority}} - {{priorityName}}" class="lpAlarm_PriorityIcon">
+                            <img src="{{priorityIcon}}" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span title="Priority {{alarm.Priority}} - {{priorityName}}" class="lpAlarm_PriorityName">
+                            P{{alarm.Priority}}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lpAlarm_AttachmentsIcon">
+							<img *ngIf="hasAttachments()" src="/Content/images/attachment-icon.png" />
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div class="lpItem_MiddleColumn lpAlarm_MiddleColumn">
+                <div class="lpAlarm_MiddleColFirstRow">
+                    <span class="lpItem_ItemName" [class.bold]="alarm.State === 1" title="{{alarm.Description}}">
+                        {{alarmDescription}}
+                    </span>
+                </div>
+                <div class="lpAlarm_MiddleColSecondRow ellipsis" [class.bold]="alarm.State === 1">
+                    <div class="platformStatus {{getPlatformStatusClass()}} float-left"></div>
+					<span title="View Concise Robot Monitor" class="lpAlarm_PlatformName" (click)="goToPlatform()">{{platformName}}</span>
+					<span *ngIf="getPlatformDisplayName() && alarm.Location && alarm.Location.Name" class="lpAlarm_LocationDivider">|</span>
+                    <span class="lpAlarm_LocationName">{{alarm.Location ? alarm.Location.Name : null}}</span>
+                </div>
+                <div class="lpAlarm_MiddleColThirdRow">
+                    <span class="lpAlarm_LastUpdateStatus">
+						<img [hidden]="alarm.State !== 1" alt="Reported" src="/Content/Images/Alarms/reported-icon.png" />
+                        <img [hidden]="alarm.State !== 2" alt="Acknowledged" src="/Content/Images/Alarms/acknowledge-icon.png" />
+						<span class="bold">{{alarm.State === 2 ? 'Acknowledged' : 'Reported'}}</span>
+						<span *ngIf="alarm.State === 1 && alarm.Created && alarm.Created.UserId">by {{alarm.Created.UserId}}</span>
+						<span *ngIf="alarm.State === 2 && alarm.Acknowledged && alarm.Acknowledged.UserId">by {{alarm.Acknowledged.UserId}}</span>
+                    </span>
+                </div>
+                <div class="lpAlarm_MiddleColFourthRow">
+                    <span class="lpAlarm_LastUpdateTime" *ngIf="alarm.State === 1">
+                        {{alarmService.convertDateDisplay(alarm.ReportedTime)}}
+                    </span>
+                    <span class="lpAlarm_LastUpdateTime" *ngIf="alarm.State === 2">
+                        {{alarmService.convertDateDisplay(alarm.Acknowledged.Timestamp)}}
+                    </span>
+                </div>
+            </div>
+            <div class="lpItem_RightColumn" (click)="actionMenuOpen = true">
+				<div class="lpAlarm_ReportedTimeCounter">
+					{{getAlarmTime()}}
+				</div>
+                <div class="dropdown">
+                    <div title="Alarm Actions" class="lpItem_ActionButton" id="lpItem_ActionButton_{{alarm.Id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="lpActionMenu dropdown-menu dropdown-menu-right" attr.aria-labelledby="lpItem_ActionButton_{{alarm.Id}}">
+                        <alarm-action-menu [alarm]="alarm"></alarm-action-menu>
+                    </div>
+                </div>
+                <div title="Show/Hide Details" class="lpItem_ExpandButton" [class.expanded]="alarm.Expanded" (click)="toggleExpandedView($event)">
+                </div>
+            </div>
+        </div>
+        <div id="{{alarm.Id}}_Details" [hidden]="!alarm.Expanded" class="expandedAlarmView">
+           <alarm-details [alarm]="alarm"></alarm-details>
+        </div>
+    </div>
+</div>

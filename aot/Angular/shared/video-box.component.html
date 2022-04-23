@@ -1,0 +1,15 @@
+﻿<div class="title">{{camera.DisplayName}}</div>
+<div *ngIf="camera" class="content" [innerHTML]="getLiveVideo()"></div>
+<div *ngIf="!camera" class="content">
+    <span>Video Not Available</span>
+</div>
+
+<div class="heading" *ngIf="showHeading">
+    <div class="direction" [style.transform]="getOrientation()">
+        <img width="48" src="../../Content/Images/Platforms/backround-graphic.png" />
+        <img width="48" src="../../Content/Images/Platforms/directional-cone.png" />
+        <img width="48" src="../../Content/Images/Platforms/robot-heading-white.png" />
+    </div>
+    <div class="heading-degrees">{{heading}}&#176;</div>
+    <div class="heading-direction">{{getPlatformHeadingCardinal()}}</div>
+</div>

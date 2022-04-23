@@ -1,0 +1,102 @@
+﻿#lpPatrols {
+    position: relative;
+}
+
+.blocked > *:hover {
+    background-color:inherit !important;
+}
+
+.search-new-panel {
+    float:left;
+    width:100%;
+    /*padding:8px 10px 8px 10px;*/
+    padding-top:8px;
+    padding-bottom:8px;
+}
+
+.lpTabHeader_GroupDropdown {
+    float: right;
+    margin-top: 14px;
+}
+
+.search-new-panel > div:first-child {
+    float:left;
+    height:38px;
+    width:calc(100% - 131px);
+    border:1px solid #C5C5C5;
+    color:#999999;
+    padding: 8px 5px;
+
+    display: block;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #464a4c;
+    background-color: #fff;
+    background-image: none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+
+.searchFocus {
+    color: #464a4c !important;
+    background-color: #fff !important;
+    border-color: #5cb3fd !important;
+    outline: 0 !important;
+}
+
+
+input[type="text"] {
+    width: calc(100% - 19px);
+    float: left;
+    border: none;
+    background-image: url(../../Content/Images/Dashboard/search-magnifying-glass.png);
+    background-repeat: no-repeat;
+    background-position: left 5px center;
+    padding-left: 35px;
+    background-size:contain;
+}
+
+.input-clear {
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+    background-image: url('../../Content/Images/Patrols/save-x-icon-not-selected.png');
+    cursor:pointer;
+}
+
+.input-clear:hover {
+    background-image: url('../../Content/Images/Patrols/save-x-icon-hover-or-selected.png');
+}
+
+input[type="text"]:focus {
+    outline:none;
+    border:none;
+}
+
+.search-new-panel > button {
+    float:right;
+}
+
+.btn-newPatrol {
+    cursor:pointer;
+    background-image: url('../../Content/Images/Patrols/new-patrol.png');
+    background-repeat:no-repeat;
+    float: left;
+    width: 92px;
+    text-align: right;
+    height: 22px;
+    margin:8px 0 0 20px;
+}
+
+.btn-newPatrol:hover {
+    background-image: url('../../Content/Images/Patrols/new-patrol-hover.png');
+    color:#4272B3;
+}

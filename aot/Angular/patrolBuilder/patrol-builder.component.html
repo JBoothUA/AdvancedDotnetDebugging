@@ -1,0 +1,15 @@
+﻿<div class="pbMain stopSelection" >
+	<div class="pbHeader lpTabHeader">
+		<div class="lpTabHeader_Text">{{dialogTitle}}</div>
+		<img class="btn" (click)="hidePatrolBuilder()" style="position:absolute; right:0;" src="../../Content/Images/Patrols/close-icon.png" />
+	</div>
+	<div class="pbContent">
+		<patrol-builder-step1 #patrolBuilderStep1 (onToggleExpandedGroup)="setStepExpandedState(1, $event)" [patrol]=patrolInEdit [step1Completed]=step1Completed [expandedState]=step1ExpandedState (onPatrolBuilderCancelled)="hidePatrolBuilder()" (onStep1Completed)="handleStep1Completed()">
+		</patrol-builder-step1>
+		<patrol-builder-step2 #patrolBuilderStep2 (onToggleExpandedGroup)="setStepExpandedState(2, $event)" *ngIf="step1Completed" class="patrol-builder-step2" [patrol]=patrolInEdit [pointCount]="patrolInEdit.Points.length" (onPatrolBuilderSaved)="hidePatrolBuilder()" (onPatrolBuilderCancelled)="hidePatrolBuilder()">
+		</patrol-builder-step2>
+	</div>
+</div>
+
+
+

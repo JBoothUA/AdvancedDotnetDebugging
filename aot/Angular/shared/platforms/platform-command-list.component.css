@@ -1,0 +1,88 @@
+﻿platform-command-item {
+    padding: 0;
+}
+
+.platformCommandList {
+    width: 375px;
+}
+
+.header {
+    background-color: #676767;
+    padding: 5px;
+    color: #fff;
+    font-weight: 200;
+}
+
+.header-item {
+    text-align: center;
+}
+
+.header platform-command-item:hover {
+    font-weight: 400;
+}
+
+.platformCommandItem {
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    clear: both;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.hoverItem:hover {
+    background-color: #e3f0f6;
+}
+
+.platformCommandItem img {
+    margin-right: 5px;
+}
+
+.platformCommandItem img.small {
+    height: 24px;
+    width: 24px;
+}
+
+.platformCommandItem .toggle-button {
+    margin-left: auto;
+}
+
+.command-col {
+    padding: 0;
+}
+
+.command-col-left {
+    border-right: 1px solid #ccc;
+}
+
+.col-header {
+    border-bottom: 1px solid #ccc;
+}
+
+.col-header .text {
+    padding: 2px 10px 3px 10px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    font-weight: 200;
+}
+
+toggle-button {
+    display: flex;
+}
+
+.platformCommandItem .loading {
+    position: inherit;
+    margin: 0 12px 0 auto;
+    height: 20px;
+    width: 20px;
+}

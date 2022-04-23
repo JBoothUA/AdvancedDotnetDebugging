@@ -1,0 +1,110 @@
+﻿<div (click)="handleExpandClick();pointOptions.hide()" class="group-header lpDetailsGroupHeader patrolHistoryGroupHeader pointer" >
+    <span class="group-header_Toggle">
+        <img [class.rotate]="!expandedState" class="group-header_ToggleIcon" src="../../Content/Images/down-arrow.png" />
+    </span>
+    <div class="lpGroupHeader_GroupName" style="vertical-align: middle;">
+        <div *ngIf="isRunningPatrol()">
+            <div style="float:left;">
+                <img src="{{patrolService.getStatusIconSrc(2)}}" />
+                <span style="font-weight:bold;">In Progress</span> {{patrolService.getPatrolCompletenessText(patrolInstance)}}%
+            </div>
+        </div>
+        <div *ngIf="!isRunningPatrol()">
+            <div style="float:left;max-width:60%;" class="ellipsis status-description">
+                <img style="height:17px;width:17px;" src="{{patrolService.getStatusIconSrc(patrolInstance.CurrentStatus)}}" /> 
+                <span style="font-weight:bold;">{{patrolService.getShortStatusText(patrolInstance.CurrentStatus)}} </span>
+                {{patrolService.getLongStatusText(patrolInstance.CurrentStatus)}}
+            </div>
+        </div>
+        <div *ngIf="nameOption === NameOption.showRobotName" class="ellipsis" style="float:left;max-width:29%;">
+            <span style="float:left;margin-left:5px;">|</span>
+            <div class="platformStatus {{platformService.getPlatformStatusClass(platform)}}"></div>
+            <span class="displayName" (click)="platformNameClicked($event)"> {{(platform) ? platform.DisplayName : 'Unknown' }}</span>
+        </div>
+
+        <div *ngIf="showPointOptionsButton" title="Point Options" #btnPointOptions (click)="changePointOptions($event)" class="settings-btn"></div>
+        <div *ngIf="patrolInstancePlan.pointCount > 0 && showSortButton" 
+             [class.disabledSort]="!expandedState" 
+             [class.asc]="sortOrder === 0" class="btn-sort" (click)="(expandedState) ? toggleSort() : void">
+        </div>
+        
+    </div>
+    <div *ngIf="!isRunningPatrol()" class="time-stamp"> 
+        <span style="float:left;">{{getPatrolDate(patrolInstance.SubmittedTime)}}</span>
+        <div *ngIf="nameOption === NameOption.showPatrolName" style="float:left;" class="patrol-name">
+            <span style="float:left;margin-left:5px;">| </span>
+            <div class="displayName patrolName ellipsis">{{patrolInstance.DisplayName}}</div>
+        </div>
+    </div>
+    <div *ngIf="isRunningPatrol()" class="time-stamp"> 
+        <span style="float:left;">Today</span>
+        <div *ngIf="nameOption === NameOption.showPatrolName" style="float:left;" class="patrol-name">
+            <span style="float:left;margin-left:5px;">| </span>
+            <div class="displayName patrolName ellipsis">{{patrolInstance.DisplayName}}</div>
+        </div>
+    </div>
+</div>
+<div style="float:left;position:relative;padding-left: 40px;width:100%;border-top: 1px solid #cccbcb;" [@slideDown]="(expandedState)? 'out' : 'in'">
+    <div class="header">
+        <div>
+            <div>
+                <span style="font-weight:bold;">Time: </span><span>{{getFormattedPatrolStartTime()}}</span> -
+                <div *ngIf="!patrolInstance.EndedTime || getFormattedPatrolStartTime() === '00:00:00am'; then showTimeLoading else showTime"></div>
+                <ng-template #showTimeLoading>
+                    <img height="20" src="../../Content/Images/Patrols/time-running.png" />
+                </ng-template>
+                <ng-template #showTime>
+                    <span>{{getFormattedPatrolEndTime()}}</span>
+                </ng-template>
+            </div>
+        </div>
+        <div (click)="patrolInstancePlan.expandAll()" class="expand-all-btn" *ngIf="patrolInstancePlan.showExpandAll()"> Expand All</div>
+        <div (click)="patrolInstancePlan.collapseAll()" class="expand-all-btn" *ngIf="patrolInstancePlan.showCollapseAll()"> Collapse All </div>
+    </div>
+    <div class="content">
+        <div *ngIf="sortOrder === 0" class="point-item solid-line started">
+            <div class="operatorInitials userPicInitials">
+                {{getOperatorInitials()}}
+            </div>
+            <span class="point-name small-format">{{patrolInstance.UserName}}</span>
+            <div *ngIf="!patrolInstance.StartedTime"  class="point-time-pending"></div>
+            <span *ngIf="patrolInstance.StartedTime" class="point-time">{{getTimeSince(patrolInstance.StartedTime)}}</span>
+            <div class="action-header completed">
+               <span class="action-status">{{(!patrolInstance.StartedTime) ? 'Patrol Initiated' :'Patrol Started'}}</span> 
+            </div>
+        </div>
+
+        <patrol-plan [class.sortOrderAsc]="sortOrder === 0"
+                     #patrolInstancePlan
+                     [patrolPoints]="patrolInstance.Points" 
+                     [patrolInstance]="patrolInstance"
+                     [alarms]="getPatrolAlarmList()"
+                     [showPathPoints] ="showPathPoints"
+                     [sortType]="sortOrder"></patrol-plan>
+
+        <div *ngIf="sortOrder !== 0" class="point-item ">
+            <div class="operatorInitials userPicInitials">
+                {{getOperatorInitials()}}
+            </div>
+            <span class="point-name small-format">{{patrolInstance.UserName}}</span>
+            <div *ngIf="!patrolInstance.StartedTime" class="point-time-pending"></div>
+            <span *ngIf="patrolInstance.StartedTime" class="point-time">{{getTimeSince(patrolInstance.StartedTime)}}</span>
+            <div class="action-header completed">
+                <span class="action-status">{{(!patrolInstance.StartedTime) ? 'Patrol Initiated' :'Patrol Started'}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<popover #popover [horizontalAligment]="'right'">
+    <div class="point-settings-dropBox">
+        <span style="font-size:13px;">Patrol Points</span>
+        <label style="margin-left:5px;" (change)="onPointOptionsChange()">
+            <input name="patrolPoints_{{patrolInstance.id}}" type="radio" [(ngModel)]="showPathPoints" [value]="false" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">Not Reached</span>
+        </label>
+        <label style="margin-left:5px;" (change)="onPointOptionsChange()">
+            <input name="patrolPoints_{{patrolInstance.id}}" type="radio" [(ngModel)]="showPathPoints" [value]="true" />
+            <span style="font-size:17px;    vertical-align: text-bottom;">All</span>
+        </label>
+    </div>
+</popover>

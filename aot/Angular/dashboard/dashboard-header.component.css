@@ -1,0 +1,282 @@
+﻿/******** Panel DIV ********/
+#headerPanel {
+    white-space: nowrap;
+    color: #6d6d6d;
+}
+
+/******** Location Label ********/
+#headerLocationDiv {
+    margin-top: 17.5px;
+    width: 100%;
+    height: 42.5px;
+    position: relative;
+}
+
+.headerLocationLabel {
+    position: relative;
+    float: left;
+}
+
+.headerLocationLabelLinkText {
+    /*color: #0000CD;*/
+    color: #4272AC;
+}
+
+/******** Filter Criteria ********/
+.headerFilterButton {
+    background-color: #4272AC;
+    border-radius: 8px;
+    height: 38px;
+    position: relative;
+    float: left;
+    margin-top: -7px;
+    margin-left: 10px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.headerFilterButtonText {
+    color: white;
+    font-size: 17px;
+    margin-top: 5px;
+    margin-right: 16px;
+}
+
+.headerFilterButtonImg {
+    position: relative;
+    float: left;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+.headerFilterButtonClearImg {
+    position: relative;
+    float: right;
+    margin-top: -15px;
+}
+
+/******** Tabs ********/
+#headerTabs {
+    /*margin-top: 17.5px;*/
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.headerTab {
+    width: 33%;
+    border: 1px solid #9d9d9d;
+    height: 115px;
+    background-color: #f4f4f4;
+    min-width: 362px;
+}
+
+.headerTab.selected {
+    border-bottom: 10px solid #4272b4;
+    background-color:white;
+}
+
+.headerTabText {
+    margin-top: 10px;
+    font-size: 22px;
+}
+
+.headerTabContentType {
+    font-weight: 500;
+    color: black;
+}
+
+.headerTabImg {
+    width:62px;
+    height: 62px;
+    margin-left: 20px;
+    margin-top: 17px;
+    float: left;
+    background-repeat: no-repeat;
+    background-size: 62px;
+}
+
+.headerTabPriorityCircle {
+    width: 13px;
+    height: 13px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+    margin-top: 6px;
+}
+
+.headerTabPriorityLabel {
+    float: left;
+    margin-left: 3px;
+    margin-top: -5px;
+    font-size: 23px;
+}
+
+.headerTabPriorityLabelPadding {
+    margin-right: 16px;
+}
+
+.headerTabCount {
+    margin-top: -8px;
+    font-size: 31px;
+}
+
+.headerTabContent {
+    float: left;
+    margin-left: 5px;
+}
+
+.headerTabPadding {
+    margin-right: 18px;
+}
+
+/******** Alarm Tab ********/
+.headerTabAlarmImg-P1 {
+    background-image: url('../../Content/Images/Dashboard/alarms-circle-red.png');
+}
+
+.headerTabAlarmImg-P2 {
+    background-image: url('../../Content/Images/Dashboard/alarms-circle-orange.png');
+}
+
+.headerTabAlarmImg-P3 {
+    background-image: url('../../Content/Images/Dashboard/alarms-circle-amber.png');
+}
+
+.headerTabAlarmImg-P4 {
+    background-image: url('../../Content/Images/Dashboard/alarms-circle-green.png');
+}
+
+.headerTabAlarmImg-P5 {
+    background-image: url('../../Content/Images/Dashboard/alarms-circle-gray.png');
+}
+
+.headerTabAlarmPriorityTextColor-P1{
+    color: #CA2127;
+}
+.headerTabAlarmPriorityTextColor-P2{
+    color: #D07728
+}
+.headerTabAlarmPriorityTextColor-P3{
+    color: #F3B518;
+}
+.headerTabAlarmPriorityTextColor-P4{
+    color: #09C5A5;
+}
+.headerTabAlarmPriorityTextColor-P5{
+    color: #315777;
+}
+
+.headerTabAlarmPriorityBackground-P1 {
+    background-color: #CA2127;
+}
+.headerTabAlarmPriorityBackground-P2 {
+    background-color: #D07728;
+}
+.headerTabAlarmPriorityBackground-P3 {
+    background-color: #F3B518;
+}
+.headerTabAlarmPriorityBackground-P4 {
+    background-color: #09C5A5;
+}
+.headerTabAlarmPriorityBackground-P5 {
+    background-color: #315777;
+}
+
+
+/******** Patrol Tab ********/
+.headerTabPatrolImg-failed {
+    background-image: url('../../Content/Images/Dashboard/patrols-circle-red.png');
+}
+
+.headerTabPatrolImg-error {
+    background-image: url('../../Content/Images/Dashboard/patrols-circle-orange.png');
+}
+
+.headerTabPatrolImg-warning {
+    background-image: url('../../Content/Images/Dashboard/patrols-circle-amber.png');
+}
+
+.headerTabPatrolImg-healthy {
+    background-image: url('../../Content/Images/Dashboard/patrols-circle-green.png');
+}
+
+.headerTabPatrolStatusTextColor-healthy {
+    color: #249C49;
+}
+.headerTabPatrolStatusTextColor-warning {
+    color: #F3B518;
+}
+.headerTabPatrolStatusTextColor-error {
+    color: #D07728;
+}
+.headerTabPatrolStatusTextColor-failed {
+    color: #CA2127;
+}
+
+.headerTabPatrolStatusyBackgroundColor-healthy {
+    background-color: #249C49;
+}
+.headerTabPatrolStatusyBackgroundColor-warning {
+    background-color: #F3B518;
+}
+.headerTabPatrolStatusyBackgroundColor-error {
+    background-color: #D07728;
+}
+.headerTabPatrolStatusyBackgroundColor-failed {
+    background-color: #CA2127;
+}
+
+
+/******** Robot Tab ********/
+.headerTabRobotImg-failed {
+    background-image: url('../../Content/Images/Dashboard/robots-circle-red.png');
+}
+
+.headerTabRobotImg-error {
+    background-image: url('../../Content/Images/Dashboard/robots-circle-amber.png');
+}
+
+.headerTabRobotImg-healthy {
+    background-image: url('../../Content/Images/Dashboard/robots-circle-green.png');
+}
+
+.headerTabRobotImg-disabled {
+    background-image: url('../../Content/Images/Dashboard/robots-circle-green.png');
+}
+
+.headerTabRobotStatusTextColor-P1{
+    color: #CA2127;
+}
+.headerTabRobotStatusTextColor-P2{
+    color: #F3B518;
+}
+.headerTabRobotStatusTextColor-P3{
+    color: #2C9C48;
+}
+.headerTabRobotStatusTextColor-P4{
+    color: #8a8a8a;
+}
+.headerTabRobotStatusTextColor-P5{
+    color: #6d6d6d;
+}
+
+.headerTabRobotStatusBackgroundColor-failed {
+    background-color: #CA2127;
+}
+
+.headerTabRobotStatusBackgroundColor-error {
+    background-color: #F3B518;
+}
+
+.headerTabRobotStatusBackgroundColor-healthy {
+    background-color: #2C9C48;
+}
+
+.headerTabRobotStatusBackgroundColor-disabled {
+    background-color: #8a8a8a;
+}

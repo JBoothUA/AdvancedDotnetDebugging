@@ -1,0 +1,19 @@
+﻿<div class="patrol-marker" style="width: 100%; height: 100%;" [style.transform]="'scale(' + ptrlMapService.scaleFactor + ')'">
+	<div (click)="onClick($event)" (dblclick)="onDblClick($event)" [class.blink]="shouldBlink()" >
+		<img *ngIf="point.Selected" class="patrol-marker-selection" src="/Content/images/main-selection-cross-hairs.png" />
+		<square-progressbar *ngIf="showPointProgressBar()"
+							[completenessPercentage]="patrolService.getPointCompletness(point)"
+							[image]="getPointIconSrc()"
+							[fillColor]="getPointCompletenessColor()"
+							[size]="40"></square-progressbar>
+		<img *ngIf="!showPointProgressBar() && patrolService.isCheckPoint(point)" class="patrol-marker-checkpoint" [src]="getPointIconSrc()" />
+		<img *ngIf="patrolMapService.interactMode == PatrolMapInteractMode.None && !patrolService.isCheckPoint(point)" class="patrol-marker-point-inst" [src]="getPointIconSrc()" />
+		<div *ngIf="patrolMapService.interactMode != PatrolMapInteractMode.None && !patrolService.isCheckPoint(point)" class="patrol-marker-point">
+			<div class="patrol-marker-point-text">
+				{{point.Ordinal}}
+			</div>
+		</div>
+		<img *ngIf="showFirstPointOverlay()" class="patrol-marker-overlay" src="../../../Content/Images/Patrols/first-point.png" />
+		<img *ngIf="showLastPointOverlay()" class="patrol-marker-overlay" src="../../../Content/Images/Patrols/last-point.png" />
+	</div>
+</div>

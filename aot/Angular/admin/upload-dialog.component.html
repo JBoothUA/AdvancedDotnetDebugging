@@ -1,0 +1,81 @@
+﻿<modal #upload>
+    <div class="modal-dialog-header">
+        {{titleText}}
+    </div>
+    <div class="modal-dialog-body">
+        <div class="header">
+            <img src="../../Content/Images/Admin/upload-icon-large.png" />
+            <span>{{instructionText}}</span>
+        </div>
+        <div class="body">
+            <div *ngIf="showPNGFileUpload" class="uploadItem">
+                <div class="uploadItemHeader">
+                    <span>*</span>PNG File
+                </div>
+                <div>
+                    <div [@fade]="(showPNGUploadError) ? 'in' : 'out'" class="error">
+                        ERROR: Could not upload PNG file.
+                    </div>
+                    <div [@fade]="(isUploading) ? 'in' : 'out'" class="loading-icon">
+                        <img height="38" src="../../Content/Images/loading-spinner-grey.gif" />
+                    </div>
+                    <p-fileUpload #pngFileUpload
+                                  [class.disabled]="isUploading"
+                                  [name]="'imageFile'"
+                                  [url]="httpService.getApiBaseUrl() +'/maps/uploadimage'"
+                                  [accept]="'.png'"
+                                  [showUploadButton]="false"
+                                  [showCancelButton]="false"
+                                  (onSelect)="handleOnSelectPNGFile($event)"
+                                  (onRemove)="pngFileSet = false"
+                                  (onBeforeSend)="handleOnBeforeSend($event, selectedPNGFileName)"
+                                  (onUpload)="handleOnPNGUpload($event)"
+                                  (onError)="handelOnUploadPNGError($event)">
+                        <ng-template pTemplate="content">
+                            <div *ngIf="!pngFileSet" style="font-style:italic; font-size:17px; color:#4e5559">Drag PNG file here</div>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+            <div *ngIf="showJSONFileUpload" class="uploadItem">
+                <div class="uploadItemHeader">
+                    <span>*</span>JSON File (File name must match PNG)
+                </div>
+                <div [@fade]="(isUploading) ? 'in' : 'out'" class="loading-icon">
+                    <img height="38" src="../../Content/Images/loading-spinner-grey.gif" />
+                </div>
+                <div>
+                    <div [@fade]="(showJsonUploadError) ? 'in' : 'out'" class="error">
+                        ERROR: Could not upload JSON file.
+                    </div>
+                    <p-fileUpload #jsonFileUpload
+                                  [class.disabled]="isUploading"
+                                  [name]="'configFile'" 
+                                  [url]="httpService.getApiBaseUrl() +'/maps/uploadjsonfile'"
+                                  [accept]="'.json'"
+                                  [showUploadButton]="false"
+                                  [showCancelButton]="false"
+                                  (onSelect)="handleOnSelectjsonFile($event)"
+                                  (onRemove)="jsonFileSet = false"
+                                  (onBeforeSend)="handleOnBeforeSend($event, selectedJSONFileName)"
+                                  (onUpload)="handleOnJSONUpload($event)"
+                                  (onError)="handleOnUploadJSONError($event)">
+                        <ng-template pTemplate="content">
+                            <div *ngIf="!jsonFileSet" style="font-style:italic; font-size:17px; color:#4e5559">Drag JSON file here</div>
+                        </ng-template> 
+                    </p-fileUpload>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-dialog-footer">
+        <button (click)="upload.hide()" class="btn btn-default">Cancel</button>
+        <button [class.disabled]="isUploadDisabled() || isUploading"
+                (click)="handleOnUploadClick($event)"
+                class="btn btn-primary">
+                    <img *ngIf="isUploading" height="20" src="../../Content/Images/loading-spinner-grey.gif" />
+                    Upload Files
+        </button>
+    </div>
+</modal>

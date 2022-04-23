@@ -1,0 +1,92 @@
+﻿/*overrides for active alarms table*/
+alarm-table >>> .scroll-area {
+    max-height:378px !important;
+}
+
+alarm-table >>> .group-header {
+    display:none;
+}
+
+alarm-table >>> .table-header{
+    background-color:#C3C3C3;
+}
+
+.platformListItem_ActionMenu {
+	padding: 0px !important;
+	right: 6px !important;
+	left: 6px !important;
+}
+
+.platformListItem_HeaderItem {
+	padding: 5px 15px;
+}
+
+.platformListItem_CommandListRightBorder {
+	border-right: 1px solid #ccc;
+}
+
+.platformListItem_CommandTableColumn {
+	width: 50%;
+}
+
+.platformListItem_CommandList {
+	vertical-align: top;
+	border-top: 1px solid #ccc;
+	padding: 4px 0px;
+}
+
+.platformListItem_CommandList >>> .dropdown-item {
+	padding: 2px 15px !important;
+}
+
+.platformListItem_FooterItem {
+	
+}
+
+
+patrol-robot-base-card  >>> .expandedCard {
+    max-height:inherit;
+}
+
+.lpDetailsGroupHeader {
+    float:left;
+    width:100%;
+}
+
+.lpGroupFooter {
+    float:left;
+    width:100%;
+}
+
+:host >>> .pauseButton {
+    opacity:0.0;
+    transition: all .2s ease-in-out;
+}
+:host >>> .pauseButton:hover {
+    opacity:1.0 !important;
+}
+
+:host >>> .pauseButton.notfication {
+    opacity: 1.0;
+}
+
+.left-border-divider{
+    border-left: 1px solid #b7b7b7;
+}
+
+.center-contents{
+    text-align: center
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.compass-heading-border{
+    border-style: solid;
+    border-color: #4473AA;
+    border-radius: 50%;
+    border-width: 2px;
+}

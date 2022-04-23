@@ -1,0 +1,75 @@
+﻿:host {
+    float: left;
+    width: 100%;
+}
+
+.selectionType > label,
+.selectionType > img {
+    float:left;
+}
+
+.selectionType.compact > label {
+    font-size:14px;
+}
+
+.parameterList {
+    width:100%;
+    height:215px;
+    border:1px solid #A6A6A6;
+    overflow:hidden;
+    overflow-y:auto;
+    font-size: 16px;
+    font-weight:normal;
+    padding-top:5px;
+}
+
+.customMessage {
+    width: 100%;
+    height: 75px;
+    margin-top: 10px;
+    border: 1px solid #a6a6a6;
+    resize: none;
+    padding: 5px;
+    font-size:15px;
+}
+
+.item {
+    padding-bottom: 6px;
+    width: 100%;
+    float: left;
+    cursor:pointer;
+}
+
+.item:hover {
+    background-color:#e3f0f6;    
+}
+
+.item > * {
+    float:left;
+}
+
+.item > span {
+    width: calc(100% - 45px);
+    line-height: 1.2;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.selectedItem {
+    background-color:#C9DEF0 !important;
+}
+
+.compactParameterList {
+    padding: 0px;
+    background: #EFEFEF;
+    width: calc(100% - 84px);
+    text-align: left;
+    position: static;
+    float:left;
+}
+
+.parameterList.compact {
+    height:120px;
+    font-size:14px;
+    font-weight:normal;
+}

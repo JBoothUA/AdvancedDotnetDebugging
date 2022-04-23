@@ -1,0 +1,69 @@
+﻿<div *ngIf="(selectedCustomerLocations.length > 0) || (robotAndDronesMap.size > 0)">
+    <div id="sliderLeftArrow" class="sliderLeftArrow sliderArrow dashboardPointer" (click)="showPrevData()" *ngIf="isShowable()">
+        <img src='/Content/Images/Dashboard/arrow-left.png' />
+    </div>
+    <div class="sliderContainer" [class.padding]="!isShowable()" *ngIf="sliderType === sliderTypeEnum.Locations">
+        <div *ngFor="let customer of selectedCustomerLocations">
+            <div [@friendAnimation]="orientation" class="sliderDiv dashboardPointer" (click)="showSliderData(customer, $event)">
+                <div class="sliderRow1 dashboardTextSize15">
+                    {{ customer.LocationName }}
+                </div>
+                <div class="sliderRow2">
+                    {{ customer.Name }}
+                </div>
+                <div class="sliderRow3">
+                    <div class="sliderPriorityItemCircle dashboardPriorityBackground-P{{customer.Priority}}">{{customer.PriorityCount}}</div>
+                    <div class="dashboardTextSize15">{{ customer.PriorityString }} Alarms</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sliderContainer large" *ngIf="sliderType === sliderTypeEnum.Platforms">
+        <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let manufacturer of robotAndDronesMap.keys(); let i = index" class="slide">
+
+                <div class="sliderRobotPatrolStatusDiv dashboardPointer" 
+                     [class.selected]="robotDroneFilter && robotDroneFilter.DisplayName === robotDroneFilter.DisplayName" 
+                     [class.notselected]="robotDroneFilter && robotDroneFilter.DisplayName !== robotDroneFilter.DisplayName"
+                     (click)="robotDroneClicked(manufacturer, $event)">
+                    <div class="sliderRobotPatrolStatusImgDiv sliderRobotPatrolStatusDiv sliderRobotPatrolStatusBorder-{{getRobotAndDronePatrolManufacturerStatus(manufacturer)}}">
+                        <img class="sliderRobotPatrolStatusImg" src='/Content/Images/Platforms/{{manufacturer}}-healthy.png' />
+                    </div>
+                    <div class="sliderRobotPatrolStatusCount sliderRobotPatrolStatusDiv">
+                        {{getRobotAndDronePatrolCount(manufacturer)}}
+                    </div>
+                </div>
+
+                <div class="sliderRobotDroneExpanded" [@toggle]="expandedRobotDroneViewState()" *ngIf="robotAndDronesMap.get(manufacturer).length > 1">
+
+                    <div class="sliderRobotDroneExpandedContainer">
+                        <img [hidden]="expandedRobotDroneViewState() === 'in'" class="sliderRobotDroneExpandedArrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAASCAYAAABit09LAAAACXBIWXMAAAsSAAALEgHS3X78AAABL0lEQVQoz2P8//8/AyHQ1tYmwUKEIgcpSckkJnyKJvT1ZTEwMOw3NDT4htPEnu7ujv///5fExsQyyMrJvsCqcEJ//yY2VlbvwKBgJlk5WQYGBgYGFjT3CHCwsx/g4uLSiYuPZ+Li4oLLsSApUuBgZz+kICcn6+HtzYCsCK6wra3NgJmZ+YSCnBx7UGgoVjczs7GxBbCwsOx0cnBgd3Fzw+W3g0wMRALmvXv33jh48OCWh48eJb56/pxFU1sbt4lVVVUX/v79K/Hg0aPHy5YuZfj27RuGSrjVVVVVH378/Kn34sWLi4sWLvyLrpgRW6KY0N+/6ffv394REZGwAG/E6pmCwkI/ZmbmmhUrlv+9dOE8bhORE8WvP3/63d1c5zMSSo9tbW0GEuISeYxEJlwBAP4idq3PZviBAAAAAElFTkSuQmCC" />
+                        
+                        <div class="sliderRobotPatrolStatusDiv sliderRobotDroneDiv dashboardPointer" *ngFor="let robotDrone of robotAndDronesMap.get(manufacturer); let i = index"
+                             [class.dashboardBottomBorder]="i < (robotAndDronesMap.get(manufacturer).length - 1)"
+                             (click)="showSliderData(robotDrone, $event)"
+                             [class.notselected]="robotDroneFilter && robotDroneFilter.DisplayName !== robotDroneFilter.DisplayName">
+
+                            <div class="sliderRobotDrone sliderRobotPatrolStatusBorder-{{getRobotAndDronePatrolStatus(robotDrone.Patrol)}}">
+                                <img class="sliderRobotPatrolStatusImg" src='/Content/Images/Platforms/{{robotDrone.Manufacturer}}-healthy.png' />
+                            </div>
+
+                            <div class="sliderRobotDroneText">
+                                <div class="dashboardBoldText">{{robotDrone.DisplayName}}</div>
+                                <div>{{robotDrone.LocationName}}</div>
+                                <div *ngIf="dashboardService.getSelectedTimeframe() === filterTimeframe.Current">{{robotDrone.Patrol ? robotDrone.Patrol.DisplayName : ''}}</div>
+                                <div *ngIf="dashboardService.getSelectedTimeframe() !== filterTimeframe.Current">{{robotDrone.HistoricalPatrolsCount}} Patrols</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="sliderRobotPatrolStatusVerticalLine" *ngIf="i+1 < robotAndDronesMap.size"></div>
+            </div>
+        </ngx-slick>
+    </div>
+    <div id="sliderRightArrow" class="sliderRightArrow sliderArrow dashboardPointer" (click)="showNextData()" *ngIf="isShowable()">
+        <img src='/Content/Images/Dashboard/arrow-right.png' />
+    </div>
+</div>

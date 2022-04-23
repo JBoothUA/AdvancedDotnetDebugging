@@ -1,0 +1,8 @@
+﻿.disable {
+    opacity: .5;
+}
+
+.disable:hover, .disable:active {
+    background-color: white !important;
+    color: inherit !important;
+}

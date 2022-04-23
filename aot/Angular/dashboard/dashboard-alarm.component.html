@@ -1,0 +1,277 @@
+﻿<div id="alarmReport" class="dashboardDataReport" (window:resize)="onResize($event)">
+
+    <div id="alarmReportFilterCriteria">
+        <!-- Priority Chart -->
+        <div id="alarmReportPriority" class="alarmReportFilterCriteriaDiv">
+            <div id="alarmReportPriorityText" class="alarmReportFilterCriteriaText">Alarms By Priority</div>
+
+            <div id="alarmReportPriorityLeft">
+                <div>
+                    <canvas baseChart #alarmPriorityChart
+                            [data]="doughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [colors]="doughnutChartColors"
+                            [chartType]="doughnutChartType"
+                            (chartClick)="chartClicked($event)"
+                            [legend]="false"
+                            [options]="doughnutChartOptions" 
+                            id="alarmReportPriorityDonutChart">
+                    </canvas>
+                </div>
+                <div class="alarmReportPriorityDonutChartInnerText" [class.alarmReportPriorityDonutChartInnerTextLargeCount]="doughnutChartTotal > 999">{{doughnutChartTotal}}</div>
+            </div>
+
+            <div id="alarmReportPriorityRight">
+                <div id="alarmReportPriorityDonutLegend">
+                    <ul>
+                        <li title="Filter by {{data.Priority}} Alarms" class="" *ngFor="let data of doghnutChartLegendData" (click)="legendClicked($event, data.DataValue, data.LegendItemIndex)">
+                            <span class="dashboardPointer alarmReportPriorityDonutLegendItem dashboardPriorityBackground-{{data.Priority}}" 
+                                  [class.alarmReportPriorityLegendItemDisable]="data.Empty" 
+                                  [class.dashboardPriorityCircleOpacity]="getDoughnutLegendViewState(data.LegendItemIndex) === 'hide'" ></span>
+                            <span class="dashboardPointer dashboardTextSize16" 
+                                  [class.dashboardSemiBoldText]="data.Priority === 'P1'"
+                                  [class.alarmReportPriorityLegendTextDisable]="data.Empty" 
+                                  [class.dashboardTextOpacity]="getDoughnutLegendViewState(data.LegendItemIndex) === 'hide'">{{data.Label}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Operators -->
+        <div id="alarmReportOperators" class="alarmReportFilterCriteriaDiv" #alarmReportOperatorsDiv>
+            <div id="alarmReportOperatorText" class="alarmReportFilterCriteriaText">Operators</div>
+            <div id="alarmReportOperatorImage">
+                <img class="alarmReportFilterCriteriaImage90" src='../../Content/Images/Dashboard/operator.png' />
+            </div>
+            <div id="alarmReportOperatorCount" #alarmReportOperatorCountDiv class="dashboardTextSize70">{{alarmOperatorCount}}</div>
+
+            <!-- if block this operator div -->
+            <div class="alarmReportOperator" *ngFor="let operator of alarmOperators">
+                <div class="alarmReportOperatorAvatar dashboardPointer" 
+                     [class.more]="operator.More" 
+                     [class.notselected]="alarmOperatorFilter !== operator.Name && alarmOperatorSelected && operator.Name !== 'See more Operators'"
+                     [class.selected]="alarmOperatorFilter === operator.Name && alarmOperatorSelected"
+                     title="Filter by {{operator.Name}}" 
+                     (click)="operatorSelected(operator.Name, false)">
+                    <div class="alarmReportOperatorAvatarText">{{operator.Initials}}</div>
+                </div>
+
+                <div class="alarmReportOperatorMoreExpanded" [@toggle]="expandedMoreOperatorViewState()" *ngIf="operator.MoreOperators.length > 0">
+                    <div class="alarmReportOperatorMoreContainer">
+                        <img [hidden]="expandedMoreOperatorViewState() === 'in'" class="alarmReportOperatorMoreExpanded_Arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAASCAYAAABit09LAAAACXBIWXMAAAsSAAALEgHS3X78AAABL0lEQVQoz2P8//8/AyHQ1tYmwUKEIgcpSckkJnyKJvT1ZTEwMOw3NDT4htPEnu7ujv///5fExsQyyMrJvsCqcEJ//yY2VlbvwKBgJlk5WQYGBgYGFjT3CHCwsx/g4uLSiYuPZ+Li4oLLsSApUuBgZz+kICcn6+HtzYCsCK6wra3NgJmZ+YSCnBx7UGgoVjczs7GxBbCwsOx0cnBgd3Fzw+W3g0wMRALmvXv33jh48OCWh48eJb56/pxFU1sbt4lVVVUX/v79K/Hg0aPHy5YuZfj27RuGSrjVVVVVH378/Kn34sWLi4sWLvyLrpgRW6KY0N+/6ffv394REZGwAG/E6pmCwkI/ZmbmmhUrlv+9dOE8bhORE8WvP3/63d1c5zMSSo9tbW0GEuISeYxEJlwBAP4idq3PZviBAAAAAElFTkSuQmCC" />
+                        <div class="alarmReportOperatorMore dashboardPointer" *ngFor="let moreOperator of operator.MoreOperators; let i = index" 
+                             [class.dashboardBottomBorder]="i < (operator.MoreOperators.length - 1)"
+                             (click)="operatorSelected(moreOperator.Name, true)">
+                            <div class="alarmReportOperatorAvatar dashboardFloatLeft"
+                                 [class.notselected]="alarmOperatorFilter !== moreOperator.Name && alarmOperatorSelected">
+                                <div class="alarmReportOperatorAvatarText">{{moreOperator.Initials}}</div>
+                            </div>
+                            <div class="alarmReportOperatorMoreAvatarText">{{moreOperator.Name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- if block this LOI div -->
+        <!-- Location of Interest -->
+        <div id="alarmReportLocationOfInt" class="alarmReportFilterCriteriaDiv">
+            <div id="alarmReportLocationOfIntText" class="alarmReportFilterCriteriaText">Locations of Interest</div>
+            <div id="alarmReportLocationOfIntImage">
+                <img class="alarmReportFilterCriteriaImage90" src='../../Content/Images/Dashboard/locations.png' />
+            </div>
+            <div id="alarmReportLocationOfIntCount" #alarmReportOperatorCountDiv class="dashboardTextSize70">{{selectedLocationsCount}}</div>
+            <dashboard-slider #dbLOISlider [sliderType]="sliderTypeEnum.Locations" (sliderData)="loiSelected($event)"></dashboard-slider>
+        </div>
+
+        <!-- if block this Export div -->
+        <!-- Export Button -->
+        <div id="alarmReportExport">
+            <div title="Export Report as PDF" id="alarmReportExportButton" *ngIf="!exporting" (click)="exportPDF()">
+                <div id="alarmReportExportText">Export</div>
+                <div id="alarmReportExportIcon">
+                    <img class="alarmReportFilterCriteriaImage90" src='../../Content/Images/Dashboard/export-arrow.png' />
+                </div>
+            </div>
+            <div id="alarmReportExportButton" *ngIf="exporting">
+                <div id="alarmReportExportingText">Processing</div>
+                <div id="alarmReportExportingIcon">
+                    <img height="20" src="../../Content/Images/loading-spinner-grey.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add timeframe div with if block -->
+    <!-- add map div with if block -->
+
+    <!-- ALARM RESULTS DIV  -->
+    <div id="alarmReportContent">
+
+        <!-- ALarm Results Header -->
+        <div id="alarmReportHeader">
+            <!--<div *ngIf="headerFilteredCountField !== ''" class="alarmReportHeaderFilterButton dashboardPointer" (click)="showAlarmFilterCriteria()">
+                <img class="alarmReportHeaderFilterButtonImg" src='../../Content/Images/Dashboard/filter-icon.png' />
+                <div class="alarmReportHeaderFilterButtonText">Filtered</div>
+            </div>-->
+            <div class="alarmReportHeaderLabel dashboardTextSize20"> <!--[class.padding]="headerFilteredCountField !== ''" >-->
+                Showing 
+                <span [class.alarmReportHeaderLabelColor]="headerFilteredCountField !== ''">{{getResultTotalCount()}}</span>
+
+                <span [class.alarmReportHeaderLabelFilter]="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '">{{headerAllPriorityLocationCountField}}</span><span *ngIf="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '" class="alarmReportHeaderLabelFilterClear dashboardPointer" (click)="removeSelectedAlarmFilter('AllPriorityLocation')"></span> 
+
+                <span [class.alarmReportHeaderLabelActive]="headerAllPriorityLocationCountField !== '' && headerAllPriorityLocationCountField !== ' All '">{{headerActiveField}}</span> Alarms
+                <span [class.alarmReportHeaderLabelFilter]="headerOperatorField !== ''">{{headerOperatorField}}</span><span *ngIf="headerOperatorField !== ''" class="alarmReportHeaderLabelFilterClear dashboardPointer" (click)="removeSelectedAlarmFilter('Operator')"></span> 
+                <span [class.alarmReportHeaderLabelFilterPadding]="headerOperatorField !== '' && headerTimeframeField !== ''">{{headerTimeframeField}}</span>
+                <!--<span [class.alarmReportHeaderLabelFilter]="headerLocationField !== ''" [class.padding]="headerOperatorField !== ''"> {{headerLocationField}}</span><span *ngIf="headerLocationField !== ''" class="alarmReportHeaderLabelFilterClear dashboardPointer" (click)="removeSelectedAlarmFilter('Location')"></span>-->
+                <span [class.alarmReportHeaderLabelFilter]="headerLocationField !== ''" [class.padding]="headerOperatorField !== '' && headerTimeframeField === ''"> {{headerLocationField}}</span><span *ngIf="headerLocationField !== ''" class="alarmReportHeaderLabelFilterClear dashboardPointer" (click)="removeSelectedAlarmFilter('Location')"></span>
+            </div>
+
+            <!-- if block this Search div -->
+            <div id="alarmReportHeaderSearchBox">
+                <dashboard-searchbox (update)="searchterm = $event" [placeholder]="alarmPlaceHolderSearch"></dashboard-searchbox>
+            </div>
+        </div>
+
+        <!-- Alarm Results -->
+        <div id="alarmReportResults" #alarmReportResultsDiv>
+
+            <div id="alarmReportResultsContent" #alarmReportResultsContentDiv>
+
+                <div id="alarmReportResultsSortBar">
+                    <div id="alarmReportResultsSortPriority" class="alarmReportResultsHeader1 alarmReportResultsSortField">Priority</div>
+                    <div id="alarmReportResultsSortType" class="alarmReportResultsHeader2 alarmReportResultsSortField alarmReportResultsHeaderBorder">Description</div>
+                    <div id="alarmReportResultsSortLocation" class="alarmReportResultsHeader3 alarmReportResultsSortField alarmReportResultsHeaderBorder">Location</div>
+                    <div id="alarmReportResultsSortState" class="alarmReportResultsHeader4 alarmReportResultsSortField alarmReportResultsHeaderBorder">State</div>
+                    <!-- add additional if condition to class -->
+                    <div id="alarmReportResultsSortDuration" class="alarmReportResultsHeader5 alarmReportResultsSortField" [class.alarmReportResultsHeaderBorder]="showOperatorResultsColumn" [class.dashboardItemDisplayNone]="!showOperatorResultsColumn">Operator</div>
+                    <!--<div id="alarmReportResultsSortOperator" class="alarmReportResultsHeader6 alarmReportResultsSortField" [class.alarmReportResultsHeaderBorder]="showDurationsResultsColumn" [class.dashboardItemDisplayNone]="!showDurationsResultsColumn">Duration</div> -->
+                    <!-- add additional if condition to class -->
+                    <div id="alarmReportResultsSortOperator" class="alarmReportResultsHeader6 alarmReportResultsSortField" [class.alarmReportResultsHeaderBorder]="showDurationsResultsColumn" [class.dashboardItemDisplayNone]="!showDurationsResultsColumn">Reported Time</div>
+                </div>
+
+                <div id="alarmReportQueryResults" #alarmReportResultsContainer>
+
+                    <div #alarmReportResults id="alarm_result_item_{{alarm.Id}}" class="alarmReportResultsContainer dashboardPointer" [class.expanded]="expandedResultsViewState(alarm.Id) === 'out'" *ngFor="let alarm of alarms | alarmsearch: searchterm " (click)="selectAlarm(alarm)">
+                            <!-- add additional if condition to class.selected -->
+                            <div class="alarmReportResultsItem dashboardBottomBorder" [class.selected]="alarm.Selected" [class.expanded]="expandedResultsViewState(alarm.Id) === 'out'" (dblclick)="zoomTo(alarm)">
+                                <!-- Priority -->
+                                <div class="alarmReportResultsItemPriority alarmReportResultsCol1 alarmReportResultsItemField">
+                                    <div><img class="alarmReportResultsPriorityImage" src='{{'../../Content/Images/Alarms/p' + alarm.Priority + '-alarm.png'}}' /></div>
+                                    <div>P{{alarm.Priority}}</div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="alarmReportResultsCol2">
+                                    
+                                    <div *ngIf="dashboardService.getSelectedTimeframe() === filterTimeframe.Current && (alarm.State === 1 )" class="alarmReportResultsItemType bold underline dashboardTextOverEllipsis" title="View alarm in Map View" (click)="navigateToAlarm(alarm)">{{alarm.Description}}</div>
+                                    <div *ngIf="dashboardService.getSelectedTimeframe() === filterTimeframe.Current && (alarm.State !== 1 )" class="alarmReportResultsItemType underline dashboardTextOverEllipsis" title="View alarm in Map View" (click)="navigateToAlarm(alarm)">{{alarm.Description}}</div>
+                                    <div *ngIf="dashboardService.getSelectedTimeframe() !== filterTimeframe.Current && (alarm.State === 1 )" class="alarmReportResultsItemType bold dashboardTextOverEllipsis">{{alarm.Description}}</div>
+                                    <div *ngIf="dashboardService.getSelectedTimeframe() !== filterTimeframe.Current && (alarm.State !== 1 )" class="alarmReportResultsItemType dashboardTextOverEllipsis">{{alarm.Description}}</div>
+
+                                    <div class="alarmReportResultsItemTypeInfo">
+                                        <div class="dashboardPlatformStatus {{getPlatformStatus(alarm.PlatformId)}}"></div>
+                                        <div class="alarmReportResultsPlatformName">{{getPlatformName(alarm.PlatformId)}}</div>
+
+                                        <div class="dashboardFloatLeft" *ngIf="getAttachmentCount(alarm) > 0">
+                                            <div class="dashboardVerticalLine"></div>
+
+                                            <div class="alarmReportResultsAttachement">
+                                                <img class="alarmReportResultsAttachImage" src='../../Content/Images/Dashboard/attachment-paper-clip.png' />
+                                            </div>
+
+                                            <div class="alarmReportResultsAttachNumber">{{getAttachmentCount(alarm)}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Location -->
+                                <!-- loop of 1 to get object for less method calls -->
+                                <div class="alarmReportResultsCol3" *ngFor="let tenantObj of getTenantLocationObj(alarm.TenantId, alarm.LocationId)">
+                                    <!--<div class="alarmReportResultsItemLocation">{{getTenantLocationName(alarm.TenantId, alarm.LocationId)}}</div>
+                                    <div class="dashboardFloatLeft dashboardTextSize12">
+                                        <div class="dashboardFloatLeft">{{getTenantName(alarm.TenantId)}}</div>
+                                        <div class="dashboardFloatLeft">&nbsp;- {{getTenantLocationAddr(alarm.TenantId, alarm.LocationId)}}</div>
+                                    </div>-->
+                                    <div class="alarmReportResultsItemLocation">{{tenantObj.LocationName}}</div>
+                                    <div class="dashboardFloatLeft dashboardTextSize12">
+                                        <div class="dashboardFloatLeft">{{tenantObj.Name}}</div>
+                                        <div class="dashboardFloatLeft">&nbsp;- {{tenantObj.LocationCity}}, {{tenantObj.LocationState}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- State -->
+                                <div class="alarmReportResultsCol4">
+                                    <div class="alarmReportResultsItemState">
+                                        <div class="alarmReportResultsItemStateImage">
+                                            <img class="alarmReportResultsItemStateImage" [hidden]="alarm.State !== 1" alt="Reported" src="/Content/Images/Alarms/reported-icon.png" />
+                                            <img class="alarmReportResultsItemStateImage" [hidden]="alarm.State !== 2" alt="Acknowledged" src="/Content/Images/Alarms/acknowledge-icon.png" />
+                                            <img class="alarmReportResultsItemStateImage" [hidden]="alarm.State !== 3" alt="Cleared" src='/Content/Images/Dashboard/cleared-icon.png' />
+                                            <img class="alarmReportResultsItemStateImage" [hidden]="alarm.State !== 4" alt="Dismissed" src='/Content/Images/Dashboard/dismiss-icon.png' />
+                                        </div>
+                                        <div class="alarmReportResultsItemStateStatus" [hidden]="alarm.State !== 1">Reported</div>
+                                        <div class="alarmReportResultsItemStateStatus" [hidden]="alarm.State !== 2">Acknowledged</div>
+                                        <div class="alarmReportResultsItemStateStatus" [hidden]="alarm.State !== 3">Cleared</div>
+                                        <div class="alarmReportResultsItemStateStatus" [hidden]="alarm.State !== 4">Dismissed</div>
+                                    </div>
+                                    <div class="dashboardFloatLeft dashboardTextSize12">
+                                        <div class="alarmReportResultsItemStateTime1">{{getDateDisplay(alarm)}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Operator -->
+                                <!-- add additional if condition to class.dashboardItemDisplayNone -->
+                                <div class="alarmReportResultsCol5" [class.dashboardItemDisplayNone]="!showOperatorResultsColumn" [class.dashboardItemHidden]="alarm.UserId === null">
+                                    <div class="alarmReportResultsItemAvatar">
+                                        <div class="alarmReportResultsItemAvatarText">{{getUserInitials(alarm.UserId)}}</div>
+                                    </div>
+                                    <div class="alarmReportResultsItemOperator dashboardTextOverEllipsis">{{alarm.UserId}}</div>
+                                </div>
+
+                                <!-- Duration -->
+                                <!--<div class="alarmReportResultsCol6" [class.dashboardItemDisplayNone]="!showDurationsResultsColumn">
+                                    <div class="alarmReportResultsItemDuration1" [innerHTML]="getAlarmTime(alarm)"></div>
+                                </div>-->
+
+                                <!-- Reported Time -->
+                                <div class="alarmReportResultsCol6" [class.dashboardItemDisplayNone]="!showDurationsResultsColumn">
+                                    <div class="alarmReportResultsItemReportedTime" [innerHTML]="getAlarmReportedTime(alarm.ReportedTime)"></div>
+                                </div>
+
+                                <!-- Expansion Icon -->
+                                <div id="alarmReportResultsItemToggle" class="alarmReportResultsCol7">
+                                    <div class="lpItem_ExpandButton" [class.selected]="alarm.Selected" [class.expanded]="expandedResultsViewState(alarm.Id) === 'out'" (click)="toggleExpandedResultsView(alarm.Id)"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Details -->
+                            <div class="expandedAlarmReportResultsItem dashboardDefault" [@toggle]="expandedResultsViewState(alarm.Id)">
+                                <dashboard-alarm-details *ngIf="expandedResultsViewState(alarm.Id) === 'out'" [dashAlarm]="alarm"></dashboard-alarm-details>
+                            </div>
+                    </div>
+
+                    <div class="alarmReportResultsContainer" *ngIf="alarms.length === 0">
+                        No Results Found
+                    </div>
+                </div>
+
+                <!--<div id="alarmReportResultsAlarmPanel">
+                    <a class="alarmReportResultsAlarmPanelButton" [class.disable]="getSelectedAlarmID() == ''" (click)="navigationService.navigate('/MapView/Alarms', getSelectedAlarmID())">Alarm Panel</a>
+                </div>-->
+
+            </div>
+
+            <!-- if block this map div -->
+            <div id="alarmReportMap">
+                <div id="alarmReportMapContainer"></div>
+                <leaflet-map #map [mapElementId]="'alarmReportMapContainer'" [heightElementId]="'alarmReportMap'" [alarms]="alarms.slice(0)" 
+                             [alarmService]="dashboardAlarmService" [showPatrols]="false"></leaflet-map>
+            </div>
+        </div>
+
+    </div>
+
+</div>

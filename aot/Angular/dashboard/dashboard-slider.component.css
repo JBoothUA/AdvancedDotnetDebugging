@@ -1,0 +1,178 @@
+﻿.sliderArrow {
+    float: left;
+    margin-top: 18px;
+}
+
+.sliderContainer {
+    float: left;
+    width: 250px;
+    position: relative;
+    height: 100px;
+    margin-top: 10px
+}
+
+.sliderContainer.large {
+    width: 276px;
+}
+
+.sliderContainer.padding {
+    margin-left: 8px;
+}
+
+.sliderDiv {
+    position: absolute;
+    width: 250px;
+}
+
+.sliderRow1 {
+    font-weight: 500;
+}
+
+.sliderRow2 {
+    margin-bottom: 3px;
+}
+
+.sliderPriorityItemCircle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+    margin-right: 5px;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    padding-top: 3px;
+}
+
+.sliderRobotPatrolStatusDiv {
+    position: relative;
+    float:left;
+}
+
+.sliderRobotPatrolStatusDiv.selected {
+    background-color: aliceblue;
+}
+.sliderRobotPatrolStatusDiv.notselected {
+    opacity: 0.5;
+}
+
+.sliderRobotPatrolStatusImgDiv {
+    border-radius: 50px;
+    margin-top: 3px;
+}
+
+.sliderRobotPatrolStatusImg {
+    width: 48px;
+    height: 48px;
+}
+
+.sliderRobotPatrolStatusCount{
+    font-size: 50px;
+    margin-top: -8px;
+    margin-left: 5px;
+    color: #757575;
+}
+
+.sliderRobotPatrolStatusBorder-successful{
+    border: 3px solid #249C49;
+}
+.sliderRobotPatrolStatusBorder-warning{
+    border: 3px solid #F3B518;
+}
+.sliderRobotPatrolStatusBorder-error{
+    border: 3px solid #D07728;
+}
+.sliderRobotPatrolStatusBorder-failed{
+    border: 3px solid #CA2127;
+}
+
+.sliderRobotPatrolStatusBorder-none{
+    border: 1px solid #afafaf;
+}
+
+.sliderRobotPatrolStatusVerticalLine {
+  border-left: 1px solid #9e9e9e;
+  float: left;
+  height: 58px;
+  margin-top: 0px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.sliderRobotDroneExpanded {
+    width: 200px;
+    margin-left: -61px;
+    position: absolute;
+    margin-top: 62px;
+    border: 1px solid rgba(0,0,0,.15);
+    background-color: white;
+}
+
+.sliderRobotDroneExpandedContainer {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 121px;
+}
+
+.sliderRobotDroneExpandedArrow {
+    display: block;
+    position: absolute;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    height: 13px;
+    width: 12px;
+    top: -9px;
+    left: 126px;
+    border-right: 3px solid white;
+    z-index: 1040;
+    /*background-color: white;*/
+}
+
+.sliderRobotDroneDiv {
+    /*background-color: white;*/
+    border-radius: .25rem;
+    padding: 5px;
+    z-index: 1000;
+    width: 100%;
+}
+
+.sliderRobotDrone {
+    position: relative;
+    float: left;
+    border-radius: 50px;
+}
+
+.sliderRobotDroneText {
+    /*color: white;*/
+    font-size: 13px;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+}
+
+/*.sliderRobotDroneText {
+    margin-top: 14px;
+    margin-left: 8px;
+}
+.sliderRobotDroneText {
+    margin-top: 14px;
+    margin-left: 8px;
+}
+.sliderRobotDroneText {
+    margin-top: 14px;
+    margin-left: 8px;
+}*/
+
+.slick-slide, .slick-slide *{ outline: none !important; }
+
+.sliderContainer >>> .slick-list {
+	padding-bottom: 132px !important;
+    margin-bottom: -132px !important;
+    overflow: visible;
+}
+
+.sliderContainer >>> .slick-track {
+    width: 100% !important;
+}

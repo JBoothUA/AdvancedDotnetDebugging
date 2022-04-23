@@ -1,0 +1,127 @@
+﻿.pbStep-header {
+	padding-top: 5px;
+	height: 36px;
+}
+
+.pbStep-header-toggle {
+	position:relative;
+	float:left;
+	margin-top: 3px;
+}
+.pbStep-title
+{
+	padding-right: 3px;
+	top: 1px;
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 17px;
+}
+
+.pbStep-item
+{
+	position: absolute;
+    bottom: 0;
+    display: block;
+    margin-top: 12px;
+    font-size: 16px;
+    background-color: #efefef;
+    border-top: 1px solid #898989;
+    width: 100%;
+    height:55px;
+}
+.pbStep-initGraphic {
+	position: relative;
+	display: block;
+	margin-left: 110px;
+	margin-top: 20px;
+}
+
+.pbStep-clickMapImage {
+	margin-left: 20px;
+}
+
+.pbStep-initGraphicText  {
+	position: relative;
+	display:block;
+	margin-top: 5px;
+	font-size: 19px;
+	font-style:italic;
+	color: #878787;
+ }
+.pbPoints-header {
+	position: relative;
+	background-color: #e6e6e6;
+	height: 40px;
+	width:100%;
+	padding-top:8px;
+}
+
+.pbPoints-header-text {
+	position:relative;
+	float: left;
+	margin-left:40px;
+	font-size: 17px;
+	color:black;
+}
+.pbPoint-header-expandCollapse {
+	position:relative;
+	float:right;
+	margin-top:4px;
+	margin-right: 8px;
+	font-size: 14px;
+	color: #848484;  /*Fallback color*/
+	color: rgba(132,132,132,.3);
+}
+
+.pbPoint-header-expandCollapse.active {
+	cursor:pointer;
+	color: #848484;
+}
+
+.pbPoint-header-expandCollapse.active:hover {
+	color: #4272B3;
+}
+
+.pbPoints-header-btn {
+	position:relative;
+	float: right;
+	height: 30px;
+	margin-right: 10px;
+
+}
+.pbPoints-header-addPointBtn {
+	position:relative;
+	float:left;
+	border:none;
+	color:#4272b4;
+	cursor: pointer;
+}
+
+.pbPoints-header-addPointBtn:hover{
+	color:#4174aa;
+}
+.pbPoints-header-addPointBtn > img {
+	float:left;
+	width:23px;
+	height:23px;
+}
+.pbPoints-header-addPointBtnText {
+	position: relative;
+	float:left;
+	font-size: 16px;
+	margin-top: 1px;
+	margin-left: 5px;
+}
+.pbStep-cancelSave 
+{
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-left: 220px;
+	margin-bottom: 5px;
+}
+.pbStepBtn {
+    margin-top: -11px;
+	width: 110px;
+} 

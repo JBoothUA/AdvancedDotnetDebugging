@@ -1,0 +1,274 @@
+﻿:host {
+    float: left;
+    width: 100vw;
+    position: relative;
+    z-index: 1002;
+}
+
+.panel {
+    width: 461px;
+    height: calc(100vh - 50px);
+    position: absolute;
+    right: 0;
+    background-color: rgba(255,255,255,0.80);
+    border-left: 1px solid #A9ABAE;
+}
+
+.panel:hover {
+    background-color:white;
+}
+
+.scroll-content {
+    float: left;
+    width: 100%;
+    /*height: calc(100vh - 332px);*/
+     height: calc(100vh - 183px);
+    overflow-y: auto;
+}
+
+.manual-control-panel {
+    height: 150px;
+    float:left;
+    width: 100%;
+    background-color:#eaeaea;
+
+    display:none;
+}
+
+.manual-control-panel > .header {
+    float: left;
+    height: 35px;
+    padding: 5px;
+    padding-left: 12px;
+    width: 100%;
+    color: #505153;
+    font-size: 16px;
+    transition: all .2s ease-in-out;
+    cursor:pointer;
+    border-top: 1px solid #A9ABAE;
+}
+
+.manual-control-panel > .header:hover {
+    color:#3B73AF;
+}
+
+.patrol-controls {
+    float: left;
+    border-right: 2px solid #bababa;
+    height: 100px;
+    width: 259px;
+
+}
+
+.joystick-content {
+    float: left;
+    width: 100%;
+}
+
+.joystick {
+    background-image: url(../../Content/Images/Platforms/joystick-not-selected.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 99px;
+    width: 99px;
+    float: right;
+    margin-right: 51px;
+    opacity: .57;
+}
+
+.header > .expane-toggle-icon {
+    float: left;
+    height: 100%;
+    width: 22px;
+    margin-right: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../../Content/Images/expand-arrow-button.png');
+}
+
+.header:hover > .expane-toggle-icon  {
+   background-image: url('../../Content/Images/expand-button-arrow-hover.png');
+}
+
+.collapse-toggle-icon {
+    background-image: url('../../Content/Images/collapse-button.png') !important;
+}
+
+.header:hover > .collapse-toggle-icon {
+    background-image: url('../../Content/Images/collapse-button-hover.png') !important;
+}
+
+
+
+.joystick > img {
+    height: 56px;
+    float: left;
+    margin-left: 21px;
+    margin-top: 21px;
+}
+
+.content-box {
+    border: 1px solid #cccbcb;
+    width: calc(100% - 20px);
+    margin-left:10px;
+    height: 195px;
+    margin-top: 10px;
+    float:left;
+    background-color:white;
+    position: relative;
+    overflow:hidden;
+    padding:0 40px;
+}
+
+.slider-item {
+    height: 153px;
+    margin-top: 19px;
+    width: 165px;
+    margin-bottom: 20px;
+}
+
+.slider-item:not(:first-child) {
+    margin-left:10px;
+}
+
+.action-btn {
+    background-image: url(../../Content/Images/action-button-parent-selected.png) !important;
+    background-position: -3px -3px !important;
+    background-repeat: no-repeat !important;
+    position: absolute;
+    padding-left: 27px;
+    right: 18px;
+    width: 97px;
+    z-index: 999;
+    top: 88px;
+    background-size: 38px;
+}
+
+.action-btn:hover {
+    background-image: url(../../Content/Images/action-button-selected.png) !important;
+}
+
+.close-btn,
+.expand-btn {
+    position: absolute;
+    top: 10px;
+    width: 40px;
+    height: 23px;
+    z-index: 999;
+    font-size: 23px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    background-position: center;
+}
+
+.close-btn {
+    right: 3px;
+    background-image: url(../../Content/Images/x-not-selected.png);
+}
+
+.close-btn:hover {
+    background-image: url(../../Content/Images/x-selected.png);
+}
+
+.expand-btn {
+    right: 44px;
+    background-image: url('../../Content/Images/tear-off-not-selected.png');
+    border-right: 1px solid #a4a2a1;
+    width:45px;
+}
+
+.expand-btn:hover {
+    background-image: url('../../Content/Images/tear-off-selected.png');
+}
+
+.nav {
+    position: absolute;
+    height: 194px;
+    width: 36px;
+    cursor:pointer;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+
+.nav.forward {
+    left: 0;
+    background-image: url('../../Content/Images/arrow-left-small.png');
+}
+
+.nav.backward {
+    right: 0;
+    background-image: url('../../Content/Images/arrow-right-small.png');
+}
+
+.nav.disabled {
+    opacity: 0.45;
+    cursor:default !important;
+}
+
+.patrol-command {
+    cursor:pointer;
+}
+
+.patrol-command:hover {
+    color: #3B73AF;
+}
+
+.patrol-command.disabled {
+    opacity: .35;
+    cursor:inherit;
+}
+
+.patrol-command.disabled:hover {
+    color:inherit;
+}
+
+/*overrides*/
+
+robot-card >>> patrol-robot-base-card >>> .lpItem,
+robot-card >>> patrol-robot-base-card >>> .lpItem:hover {
+    background-color:white !important;
+}
+robot-card >>> patrol-robot-base-card >>> .lpItem_ExpandButton,
+robot-card >>> patrol-robot-base-card >>> .lpItem_ActionButton {
+    display:none !important; 
+}
+
+robot-card >>> patrol-robot-base-card >>> .lpItem_ItemName {
+    text-decoration:none !important;
+}
+
+robot-card >>> chooser-status >>> .dropdown-box {
+    right:82px !important;
+}
+
+robot-card >>> .estop-btn {
+    width:97px !important;
+} 
+
+
+robot-card >>> chooser-status >>> .dropdown-box.pause-resume-abort {
+    margin-right: 85px !important;
+}
+
+robot-card >>> chooser-status >>> .lpItem:hover {
+    background-color:#e3f0f6 !important;
+}
+
+robot-card >>> chooser-status >>> .lpItem.lpItemSelected {
+    background-color:#C9DEF0 !important;
+}
+
+platform-command-list >>> .header {
+    display:none;
+}
+
+platform-command-list >>> .col-header {
+    border-bottom:inherit;
+}
+
+platform-command-list >>> .platformCommandList {
+    width:430px;
+    max-width:430px;
+}

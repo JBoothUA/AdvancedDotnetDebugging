@@ -1,0 +1,250 @@
+﻿#dashboardFilter {
+    z-index: 1001;
+    height: 100vh;
+    background: white;
+	border-right: 1px solid #cccbcb;
+    float: left;
+}
+
+#dashboardContent {
+    /*float: left;
+    width: calc(100vw - 361px);*/
+    padding-left: 18px;
+    padding-right: 18px;
+    overflow: hidden;
+}
+
+.dashboardHideContent {
+    visibility: hidden;
+}
+
+.dashboardPointer:hover {
+    cursor: pointer;
+}
+
+.dashboardDefault:hover {
+    cursor: default;
+}
+
+.dashboardTextSize12 {
+    font-size: 12px;
+}
+
+.dashboardTextSize13 {
+    font-size: 13px;
+}
+
+.dashboardTextSize14 {
+    font-size: 14px;
+}
+
+.dashboardTextSize15 {
+    font-size: 15px;
+}
+
+.dashboardTextSize16 {
+    font-size: 16px;
+}
+
+.dashboardTextSize18 {
+    font-size: 18px;
+}
+
+.dashboardTextSize20 {
+    font-size: 20px;
+}
+
+.dashboardTextSize22 {
+    font-size: 22px;
+}
+
+.dashboardTextSize24 {
+    font-size: 24px;
+}
+
+.dashboardTextSize26 {
+    font-size: 26px;
+}
+
+.dashboardTextSize31 {
+    font-size: 31px;
+}
+
+.dashboardTextSize65 {
+    font-size: 65px;
+}
+
+.dashboardTextSize70 {
+    font-size: 70px;
+}
+
+.dashboardTextSize80 {
+    font-size: 80px;
+}
+
+.dashboardTextSize96 {
+    font-size: 96px;
+}
+
+.dashboardTextColor {
+    color: #6d6d6d;
+}
+
+.dashboardPriorityBackground-P5 {
+    background-color: #315777;
+}
+.dashboardPriorityBackground-P4 {
+    /*background-color: #27BBA1;*/
+    /*background-color: #249C49;*/
+    background-color: #09C5A5;
+}
+.dashboardPriorityBackground-P3 {
+    background-color: #F3B518;
+}
+.dashboardPriorityBackground-P2 {
+    /*background-color: #DB7828;*/
+    background-color: #D07728;
+}
+.dashboardPriorityBackground-P1 {
+    /*background-color: #D62329;*/
+    background-color: #CA2127;
+}
+
+.dashboardPriorityTextColor-P5{
+    color: #315777;
+}
+.dashboardPriorityTextColor-P4{
+    /*color: #27BBA1;*/
+    /*color: #249C49;*/
+    color: #09C5A5;
+}
+.dashboardPriorityTextColor-P3{
+    color: #F3B518;
+}
+.dashboardPriorityTextColor-P2{
+    color: #D07728;
+}
+.dashboardPriorityTextColor-P1{
+    color: #CA2127;
+}
+
+.dashboardStatusTextColor-normal {
+    color: #315777;
+}
+.dashboardStatusTextColor-healthy {
+    color: #249C49;
+}
+.dashboardStatusTextColor-warning {
+    color: #F3B518;
+}
+.dashboardStatusTextColor-error {
+    color: #D07728;
+}
+.dashboardStatusTextColor-failed {
+    color: #CA2127;
+}
+
+
+.dashboardTextOpacity{
+    opacity: 0.5;
+}
+
+.dashboardPriorityCircleOpacity{
+    opacity: 0.3;
+}
+
+.dashboardBoldText {
+    font-weight: bold;
+}
+
+.dashboardSemiBoldText {
+    font-weight: 500;
+}
+
+.dashboardDataReport {
+    margin-top: 18px;
+    border: 1px solid #cccbcb;
+    height: calc(100vh - 34px - 114px - 80px );
+    float: left;
+    width: 100%;
+}
+
+.dashboardVerticalLine {
+  border-left: 1px solid #8a8c8f;
+  float: left;
+  height: 14px;
+  margin-top: 3px;
+}
+
+.dashboardBottomBorder {
+  border-bottom: 1px solid #cccbcb;
+}
+
+.dashboardRightBorder {
+  border-right: 1px solid #cccbcb;
+}
+
+.dashboardPlatformStatus {
+    width: 13px;
+    height: 13px;
+    left: 0px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+    margin-top: 3px;
+}
+
+.dashboardPlatformStatus-healthy {
+    background-color: green;
+}
+
+.dashboardPlatformStatus-warning {
+    background-color: green;
+}
+
+.dashboardPlatformStatus-failed {
+    background-color: green;
+}
+
+.dashboardFloatLeft {
+    float: left;
+}
+
+.dashboardItemHidden {
+    visibility: hidden;
+}
+
+.dashboardItemDisplayNone {
+    display: none;
+}
+
+.dashboardTextOverEllipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+
+}
+
+.loading-overlay-override {
+    opacity: 05;
+}
+
+.dashboardDivFullWidth {
+    width: 100%
+}
+
+.dashboardSpin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    margin:-25px 0 0 -25px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 2s linear infinite;
+}
+@-moz-keyframes dashboardSpin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes dashboardSpin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes dashboardSpin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

@@ -1,0 +1,17 @@
+﻿<div *ngIf="visible" class="modal-dialog overlapping-alarms-dialog" [draggable]="'#map'" handle="#overlappingAlarmsHeader">
+    <div class="modal-content overlapping-alarms-content">
+        <div id="overlappingAlarmsHeader" class="modal-header" style="text-align:center;">
+            <div class="overlapping-alarms-heading">
+                Overlapping Alarms ({{alarms.length}})
+            </div>
+            <img class="pointer" (click)="center()" style="position:absolute; right:45px;" src="/Content/images/Alarms/center-on-map.png" />
+            <img style="position:absolute; right:42px;" src="/Content/images/Alarms/overlapping-alarms-divider-line.png" />
+            <img class="pointer" (click)="close(groupName)" style="position:absolute; right: 0;" src="/Content/images/Alarms/x-icon.png" />
+        </div>
+        <div class="modal-body overlapping-alarms-body">
+            <ng-container *ngFor="let group of groupList">
+                <overlapping-alarms-group [alarmService]="alarmService" [groupName]="group" [alarms]="alarms.slice(0)"></overlapping-alarms-group>
+            </ng-container>
+        </div>
+    </div>
+</div>

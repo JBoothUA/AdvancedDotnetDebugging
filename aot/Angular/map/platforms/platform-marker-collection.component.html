@@ -1,0 +1,2 @@
+﻿<platform-marker *ngFor="let platform of platforms" [attr.id]="getMarkerId(platform.id)" [Platform]="platform" [SentToPosition]="platform.SentToPosition" [Selected]="platform.Selected" [Orientation]="platform.Orientation" [MarkerId]="getMarkerId(platform.id)"
+                 [Longitude]="platform.Position ? platform.Position.coordinates[0] : undefined" [Latitude]="platform.Position ? platform.Position.coordinates[1] : undefined"></platform-marker>

@@ -1,0 +1,32 @@
+﻿.arrow-img{
+    height: 33px;
+	z-index:1041;
+}
+.arrow {
+    position: absolute;
+}
+.arrow.right-arrow {
+    right: -10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.arrow.left-arrow {
+    left: -10px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.slider-container {
+    position: relative;
+}
+.sensor {
+    text-align: center;
+}
+.sensor.left-sensor { 
+    padding-left: 30px;
+}
+.sensor.middle-sensor {
+    padding: 0 15px;
+}
+.sensor.right-sensor {
+    padding-right: 30px;
+}

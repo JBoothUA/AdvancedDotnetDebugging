@@ -1,0 +1,11 @@
+﻿<div [hidden]="!grouped() || groupedAlarmSelected()" (click)="select($event)" (dblclick)="zoomTo()">
+    <div class="marker-cluster p{{highestPriority()}} overlapping-alarms-marker" [class.selected]="childSelected">
+        <div [style.margin-left]="alarms.length > 10 ? '-3px' : ''">{{alarms.length}}</div>
+    </div>
+</div>
+
+<ng-container *ngFor="let alarm of alarms">
+    <alarm-marker [groupName]="groupName" [alarm]="alarm" *ngIf="(!grouped() || (grouped() && alarm.OverlapSelected)) && mapService.visibleMarkers" [description]="alarm.Description"
+                    [state]="alarm.State" [priority]="alarm.Priority" [selected]="alarm.Selected" [overlapSelected]="alarm.OverlapSelected"
+                    [alarmService]="alarmService"></alarm-marker>
+</ng-container>

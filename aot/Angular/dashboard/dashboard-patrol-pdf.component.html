@@ -1,0 +1,358 @@
+﻿<div id="pdfPatrolReport" class="dashboardDataReport">
+
+    <div id="pdfPatrolReportFilterCriteria">
+
+        <!-- Row 1 -->
+        <div class="pdfPatrolReportFilterCriteriaRow dashboardBottomBorder">
+            <!-- Patrols by Status Chart -->
+            <div id="pdfPatrolReportPatrolStatus" class="pdfPatrolReportFilterCriteriaDiv">
+                <div id="pdfPatrolReportPatrolStatusText" class="pdfPatrolReportFilterCriteriaText">Patrols by Status</div>
+
+                <div id="pdfPatrolReportPatrolStatusTop">
+                    <div id="pdfPatrolReportPatrolStatusChart" [class.empty]="patrolStatusChartDataArray.length === 0">
+                        <ul class="pdfPatrolReportPatrolStatusStackedChart" *ngIf="patrolStatusChartDataArray.length > 0">
+                            <li *ngFor="let item of patrolStatusChartDataArray; let i = index"
+                                [class.dashboardPointer]="item > 0"
+                                [class.pdfPatrolReportPatrolStatusChartStartRadius]="i === patrolStatusChartIndexStart"
+                                [class.pdfPatrolReportPatrolStatusChartEndRadius]="i === patrolStatusChartIndexEnd"
+                                [class.dashboardPriorityCircleOpacity]="(item === 0) || (patrolStatusChartData.Selected !== patrolStatusEnum.None && patrolStatusChartData.Selected !== i)"
+                                [style.width]="item + '%'"
+                                (click)="patrolStatusChartClicked(i)">
+                            </li>
+                        </ul>
+                        <ul class="pdfPatrolReportPatrolStatusStackedChartEmpty" *ngIf="patrolStatusChartDataArray.length === 0">
+                            <li class="pdfPatrolReportPatrolStatusChartEmpty dashboardPriorityCircleOpacity" [style.width]="100 + '%'"></li>
+                        </ul>
+                    </div>
+                    <div class="pdfPatrolReportPatrolStatusStackedChartText">{{patrolStatusChartTotal}}</div>
+                </div>
+
+                <div id="pdfPatrolReportPatrolsStatusBottom">
+                    <div id="pdfPatrolReportPatrolsStatusLegendContainter">
+
+                        <div id="pdfPatrolReportPatrolsStatusLegendContainterRow1">
+
+                            <div title="Filter by Successful" id="pdfPatrolReportPatrolsStatusLegendDiv-Successful" class="pdfPatrolReportPatrolsStatusLegend" (click)="patrolStatusChartClicked(patrolStatusEnum.Successful)"
+                                 [class.dashboardPointer]="patrolStatusChartData.Successful > 0 "
+                                 [class.dashboardPriorityCircleOpacity]="(patrolStatusChartData.Successful === 0) || (patrolStatusChartData.Selected !== patrolStatusEnum.None && patrolStatusChartData.Selected !== patrolStatusEnum.Successful)">
+                                <div id="pdfPatrolReportPatrolsStatusLegend-Successful" class="pdfPatrolReportPatrolsStatusLegend">
+                                    <img class="" alt="Successful" src="/Content/Images/Dashboard/patrol-successful.png" />
+                                </div>
+                                <div id="pdfPatrolReportPatrolsStatusLegendLabel-Successful" class="pdfPatrolReportPatrolsStatusLegend pdfPatrolReportPatrolsStatusLegendLabel">Successful - {{patrolStatusChartData.Successful}}</div>
+                            </div>
+
+                            <div title="Filter by Warning" id="pdfPatrolReportPatrolsStatusLegendDiv-Warning" class="pdfPatrolReportPatrolsStatusLegend padding" (click)="patrolStatusChartClicked(patrolStatusEnum.Warning)"
+                                 [class.dashboardPointer]="patrolStatusChartData.Warning > 0"
+                                 [class.dashboardPriorityCircleOpacity]="(patrolStatusChartData.Warning === 0) || (patrolStatusChartData.Selected !== patrolStatusEnum.None && patrolStatusChartData.Selected !== patrolStatusEnum.Warning)">
+                                <div id="pdfPatrolReportPatrolsStatusLegend-Warning" class="pdfPatrolReportPatrolsStatusLegend">
+                                    <img class="" alt="Warning" src="/Content/Images/Dashboard/patrol-warning.png" />
+                                </div>
+                                <div id="pdfPatrolReportPatrolsStatusLegendLabel-Warning" class="pdfPatrolReportPatrolsStatusLegend pdfPatrolReportPatrolsStatusLegendLabel">Warning - {{patrolStatusChartData.Warning}}</div>
+                            </div>
+
+                        </div>
+
+                        <div id="pdfPatrolReportPatrolsStatusLegendContainterRow2">
+
+                            <div title="Filter by Incomplete" id="pdfPatrolReportPatrolsStatusLegendDiv-Error" class="pdfPatrolReportPatrolsStatusLegend" (click)="patrolStatusChartClicked(patrolStatusEnum.Incomplete)"
+                                 [class.dashboardPointer]="patrolStatusChartData.Incomplete > 0"
+                                 [class.dashboardPriorityCircleOpacity]="(patrolStatusChartData.Incomplete === 0) || (patrolStatusChartData.Selected !== patrolStatusEnum.None && patrolStatusChartData.Selected !== patrolStatusEnum.Incomplete)">
+                                <div id="pdfPatrolReportPatrolsStatusLegend-Error" class="pdfPatrolReportPatrolsStatusLegend">
+                                    <img class="" alt="Incomplete" src="/Content/Images/Dashboard/patrol-incomplete.png" />
+                                </div>
+                                <div id="pdfPatrolReportPatrolsStatusLegendLabel-Error" class="pdfPatrolReportPatrolsStatusLegend pdfPatrolReportPatrolsStatusLegendLabel">Incomplete - {{patrolStatusChartData.Incomplete}}</div> <!-- failed -->
+                            </div>
+
+                            <div title="Filter by Critical" id="pdfPatrolReportPatrolsStatusLegendDiv-Failed" class="pdfPatrolReportPatrolsStatusLegend padding" (click)="patrolStatusChartClicked(patrolStatusEnum.Critical)"
+                                 [class.dashboardPointer]="patrolStatusChartData.Critical > 0 "
+                                 [class.dashboardPriorityCircleOpacity]="(patrolStatusChartData.Critical === 0) || (patrolStatusChartData.Selected !== patrolStatusEnum.None && patrolStatusChartData.Selected !== patrolStatusEnum.Critical)">
+                                <div id="pdfPatrolReportPatrolsStatusLegend-Failed" class="pdfPatrolReportPatrolsStatusLegend">
+                                    <img class="" alt="Critical" src="/Content/Images/Dashboard/patrol-critical-error.png" />
+                                </div>
+                                <div id="pdfPatrolReportPatrolsStatusLegendLabel-Failed" class="pdfPatrolReportPatrolsStatusLegend pdfPatrolReportPatrolsStatusLegendLabel">Critical - {{patrolStatusChartData.Critical}}</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="pdfPatrolReportFilterCriteriaDivider"></div>
+
+            <!-- Timeframe -->
+            <div id="pdfPatrolReportTimeframe">
+                <div id="pdfPatrolReportTimeframeHeaderText" class="pdfPatrolReportFilterCriteriaText">Timeframe</div>
+                <div id="pdfPatrolReportTimeframeTextDiv">
+                    <div id="pdfPatrolReportTimeframeText" class="pdfPatrolReportFilterCriteriaTimeframeText">{{dashboardPDFPatrolService.getSelectedTimeframeString(dashboardPDFPatrolService.getSelectedTimeframe())}}</div>
+                    <div id="pdfPatrolReportTimeText" class="pdfPatrolReportFilterCriteriaTimeframeText">{{getTimeframeRangeString()}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Row 2 -->
+        <div class="pdfPatrolReportFilterCriteriaRow">
+            <!-- Robots and Drones on Patrols -->
+            <!--<div id="pdfPatrolReportRobotDronePatrol" class="pdfPatrolReportFilterCriteriaDiv">
+                <div class="pdfPatrolReportFilterCriteriaText">Robots and Drones on Patrols</div>
+                <div id="pdfPatrolReportRobotDronePatrolImage">
+                    <img class="pdfPatrolReportRobotDroneImage90" src='../../Content/Images/Dashboard/robots-drones-icon.png' />
+                </div>
+                <dashboard-slider #dbRobotDronePatrolSlider [sliderType]="sliderTypeEnum.Platforms" (sliderData)="robotDroneSelected($event)"></dashboard-slider>
+            </div>-->
+            <div id="pdfPatrolReportRobotDronePatrol" class="pdfPatrolReportFilterCriteriaDiv">
+                <div class="pdfPatrolReportFilterCriteriaText">Robots and Drones on Patrols</div>
+                <div id="pdfPatrolReportRobotDronePatrolImage">
+                    <img class="pdfPatrolReportRobotDroneImage90" src='../../Content/Images/Dashboard/robots-drones-icon.png' />
+                </div>
+                <div id="pdfPatrolReportRobotDronePatrolCount">
+                    {{dashboardPDFPatrolService.getRobotsAndDronesOnPatrols()}}
+                </div>
+            </div>
+
+            <!-- Alarms on Patrols -->
+            <div id="pdfPatrolReportAlarmPatrolPriority" class="pdfPatrolReportFilterCriteriaDiv">
+                <div id="pdfPatrolReportAlarmPatrolPriorityText" class="pdfPatrolReportFilterCriteriaText">Alarms By Priority</div>
+
+                <div id="pdfPatrolReportAlarmPatrolPriorityLeft">
+                    <div>
+                        <canvas baseChart #patrolAlarmsChart
+                                [data]="patrolAlarmsChartData"
+                                [labels]="patrolAlarmsChartLabels"
+                                [colors]="patrolAlarmsChartColors"
+                                [chartType]="patrolAlarmsChartType"
+                                (chartClick)="chartClicked($event)"
+                                [legend]="false"
+                                [options]="patrolAlarmsChartOptions"
+                                id="pdfPatrolReportAlarmPatrolPriorityDonutChart"></canvas>
+                    </div>
+                    <div class="pdfPatrolReportAlarmPatrolPriorityChartInnerText" [class.pdfPatrolReportAlarmPatrolPriorityChartInnerTextLargeCount]="patrolAlarmsChartTotal > 999">{{patrolAlarmsChartTotal}}</div>
+                </div>
+
+                <div id="pdfPatrolReportAlarmPatrolPriorityRight">
+                    <div id="pdfPatrolReportAlarmPatrolPriorityLegend">
+                        <ul>
+                            <li title="Filter by {{data.Priority}} Alarms" class="" *ngFor="let data of patrolAlarmsChartLegendData" (click)="patrolAlarmsLegendClicked($event, data.DataValue, data.LegendItemIndex)">
+                                <span class="dashboardPointer pdfPatrolReportAlarmPatrolPriorityLegendItem dashboardPriorityBackground-{{data.Priority}}"
+                                      [class.pdfPatrolReportAlarmPatrolPriorityLegendItemDisable]="data.Empty"
+                                      [class.dashboardPriorityCircleOpacity]="getPatrolAlarmsLegendViewState(data.LegendItemIndex) === 'hide'"></span>
+                                <span class="dashboardPointer dashboardTextSize16"
+                                      [class.dashboardSemiBoldText]="data.Priority === 'P1'"
+                                      [class.pdfPatrolReportAlarmPatrolPriorityLegendTextDisable]="data.Empty"
+                                      [class.dashboardTextOpacity]="getPatrolAlarmsLegendViewState(data.LegendItemIndex) === 'hide'">{{data.Label}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Export Button -->
+        <!--<div id="pdfPatrolReportExport">
+            <div id="pdfPatrolReportExportButton" *ngIf="!exporting" (click)="exportPDF()">
+                <div id="pdfPatrolReportExportText">Export</div>
+                <div id="pdfPatrolReportExportIcon">
+                    <img class="pdfPatrolReportFilterCriteriaImage90" src='../../Content/Images/Dashboard/export-arrow.png' />
+                </div>
+            </div>
+            <div id="pdfPatrolReportExportButton" *ngIf="exporting">
+                <div id="pdfPatrolReportExportingText">Processing</div>
+                <div id="pdfPatrolReportExportingIcon">
+                    <img height="20" src="../../Content/Images/loading-spinner-grey.gif" />
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <!-- Patrol Results Div  -->
+    <div id="pdfPatrolReportContent">
+
+        <!-- Patrol Results Header -->
+        <div id="pdfPatrolReportHeader">
+            <!--<div *ngIf="headerFilteredCriteriaField !== ''" class="pdfPatrolReportHeaderFilterButton dashboardPointer" (click)="showPatrolFilterCriteria()">
+                <img class="pdfPatrolReportHeaderFilterButtonImg" src='../../Content/Images/Dashboard/filter-icon.png' />
+                <div class="pdfPatrolReportHeaderFilterButtonText">Filtered</div>
+            </div>-->
+            <div class="pdfPatrolReportHeaderLabel dashboardTextSize20">
+                <!--[class.padding]="headerFilteredCriteriaField !== ''">-->
+                Showing
+                <span [class.pdfPatrolReportHeaderLabelColor]="headerFilteredCriteriaField !== ''">{{getResultTotalCount()}}</span>
+
+                <span [class.pdfPatrolReportHeaderLabelFilter]="headerAllPatrolStatusCriteriaField !== '' && headerAllPatrolStatusCriteriaField !== ' All '">{{headerAllPatrolStatusCriteriaField}}</span><span *ngIf="headerAllPatrolStatusCriteriaField !== '' && headerAllPatrolStatusCriteriaField !== ' All '" class="pdfPatrolReportHeaderLabelFilterClear dashboardPointer" (click)="removePatrolFilter('AllPatrolStatus')"></span>
+
+                <span [class.pdfPatrolReportHeaderLabelActive]="headerAllPatrolStatusCriteriaField !== '' && headerAllPatrolStatusCriteriaField !== ' All '">{{headerActiveField}}</span> Patrols
+                <span [class.pdfPatrolReportHeaderLabelFilter]="headerRobotDroneCriteriaField !== ''">{{headerRobotDroneCriteriaField}}</span><span *ngIf="headerRobotDroneCriteriaField !== ''" class="pdfPatrolReportHeaderLabelFilterClear dashboardPointer" (click)="removePatrolFilter('RobotDrone')"></span>
+                <span [class.pdfPatrolReportHeaderLabelFilterPadding]="headerRobotDroneCriteriaField !== '' && headerTimeframeCriteriaField !== ''">{{headerTimeframeCriteriaField}}</span>
+                <span [class.pdfPatrolReportHeaderLabelFilter]="headerAlarmPriorityCriteriaField !== ''"> {{headerAlarmPriorityCriteriaField}}</span><span *ngIf="headerAlarmPriorityCriteriaField !== ''" class="pdfPatrolReportHeaderLabelFilterClear dashboardPointer" (click)="removePatrolFilter('Alarm')"></span>
+            </div>
+
+            <!--<div id="pdfPatrolReportHeaderSearchBox">
+                <dashboard-searchbox (update)="searchterm = $event" [placeholder]="patrolPlaceHolderSearch"></dashboard-searchbox>
+            </div>-->
+        </div>
+
+        <!-- Patrol Results -->
+        <div id="pdfPatrolReportResults" #pdfPatrolReportResultsDiv>
+
+            <div id="pdfPatrolReportResultsContent" #pdfPatrolReportResultsContentDiv>
+
+                <div id="pdfPatrolReportResultsSortBar">
+                    <div id="pdfPatrolReportResultsSortStatus" class="pdfPatrolReportResultsHeader1 pdfPatrolReportResultsSortField">Status</div>
+                    <div id="pdfPatrolReportResultsSortType" class="pdfPatrolReportResultsHeader2 pdfPatrolReportResultsSortField pdfPatrolReportResultsHeaderBorder">Name</div>
+                    <div id="pdfPatrolReportResultsSortLocation" class="pdfPatrolReportResultsHeader3 pdfPatrolReportResultsSortField pdfPatrolReportResultsHeaderBorder">Location</div>
+                    <div id="pdfPatrolReportResultsSortState" class="pdfPatrolReportResultsHeader4 pdfPatrolReportResultsSortField pdfPatrolReportResultsHeaderBorder">Alarms</div>
+                    <div id="pdfPatrolReportResultsSortDuration" class="pdfPatrolReportResultsHeader5 pdfPatrolReportResultsSortField" [class.pdfPatrolReportResultsHeaderBorder]="showRobotDroneResultsColumn" [class.dashboardItemDisplayNone]="!showRobotDroneResultsColumn">Robots and Drones</div>
+                    <div id="pdfPatrolReportResultsSortDuration" class="pdfPatrolReportResultsHeader6 pdfPatrolReportResultsSortField" [class.pdfPatrolReportResultsHeaderBorder]="showSubmittedTimeResultsColumn" [class.dashboardItemDisplayNone]="!showSubmittedTimeResultsColumn">Submitted Time</div>
+                </div>
+
+                <div id="pdfPatrolReportQueryResults" #pdfPatrolReportResultsContainer>
+
+                    <div #pdfPatrolReportResults id="patrol_result_item_{{patrol.InstanceId}}" class="pdfPatrolReportResultsContainer dashboardPointer" [class.expanded]="expandedResultsViewState(patrol.InstanceId) === 'out'" *ngFor="let patrol of getFilteredPatrols()" (click)="selectPatrol(patrol)">
+
+                        <div class="pdfPatrolReportResultsItem dashboardBottomBorder" [class.selected]="patrol.selected" [class.expanded]="expandedResultsViewState(patrol.InstanceId) === 'out'">
+
+                            <!-- Status Icon -->
+                            <div class="pdfPatrolReportResultsCol1">
+                                <!-- Historic -->
+                                <div class="pdfPatrolReportResultsStatusImageDiv" *ngIf="patrol.CurrentStatus === patrolStatusValuesEnum.Completed || patrol.CurrentStatus === patrolStatusValuesEnum.Failed || patrol.CurrentStatus === patrolStatusValuesEnum.Aborted || patrol.CurrentStatus === patrolStatusValuesEnum.PointsNotReached || patrol.CurrentStatus === patrolStatusValuesEnum.FailedCheckpoints || patrol.CurrentStatus === patrolStatusValuesEnum.FailedMostCheckpoints">
+                                    <img class="pdfPatrolReportResultsStatusImage" src='{{'../../Content/Images/Dashboard/patrol-type-' + dashboardPDFPatrolService.getAreaType(patrol.AreaType) + '.png'}}' />
+                                </div>
+                                <!-- Processing -->
+                                <div class="pdfPatrolReportResultsStatusProgressbarDiv" *ngIf="patrol.CurrentStatus === patrolStatusValuesEnum.Started || patrol.CurrentStatus === patrolStatusValuesEnum.Paused || patrol.CurrentStatus === patrolStatusValuesEnum.Resumed">
+                                    <patrol-progressbar class="" [patrol]="patrol" [size]="48" [strokeWidth]="4"></patrol-progressbar>
+                                </div>
+                                <!-- Pending -->
+                                <div class="pdfPatrolReportResultsStatusImageDiv" *ngIf="!patrol.IsTemplate && patrol.InstanceId && (patrol.CurrentStatus === patrolStatusValuesEnum.Unknown) && patrol.RunSetData && (patrol.RunSetData.NextRun === null)">
+                                    <!--<img class="pdfPatrolReportResultsStatusImage" src='../../Content/Images/Patrols/patrol-pending-large.gif' />-->
+                                    <patrol-progressbar class="" [patrol]="patrol" [size]="48" [strokeWidth]="4"></patrol-progressbar>
+                                </div>
+                                <!-- Template has been submitted -->
+                                <div class="pdfPatrolReportResultsStatusImageDiv" *ngIf="patrol.IsTemplate && (patrol.InstanceId === null) && patrol.RunSetData && (patrol.RunSetData.NextRun === null)">
+                                    <img class="pdfPatrolReportResultsStatusImage" src='../../Content/Images/Patrols/patrol-pending-large.gif' />
+                                </div>
+                                <!-- Repeat Mode - Waiting -->
+                                <div class="pdfPatrolReportResultsStatusImageDiv" *ngIf="patrol.IsTemplate && patrol.InstanceId === null && patrol.RunSetData !== null && patrol.RunSetData.NextRun !== null">
+                                    <img class="pdfPatrolReportResultsStatusImage" src='../../Content/Images/Patrols/patrol-pending-large.gif' /><!--TODO USE WAITING ICON-->
+                                </div>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="pdfPatrolReportResultsCol2">
+                                <div class="pdfPatrolReportResultsItemType dashboardTextOverEllipsis">{{patrol.DisplayName}}</div>
+
+                                <!-- loop of 1 to get object for less processing -->
+                                <div class="pdfPatrolReportResultsItemTypeInfo" *ngFor="let patrolStatuObj of getPatrolStatusObj(patrol)">
+                                    <img class="pdfPatrolReportResultsPatrolStatusIcon" alt="Patrol Status" src="/Content/Images/Dashboard/patrol-{{patrolStatuObj.Icon}}.png" />
+                                    <div class="pdfPatrolReportResultsPatrolStatusText">{{patrolStatuObj.DisplayText}}</div>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="pdfPatrolReportResultsCol3">
+                                <div class="pdfPatrolReportResultsItemLocation dashboardTextOverEllipsis">{{dashboardPDFPatrolService.getTenantLocationName(patrol.TenantId, patrol.LocationId)}}</div>
+                                <div class="pdfPatrolReportResultsItemLocationAddr">
+                                    <div class="dashboardFloatLeft">{{dashboardPDFPatrolService.getTenantName(patrol.TenantId)}}</div>
+                                    <div class="dashboardFloatLeft">&nbsp;- {{dashboardPDFPatrolService.getTenantLocationAddr(patrol.TenantId, patrol.LocationId)}}</div>
+                                </div>
+                            </div>
+
+                            <!-- Alarms -->
+                            <div class="pdfPatrolReportResultsCol4">
+                                <!-- loop of 1 to get object for less processing -->
+                                <!--<div *ngFor="let priority of getPatrolAlarmsPriorityArray(patrol)">
+                                    <div class="pdfPatrolReportResultsItemAlarmImgDiv" *ngIf="priority > 0">
+                                        <img class="pdfPatrolReportResultsItemAlarmImg" src='{{'../../Content/Images/Alarms/p' + priority + '-alarm.png'}}' />
+                                        <div class="pdfPatrolReportResultsItemAlarmImgText">P{{priority}}</div>
+                                    </div>
+                                    <div *ngIf="priority > 0" class="pdfPatrolReportResultsItemAlarmCount">{{getPatrolAlarmsCount(patrol)}}</div>
+                                </div>-->
+                                <!-- loop of 1 to get object for less processing -->
+                                <div *ngFor="let alarmPriority of getPatrolAlarmsPriorityObjectArray(patrol)">
+                                    <div class="pdfPatrolReportResultsItemAlarmCount">{{alarmPriority.Total}}</div>
+                                    <div class="pdfPatrolReportResultsItemAlarmPriority">
+                                        <div class="pdfPatrolReportResultsItemAlarmPriorityCircle dashboardPriorityBackground-P1" [class.dashboardPriorityCircleOpacity]="alarmPriority.P1 === 0"></div>
+                                        <div id="pdfPatrolReportResultsItemAlarmPriority-P1" class="pdfPatrolReportResultsItemAlarmPriorityLabel pdfPatrolReportResultsItemAlarmPriorityLabelPadding" [class.dashboardTextOpacity]="alarmPriority.P1 === 0">{{alarmPriority.P1}}</div>
+
+                                        <div class="pdfPatrolReportResultsItemAlarmPriorityCircle dashboardPriorityBackground-P2" [class.dashboardPriorityCircleOpacity]="alarmPriority.P2 === 0"></div>
+                                        <div id="pdfPatrolReportResultsItemAlarmPriority-P2" class="pdfPatrolReportResultsItemAlarmPriorityLabel pdfPatrolReportResultsItemAlarmPriorityLabelPadding" [class.dashboardTextOpacity]="alarmPriority.P2 === 0">{{alarmPriority.P2}}</div>
+
+                                        <div class="pdfPatrolReportResultsItemAlarmPriorityCircle dashboardPriorityBackground-P3" [class.dashboardPriorityCircleOpacity]="alarmPriority.P3 === 0"></div>
+                                        <div id="pdfPatrolReportResultsItemAlarmPriority-P3" class="pdfPatrolReportResultsItemAlarmPriorityLabel pdfPatrolReportResultsItemAlarmPriorityLabelPadding" [class.dashboardTextOpacity]="alarmPriority.P3 === 0">{{alarmPriority.P3}}</div>
+
+                                        <div class="pdfPatrolReportResultsItemAlarmPriorityCircle dashboardPriorityBackground-P4" [class.dashboardPriorityCircleOpacity]="alarmPriority.P4 === 0"></div>
+                                        <div id="pdfPatrolReportResultsItemAlarmPriority-P4" class="pdfPatrolReportResultsItemAlarmPriorityLabel" [class.dashboardTextOpacity]="alarmPriority.P4 === 0">{{alarmPriority.P4}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Robots and Drones -->
+                            <div class="pdfPatrolReportResultsCol5" [class.dashboardItemDisplayNone]="!showRobotDroneResultsColumn">
+                                <div *ngIf="dashboardPDFPatrolService.getSelectedTimeframe() === filterTimeframe.Current && dashboardPDFPatrolService.getPlatform(patrol.PlatformId) != null">
+                                    <div class="pdfPatrolReportResultsItemRobotDroneImgDiv">
+                                        <img class="pdfPatrolReportResultsItemRobotDroneImg"
+                                             [class.border]="dashboardPDFPatrolService.getPlatformStatusIcon(patrol.PlatformId).includes('-healthy')"
+                                             src='{{dashboardPDFPatrolService.getPlatformStatusIcon(patrol.PlatformId)}}' />
+                                    </div>
+                                    <div class="pdfPatrolReportResultsItemRobotDroneDiv">
+                                        <div class="pdfPatrolReportResultsItemRobotDroneTopDiv">
+                                            {{dashboardPDFPatrolService.getPlatformName(patrol.PlatformId)}}
+                                        </div>
+                                        <div class="pdfPatrolReportResultsItemRobotDroneBottomDiv">
+                                            {{dashboardPDFPatrolService.getPlatformStatusText(patrol.PlatformId)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="dashboardPDFPatrolService.getSelectedTimeframe() !== filterTimeframe.Current && dashboardPDFPatrolService.getPlatform(patrol.PlatformId) != null">
+                                    <div class="pdfPatrolReportResultsItemRobotDroneImgDiv">
+                                        <img class="pdfPatrolReportResultsItemRobotDroneImg border"
+                                             src='/Content/Images/Platforms/{{dashboardPDFPatrolService.getPlatformManufacturer(patrol.PlatformId)}}-healthy.png' />
+                                    </div>
+                                    <div class="pdfPatrolReportResultsItemRobotDroneDiv">
+                                        <div class="pdfPatrolReportResultsItemRobotDroneTopDiv">
+                                            {{dashboardPDFPatrolService.getPlatformName(patrol.PlatformId)}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pdfPatrolReportResultsCol6" [class.dashboardItemDisplayNone]="!showSubmittedTimeResultsColumn">
+                                <div class="pdfPatrolReportResultsItemSubmittedTime" [innerHTML]="getPatrolSubmittedTime(patrol.SubmittedTime)"></div>
+                            </div>
+
+                            <!-- Expansion Icon -->
+                            <div id="pdfPatrolReportResultsItemToggle" class="pdfPatrolReportResultsCol7">
+                                <div class="lpItem_ExpandButton" [class.selected]="patrol.selected" [class.expanded]="expandedResultsViewState(patrol.id) === 'out'" (click)="toggleExpandedResultsView(patrol.id)"></div>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="expandedAlarmReportResultsItem dashboardDefault" [@toggle]="expandedResultsViewState(patrol.id)">
+                            <dashboard-patrol-details *ngIf="expandedResultsViewState(patrol.id) === 'out'" [patrol]="patrol" [patrolAlarms]="getPatrolAlarms(patrol.id)"></dashboard-patrol-details>
+                        </div>
+                    </div>
+
+                    <div class="pdfPatrolReportResultsContainer" *ngIf="getFilteredPatrols().length === 0">
+                        No Results Found
+                    </div>
+                </div>
+
+                <!--<div id="alarmReportResultsAlarmPanel">
+                    <a class="alarmReportResultsAlarmPanelButton" [class.disable]="getSelectedAlarmID() == ''" (click)="navigationService.navigate('/MapView/Alarms', getSelectedAlarmID())">Alarm Panel</a>
+                </div>-->
+
+            </div>
+
+            <!--<div id="pdfPatrolReportMap">
+                <dashboard-patrol-map [selectedPatrol]="dashboardPatrolService.selectedPatrol"
+                                      [selectedPatrolAlarms]="dashboardPatrolService.selectedPatrolAlarms"
+                                      [selectedPlatform]="dashboardPatrolService.selectedPlatform">
+                </dashboard-patrol-map>
+            </div>-->
+        </div>
+
+    </div>
+
+</div>

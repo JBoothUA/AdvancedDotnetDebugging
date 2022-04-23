@@ -1,0 +1,37 @@
+﻿<div id="lpPlatforms">
+	<div class="lpTabHeader">
+		<div class="lpTabHeader_Left">
+			<div class="lpTabHeader_Text">
+				Robots
+			</div>
+			<div class="lpTabHeader_Count">
+				({{getPlatformCount()}})
+			</div>
+		</div>
+		<div class="lpTabHeader_Right">
+			<div class="lpTabHeader_Right">
+				<div class="lpTabHeader_Text left-border float-right">
+					<div title="Grouping Options" class="settings-btn" [class.selected]="showSettingsTrays" (click)="showSettingsTrays = !showSettingsTrays;"></div>
+				</div>
+				<div class="lpTabHeader_Text float-right">
+					<div title="Reorder List" class="lpGroupOrderButton" [class.desc]="platformService.sortOrder === 'desc'" (click)="toggleGroupOrder()"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="top:56px;" *ngIf="showSettingsTrays" class="lpTabTray">
+		<span class="tray-label">Robot Grouping</span>
+		<select class="lpTabHeader_GroupDropdown lpTabTray_Control" [(ngModel)]="platformService.groupSelection" (ngModelChange)="groupChanged($event)">
+			<option *ngFor="let group of groupOptions" [ngValue]="group.value">{{group.name}}</option>
+		</select>
+	</div>
+	<div class="lpItemListContainer" #platformsContainer [style.overflow-y]="isActionMenuOpen ? 'hidden' : 'scroll'"
+		 [ngClass]="{'blocked': showSettingsTrays}" (click)="showSettingsTrays = false;">
+		<div id="lpPlatformsList" [style.pointer-events]="showSettingsTrays ? 'none' : 'all'">
+			<ng-container *ngFor="let group of groupList">
+				<platform-list-group [platforms]="platforms.slice(0)" [multiSelect]="multiSelect" [groupName]="group" [mapViewOptions]="mapViewOptions"
+									 [groupSelection]="platformService.groupSelection" [sortOrder]="platformService.sortOrder"></platform-list-group>
+			</ng-container>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,285 @@
+﻿.pbStep {
+	position: relative;
+	float:left;
+	width: 100%;
+	border-top: 2px solid #C2C2C2;
+}
+.pbStep-text {
+	position: relative;
+	font-size: 16px;
+	color: black;
+}
+
+.pbStepContent {
+	position: relative;
+	display:block;
+	width: 100%;
+	min-height: 50px;
+}
+.pbStep-header {
+	padding-top: 5px;
+	height: 36px;
+}
+
+.pbStep-header-toggle {
+	position:relative;
+	float:left;
+	margin-top: 3px;
+}
+
+.pbStep-title
+{
+	position:relative;
+	float:left;
+	padding-right: 3px;
+	top: 1px;
+	cursor: pointer;
+	vertical-align: middle;
+	font-size: 17px;
+}
+
+.pbStep-titleStep {
+	position:relative;
+	float:left;
+}
+
+.pbStep-titleName
+{
+	position:relative;
+	float:left;
+	margin-left: 5px;
+	max-width: 350px;
+	overflow:hidden
+}
+
+.pbStep-item
+{
+	position:relative;
+	display:block;
+	margin-left: 13px;
+	margin-top: 12px;
+	font-size: 16px;
+}
+
+.pbStep-patrolLocation {
+	display:block;
+	font-size: 16px;
+	margin-bottom: 5px;
+	
+}
+.pbStep-patrolLocationComp {
+	position: relative;
+	display:block;
+	margin-left: 11px;
+	width: calc(100% - 25px);
+}
+
+
+
+.pbStep-patrolName 
+{
+	position: relative;
+	display:block;
+	float:left;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+input[type='text']
+{
+	margin-left: 10px;
+	font-size: 16px;
+	width:calc(100% - 23px);
+	color:#4272b4;
+}
+
+
+.pbStep-patrolType
+{
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.pbStep-patrolTypeOptions {
+	position:relative;
+	display:block;
+	margin-top: 8px;
+	margin-left: 5px;
+	width: calc(100% - 13px);
+	height: 75px;
+}
+
+.pbStep-option {
+	position:relative;
+	display:inline;
+	float:left;
+	margin-top: 5px;
+	width: 140px;
+}
+
+.pbStep-optionRadio {
+	position:relative;
+	display:inline;
+	float: left;
+	width: 145px;
+}
+
+.pbStep-optionImage {
+	position:relative;
+	width: 105px;
+	display:inline;
+}
+
+.pbStep-optionText {
+	position:relative;
+	float: left;
+	width: 100%;
+	font-size:17px;
+	color: #636363;
+	margin-left: 10px;
+	display:block;
+}
+
+.pbStep-patrolArea
+{
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.pbStep-patrolAreaOptions {
+	position:relative;
+	display:block;
+	margin-top: 8px;
+	margin-left: 5px;
+	width: calc(100% - 13px);
+	height: 75px;
+}
+
+.pbStep-patrolNotes 
+{
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+.pbStep-mapOptions {
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+
+.pbStep-mapOptionsToggle {
+	position: relative;
+	display:block;
+	font-size: 17px;
+	margin-top: 5px;
+	margin-left: 10px;
+	height: 40px;
+}
+
+.pbStep-mapOptionsToggleLabel {
+	position: relative;
+	display:inline;
+	float: left;
+	font-size: 17px;
+	margin-top: 3px;
+}
+
+.pbStep-mapOptionsToggleComp {
+	position: relative;
+	display: inline;
+	float: left;
+	margin-left: 5px;
+}
+
+.pbStep-mapOptionsToggle >>> input {
+	position: relative;
+	display:inline;
+	float:left;
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
+	margin-top: 4px;
+}
+
+.pbStep-cancelNext 
+{
+	position: relative;
+	display:block;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-left: 220px;
+	margin-bottom: 5px;
+}
+
+.pbStepBtn {
+	width: 110px;
+    margin-top:-11px;
+}
+
+.pbNextBtnPanel {
+	background-color: #efefef;
+    border-top: 1px solid #898989;
+    width: 100%;
+    height: 55px;
+    margin-left: 0;
+}
+
+.step1Scroll {
+    height: calc(100vh - 209px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.step2Scroll {
+    height: calc(100vh - 241px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.pb-nextStepBtn {
+    width: calc(100% - 10px);
+    float:left;
+    border-top: 2px solid #e6e6e6; 
+    padding-top: 10px; 
+    margin-right: 15px;
+    cursor:pointer;
+}
+
+.pb-nextStepBtn-text {
+    float: right;
+    font-size: 24px;
+    color: #4272B2;
+    margin-right: 10px;
+    margin-top: -4px;
+}
+
+.disabled {
+    opacity: .5;
+}
+
+.pb-nextStepBtn:hover {
+    color: #1E5AA5;
+}
+
+.pb-nextStepBtn-icon {
+    float:right;
+    margin-right: 15px;
+    width: 33px;
+    height: 33px;
+    background-image: url('../../Content/Images/Admin/next-button.png');
+}
+
+.pb-nextStepBtn:hover > .pb-nextStepBtn-icon {
+    background-image: url(../../Content/Images/Admin/next-button-hover.png);
+}
